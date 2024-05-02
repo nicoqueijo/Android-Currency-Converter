@@ -3,8 +3,19 @@ package com.nicoqueijo.android.core
 import java.math.BigDecimal
 import java.math.RoundingMode
 
+/**
+ * A utility class for converting currencies.
+ */
 object CurrencyConverter {
 
+    /**
+     * Converts currency from one rate to another.
+     *
+     * @param amount The amount of currency to convert.
+     * @param fromRate The exchange rate of the source currency.
+     * @param toRate The exchange rate of the target currency.
+     * @return The converted amount.
+     */
     fun convertCurrency(amount: BigDecimal, fromRate: Double, toRate: Double): BigDecimal {
         val valueInDollars = convertAnyCurrencyToDollar(amount, fromRate)
         return convertDollarToAnyCurrency(valueInDollars, toRate)

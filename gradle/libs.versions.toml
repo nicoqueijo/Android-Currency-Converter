@@ -6,7 +6,9 @@ composeBom = "2024.04.01"
 coreKtx = "1.13.0"
 espressoCore = "3.5.1"
 junit = "4.13.2"
+junitJupiter = "5.10.2"
 junitVersion = "1.1.5"
+kotestAssertionsCore = "5.8.1"
 kotlin = "1.9.0"
 lifecycleRuntimeKtx = "2.7.0"
 material = "1.11.0"
@@ -27,6 +29,8 @@ androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-man
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
+junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
+kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotestAssertionsCore" }
 material = { group = "com.google.android.material", name = "material", version.ref = "material" }
 
 [plugins]
