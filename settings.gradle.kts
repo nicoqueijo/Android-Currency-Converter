@@ -22,3 +22,4 @@ dependencyResolutionManagement {
 rootProject.name = "Android-Currency-Converter"
 include(":app")
 include(":core")
+include(":network")
