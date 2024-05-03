@@ -2,16 +2,17 @@
 activityCompose = "1.9.0"
 agp = "8.4.0"
 appcompat = "1.6.1"
-composeBom = "2024.04.01"
-coreKtx = "1.13.0"
+composeBom = "2024.05.00"
+coreKtx = "1.13.1"
 espressoCore = "3.5.1"
+hilt = "2.50"
 junit = "4.13.2"
 junitJupiter = "5.10.2"
 junitVersion = "1.1.5"
 kotestAssertionsCore = "5.8.1"
 kotlin = "1.9.0"
 lifecycleRuntimeKtx = "2.7.0"
-material = "1.11.0"
+material = "1.12.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -28,6 +29,8 @@ androidx-ui-test-junit4 = { group = "androidx.compose.ui", name = "ui-test-junit
 androidx-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
 androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
+hilt-android = { module = "com.google.dagger:hilt-android", version.ref = "hilt" }
+hilt-android-compiler = { module = "com.google.dagger:hilt-android-compiler", version.ref = "hilt" }
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 junit-jupiter = { module = "org.junit.jupiter:junit-jupiter", version.ref = "junitJupiter" }
 kotest-assertions-core = { module = "io.kotest:kotest-assertions-core", version.ref = "kotestAssertionsCore" }
@@ -36,5 +39,7 @@ material = { group = "com.google.android.material", name = "material", version.r
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }
 android-library = { id = "com.android.library", version.ref = "agp" }
+hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
+
 
