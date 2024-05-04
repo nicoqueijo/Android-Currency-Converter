@@ -8,3 +8,4 @@ data class ApiEndPoint(
 
     var exchangeRates: ExchangeRates? = null
 )
+

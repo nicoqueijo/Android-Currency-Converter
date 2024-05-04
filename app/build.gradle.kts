@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
@@ -20,8 +22,19 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
+        val localProperties = Properties().apply {
+            load(project.rootProject.file("local.properties").inputStream())
+        }
+        buildConfigField(
+            "String", "API_KEY_RELEASE", localProperties.getProperty("API_KEY_RELEASE")
+        )
+        buildConfigField(
+            "String", "API_KEY_DEBUG", localProperties.getProperty("API_KEY_DEBUG")
+        )
     }
-
+    buildFeatures {
+        buildConfig = true
+    }
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -52,6 +65,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":network"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
