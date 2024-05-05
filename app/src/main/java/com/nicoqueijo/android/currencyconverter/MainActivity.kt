@@ -22,10 +22,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        // Test retrofit call
-        // The retrofit stuff resides in the network module so I need to import it as a dependency
-        // on the app module's build.gradle
-
+        // Remove after satisfied with testing of api call
         runBlocking {
             val retrofit = Retrofit.Builder()
                 .baseUrl(ExchangeRateService.BASE_URL)
@@ -33,16 +30,9 @@ class MainActivity : ComponentActivity() {
                 .build().create(ExchangeRateService::class.java)
                 .getExchangeRates(BuildConfig.API_KEY_DEBUG)
             println(
-                retrofit.body()?.timestamp
-            )
-            println(
-                retrofit.body()?.exchangeRates?.USD_AED
-            )
-            println(
-                retrofit.body()?.exchangeRates?.USD_ZWL
+                retrofit.body()?.exchangeRates?.currencies
             )
         }
-
 
         enableEdgeToEdge()
         setContent {

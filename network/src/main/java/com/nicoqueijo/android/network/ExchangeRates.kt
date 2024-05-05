@@ -1,10 +1,26 @@
 package com.nicoqueijo.android.network
 
+import com.nicoqueijo.android.core.Currency
 import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 
 @JsonClass(generateAdapter = true)
 class ExchangeRates {
+
+    /**
+     * Creates a list of Currency objects from the declared fields of this class using reflection
+     * to instantiate each object's currency code with the declared field's name.
+     */
+    val currencies: List<Currency>
+        get() = javaClass.declaredFields.map { declaredField ->
+            Currency(
+                currencyCode = declaredField.name,
+                exchangeRate = declaredField[this] as Double
+            )
+        }
+
+    override fun toString() = currencies.toString()
+
     @Json(name = "AED")
     var USD_AED: Double = 0.0
 

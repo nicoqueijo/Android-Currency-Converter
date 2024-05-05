@@ -34,6 +34,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
     api(libs.retrofit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
