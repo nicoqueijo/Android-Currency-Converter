@@ -16,6 +16,7 @@ import com.nicoqueijo.android.network.ApiEndPoint
 import com.nicoqueijo.android.network.ExchangeRateService
 import kotlinx.coroutines.runBlocking
 import retrofit2.Retrofit
+import retrofit2.converter.moshi.MoshiConverterFactory
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -25,16 +26,21 @@ class MainActivity : ComponentActivity() {
         // The retrofit stuff resides in the network module so I need to import it as a dependency
         // on the app module's build.gradle
 
-        val apiEndpoint = ApiEndPoint()
-
         runBlocking {
             val retrofit = Retrofit.Builder()
                 .baseUrl(ExchangeRateService.BASE_URL)
+                .addConverterFactory(MoshiConverterFactory.create())
                 .build().create(ExchangeRateService::class.java)
-                .getExchangeRates(
-                    BuildConfig.API_KEY_DEBUG
-                )
-            println(retrofit)
+                .getExchangeRates(BuildConfig.API_KEY_DEBUG)
+            println(
+                retrofit.body()?.timestamp
+            )
+            println(
+                retrofit.body()?.exchangeRates?.USD_AED
+            )
+            println(
+                retrofit.body()?.exchangeRates?.USD_ZWL
+            )
         }
 
 

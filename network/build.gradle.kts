@@ -40,8 +40,8 @@ dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
     implementation(libs.material)
-    implementation(libs.moshi.kotlin)
-    implementation(libs.moshi.converter)
+    api(libs.moshi.kotlin)
+    api(libs.moshi.converter)
     ksp(libs.moshi.kotlin.codegen)
     testImplementation(libs.junit)
 }
