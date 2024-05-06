@@ -40,6 +40,7 @@ dependencies {
     implementation(project(":core"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.dataStore)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
     implementation(libs.material)
