@@ -49,7 +49,6 @@ android {
 
 dependencies {
     implementation(project(":core"))
-    api(libs.retrofit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.core.ktx)
@@ -61,8 +60,5 @@ dependencies {
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.serialization)
-    api(libs.moshi.kotlin)
-    api(libs.moshi.converter)
-    ksp(libs.moshi.kotlin.codegen)
     testImplementation(libs.junit)
 }
