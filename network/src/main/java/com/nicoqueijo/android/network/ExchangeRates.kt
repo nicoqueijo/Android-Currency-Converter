@@ -1,18 +1,18 @@
 package com.nicoqueijo.android.network
 
 import com.nicoqueijo.android.core.Currency
-import com.squareup.moshi.Json
-import com.squareup.moshi.JsonClass
+import kotlinx.serialization.SerialName
+import kotlinx.serialization.Serializable
 
-@JsonClass(generateAdapter = true)
+@Serializable
 class ExchangeRates {
-
     /**
      * Creates a list of Currency objects from the declared fields of this class using reflection
-     * to instantiate each object's currency code with the declared field's name.
+     * to instantiate each object's currency code with the declared field's name. Filters out the
+     * auto-generated "Companion" field by the @Serializable annotation.
      */
     val currencies: List<Currency>
-        get() = javaClass.declaredFields.map { declaredField ->
+        get() = javaClass.declaredFields.filterNot { it.name == "Companion" }.map { declaredField ->
             Currency(
                 currencyCode = declaredField.name,
                 exchangeRate = declaredField[this] as Double
@@ -21,510 +21,510 @@ class ExchangeRates {
 
     override fun toString() = currencies.toString()
 
-    @Json(name = "AED")
+    @SerialName("AED")
     var USD_AED: Double = 0.0
 
-    @Json(name = "AFN")
+    @SerialName("AFN")
     var USD_AFN: Double = 0.0
 
-    @Json(name = "ALL")
+    @SerialName("ALL")
     var USD_ALL: Double = 0.0
 
-    @Json(name = "AMD")
+    @SerialName("AMD")
     var USD_AMD: Double = 0.0
 
-    @Json(name = "ANG")
+    @SerialName("ANG")
     var USD_ANG: Double = 0.0
 
-    @Json(name = "AOA")
+    @SerialName("AOA")
     var USD_AOA: Double = 0.0
 
-    @Json(name = "ARS")
+    @SerialName("ARS")
     var USD_ARS: Double = 0.0
 
-    @Json(name = "AUD")
+    @SerialName("AUD")
     var USD_AUD: Double = 0.0
 
-    @Json(name = "AWG")
+    @SerialName("AWG")
     var USD_AWG: Double = 0.0
 
-    @Json(name = "AZN")
+    @SerialName("AZN")
     var USD_AZN: Double = 0.0
 
-    @Json(name = "BAM")
+    @SerialName("BAM")
     var USD_BAM: Double = 0.0
 
-    @Json(name = "BBD")
+    @SerialName("BBD")
     var USD_BBD: Double = 0.0
 
-    @Json(name = "BDT")
+    @SerialName("BDT")
     var USD_BDT: Double = 0.0
 
-    @Json(name = "BGN")
+    @SerialName("BGN")
     var USD_BGN: Double = 0.0
 
-    @Json(name = "BHD")
+    @SerialName("BHD")
     var USD_BHD: Double = 0.0
 
-    @Json(name = "BIF")
+    @SerialName("BIF")
     var USD_BIF: Double = 0.0
 
-    @Json(name = "BMD")
+    @SerialName("BMD")
     var USD_BMD: Double = 0.0
 
-    @Json(name = "BND")
+    @SerialName("BND")
     var USD_BND: Double = 0.0
 
-    @Json(name = "BOB")
+    @SerialName("BOB")
     var USD_BOB: Double = 0.0
 
-    @Json(name = "BRL")
+    @SerialName("BRL")
     var USD_BRL: Double = 0.0
 
-    @Json(name = "BSD")
+    @SerialName("BSD")
     var USD_BSD: Double = 0.0
 
-    @Json(name = "BTC")
+    @SerialName("BTC")
     var USD_BTC: Double = 0.0
 
-    @Json(name = "BTN")
+    @SerialName("BTN")
     var USD_BTN: Double = 0.0
 
-    @Json(name = "BWP")
+    @SerialName("BWP")
     var USD_BWP: Double = 0.0
 
-    @Json(name = "BYN")
+    @SerialName("BYN")
     var USD_BYN: Double = 0.0
 
-    @Json(name = "BZD")
+    @SerialName("BZD")
     var USD_BZD: Double = 0.0
 
-    @Json(name = "CAD")
+    @SerialName("CAD")
     var USD_CAD: Double = 0.0
 
-    @Json(name = "CDF")
+    @SerialName("CDF")
     var USD_CDF: Double = 0.0
 
-    @Json(name = "CHF")
+    @SerialName("CHF")
     var USD_CHF: Double = 0.0
 
-    @Json(name = "CLF")
+    @SerialName("CLF")
     var USD_CLF: Double = 0.0
 
-    @Json(name = "CLP")
+    @SerialName("CLP")
     var USD_CLP: Double = 0.0
 
-    @Json(name = "CNH")
+    @SerialName("CNH")
     var USD_CNH: Double = 0.0
 
-    @Json(name = "CNY")
+    @SerialName("CNY")
     var USD_CNY: Double = 0.0
 
-    @Json(name = "COP")
+    @SerialName("COP")
     var USD_COP: Double = 0.0
 
-    @Json(name = "CRC")
+    @SerialName("CRC")
     var USD_CRC: Double = 0.0
 
-    @Json(name = "CUC")
+    @SerialName("CUC")
     var USD_CUC: Double = 0.0
 
-    @Json(name = "CUP")
+    @SerialName("CUP")
     var USD_CUP: Double = 0.0
 
-    @Json(name = "CVE")
+    @SerialName("CVE")
     var USD_CVE: Double = 0.0
 
-    @Json(name = "CZK")
+    @SerialName("CZK")
     var USD_CZK: Double = 0.0
 
-    @Json(name = "DJF")
+    @SerialName("DJF")
     var USD_DJF: Double = 0.0
 
-    @Json(name = "DKK")
+    @SerialName("DKK")
     var USD_DKK: Double = 0.0
 
-    @Json(name = "DOP")
+    @SerialName("DOP")
     var USD_DOP: Double = 0.0
 
-    @Json(name = "DZD")
+    @SerialName("DZD")
     var USD_DZD: Double = 0.0
 
-    @Json(name = "EGP")
+    @SerialName("EGP")
     var USD_EGP: Double = 0.0
 
-    @Json(name = "ERN")
+    @SerialName("ERN")
     var USD_ERN: Double = 0.0
 
-    @Json(name = "ETB")
+    @SerialName("ETB")
     var USD_ETB: Double = 0.0
 
-    @Json(name = "EUR")
+    @SerialName("EUR")
     var USD_EUR: Double = 0.0
 
-    @Json(name = "FJD")
+    @SerialName("FJD")
     var USD_FJD: Double = 0.0
 
-    @Json(name = "FKP")
+    @SerialName("FKP")
     var USD_FKP: Double = 0.0
 
-    @Json(name = "GBP")
+    @SerialName("GBP")
     var USD_GBP: Double = 0.0
 
-    @Json(name = "GEL")
+    @SerialName("GEL")
     var USD_GEL: Double = 0.0
 
-    @Json(name = "GGP")
+    @SerialName("GGP")
     var USD_GGP: Double = 0.0
 
-    @Json(name = "GHS")
+    @SerialName("GHS")
     var USD_GHS: Double = 0.0
 
-    @Json(name = "GIP")
+    @SerialName("GIP")
     var USD_GIP: Double = 0.0
 
-    @Json(name = "GMD")
+    @SerialName("GMD")
     var USD_GMD: Double = 0.0
 
-    @Json(name = "GNF")
+    @SerialName("GNF")
     var USD_GNF: Double = 0.0
 
-    @Json(name = "GTQ")
+    @SerialName("GTQ")
     var USD_GTQ: Double = 0.0
 
-    @Json(name = "GYD")
+    @SerialName("GYD")
     var USD_GYD: Double = 0.0
 
-    @Json(name = "HKD")
+    @SerialName("HKD")
     var USD_HKD: Double = 0.0
 
-    @Json(name = "HNL")
+    @SerialName("HNL")
     var USD_HNL: Double = 0.0
 
-    @Json(name = "HRK")
+    @SerialName("HRK")
     var USD_HRK: Double = 0.0
 
-    @Json(name = "HTG")
+    @SerialName("HTG")
     var USD_HTG: Double = 0.0
 
-    @Json(name = "HUF")
+    @SerialName("HUF")
     var USD_HUF: Double = 0.0
 
-    @Json(name = "IDR")
+    @SerialName("IDR")
     var USD_IDR: Double = 0.0
 
-    @Json(name = "ILS")
+    @SerialName("ILS")
     var USD_ILS: Double = 0.0
 
-    @Json(name = "IMP")
+    @SerialName("IMP")
     var USD_IMP: Double = 0.0
 
-    @Json(name = "INR")
+    @SerialName("INR")
     var USD_INR: Double = 0.0
 
-    @Json(name = "IQD")
+    @SerialName("IQD")
     var USD_IQD: Double = 0.0
 
-    @Json(name = "IRR")
+    @SerialName("IRR")
     var USD_IRR: Double = 0.0
 
-    @Json(name = "ISK")
+    @SerialName("ISK")
     var USD_ISK: Double = 0.0
 
-    @Json(name = "JEP")
+    @SerialName("JEP")
     var USD_JEP: Double = 0.0
 
-    @Json(name = "JMD")
+    @SerialName("JMD")
     var USD_JMD: Double = 0.0
 
-    @Json(name = "JOD")
+    @SerialName("JOD")
     var USD_JOD: Double = 0.0
 
-    @Json(name = "JPY")
+    @SerialName("JPY")
     var USD_JPY: Double = 0.0
 
-    @Json(name = "KES")
+    @SerialName("KES")
     var USD_KES: Double = 0.0
 
-    @Json(name = "KGS")
+    @SerialName("KGS")
     var USD_KGS: Double = 0.0
 
-    @Json(name = "KHR")
+    @SerialName("KHR")
     var USD_KHR: Double = 0.0
 
-    @Json(name = "KMF")
+    @SerialName("KMF")
     var USD_KMF: Double = 0.0
 
-    @Json(name = "KPW")
+    @SerialName("KPW")
     var USD_KPW: Double = 0.0
 
-    @Json(name = "KRW")
+    @SerialName("KRW")
     var USD_KRW: Double = 0.0
 
-    @Json(name = "KWD")
+    @SerialName("KWD")
     var USD_KWD: Double = 0.0
 
-    @Json(name = "KYD")
+    @SerialName("KYD")
     var USD_KYD: Double = 0.0
 
-    @Json(name = "KZT")
+    @SerialName("KZT")
     var USD_KZT: Double = 0.0
 
-    @Json(name = "LAK")
+    @SerialName("LAK")
     var USD_LAK: Double = 0.0
 
-    @Json(name = "LBP")
+    @SerialName("LBP")
     var USD_LBP: Double = 0.0
 
-    @Json(name = "LKR")
+    @SerialName("LKR")
     var USD_LKR: Double = 0.0
 
-    @Json(name = "LRD")
+    @SerialName("LRD")
     var USD_LRD: Double = 0.0
 
-    @Json(name = "LSL")
+    @SerialName("LSL")
     var USD_LSL: Double = 0.0
 
-    @Json(name = "LYD")
+    @SerialName("LYD")
     var USD_LYD: Double = 0.0
 
-    @Json(name = "MAD")
+    @SerialName("MAD")
     var USD_MAD: Double = 0.0
 
-    @Json(name = "MDL")
+    @SerialName("MDL")
     var USD_MDL: Double = 0.0
 
-    @Json(name = "MGA")
+    @SerialName("MGA")
     var USD_MGA: Double = 0.0
 
-    @Json(name = "MKD")
+    @SerialName("MKD")
     var USD_MKD: Double = 0.0
 
-    @Json(name = "MMK")
+    @SerialName("MMK")
     var USD_MMK: Double = 0.0
 
-    @Json(name = "MNT")
+    @SerialName("MNT")
     var USD_MNT: Double = 0.0
 
-    @Json(name = "MOP")
+    @SerialName("MOP")
     var USD_MOP: Double = 0.0
 
-    @Json(name = "MRU")
+    @SerialName("MRU")
     var USD_MRU: Double = 0.0
 
-    @Json(name = "MUR")
+    @SerialName("MUR")
     var USD_MUR: Double = 0.0
 
-    @Json(name = "MVR")
+    @SerialName("MVR")
     var USD_MVR: Double = 0.0
 
-    @Json(name = "MWK")
+    @SerialName("MWK")
     var USD_MWK: Double = 0.0
 
-    @Json(name = "MXN")
+    @SerialName("MXN")
     var USD_MXN: Double = 0.0
 
-    @Json(name = "MYR")
+    @SerialName("MYR")
     var USD_MYR: Double = 0.0
 
-    @Json(name = "MZN")
+    @SerialName("MZN")
     var USD_MZN: Double = 0.0
 
-    @Json(name = "NAD")
+    @SerialName("NAD")
     var USD_NAD: Double = 0.0
 
-    @Json(name = "NGN")
+    @SerialName("NGN")
     var USD_NGN: Double = 0.0
 
-    @Json(name = "NIO")
+    @SerialName("NIO")
     var USD_NIO: Double = 0.0
 
-    @Json(name = "NOK")
+    @SerialName("NOK")
     var USD_NOK: Double = 0.0
 
-    @Json(name = "NPR")
+    @SerialName("NPR")
     var USD_NPR: Double = 0.0
 
-    @Json(name = "NZD")
+    @SerialName("NZD")
     var USD_NZD: Double = 0.0
 
-    @Json(name = "OMR")
+    @SerialName("OMR")
     var USD_OMR: Double = 0.0
 
-    @Json(name = "PAB")
+    @SerialName("PAB")
     var USD_PAB: Double = 0.0
 
-    @Json(name = "PEN")
+    @SerialName("PEN")
     var USD_PEN: Double = 0.0
 
-    @Json(name = "PGK")
+    @SerialName("PGK")
     var USD_PGK: Double = 0.0
 
-    @Json(name = "PHP")
+    @SerialName("PHP")
     var USD_PHP: Double = 0.0
 
-    @Json(name = "PKR")
+    @SerialName("PKR")
     var USD_PKR: Double = 0.0
 
-    @Json(name = "PLN")
+    @SerialName("PLN")
     var USD_PLN: Double = 0.0
 
-    @Json(name = "PYG")
+    @SerialName("PYG")
     var USD_PYG: Double = 0.0
 
-    @Json(name = "QAR")
+    @SerialName("QAR")
     var USD_QAR: Double = 0.0
 
-    @Json(name = "RON")
+    @SerialName("RON")
     var USD_RON: Double = 0.0
 
-    @Json(name = "RSD")
+    @SerialName("RSD")
     var USD_RSD: Double = 0.0
 
-    @Json(name = "RUB")
+    @SerialName("RUB")
     var USD_RUB: Double = 0.0
 
-    @Json(name = "RWF")
+    @SerialName("RWF")
     var USD_RWF: Double = 0.0
 
-    @Json(name = "SAR")
+    @SerialName("SAR")
     var USD_SAR: Double = 0.0
 
-    @Json(name = "SBD")
+    @SerialName("SBD")
     var USD_SBD: Double = 0.0
 
-    @Json(name = "SCR")
+    @SerialName("SCR")
     var USD_SCR: Double = 0.0
 
-    @Json(name = "SDG")
+    @SerialName("SDG")
     var USD_SDG: Double = 0.0
 
-    @Json(name = "SEK")
+    @SerialName("SEK")
     var USD_SEK: Double = 0.0
 
-    @Json(name = "SGD")
+    @SerialName("SGD")
     var USD_SGD: Double = 0.0
 
-    @Json(name = "SHP")
+    @SerialName("SHP")
     var USD_SHP: Double = 0.0
 
-    @Json(name = "SLL")
+    @SerialName("SLL")
     var USD_SLL: Double = 0.0
 
-    @Json(name = "SOS")
+    @SerialName("SOS")
     var USD_SOS: Double = 0.0
 
-    @Json(name = "SRD")
+    @SerialName("SRD")
     var USD_SRD: Double = 0.0
 
-    @Json(name = "SSP")
+    @SerialName("SSP")
     var USD_SSP: Double = 0.0
 
-    @Json(name = "STD")
+    @SerialName("STD")
     var USD_STD: Double = 0.0
 
-    @Json(name = "STN")
+    @SerialName("STN")
     var USD_STN: Double = 0.0
 
-    @Json(name = "SVC")
+    @SerialName("SVC")
     var USD_SVC: Double = 0.0
 
-    @Json(name = "SYP")
+    @SerialName("SYP")
     var USD_SYP: Double = 0.0
 
-    @Json(name = "SZL")
+    @SerialName("SZL")
     var USD_SZL: Double = 0.0
 
-    @Json(name = "THB")
+    @SerialName("THB")
     var USD_THB: Double = 0.0
 
-    @Json(name = "TJS")
+    @SerialName("TJS")
     var USD_TJS: Double = 0.0
 
-    @Json(name = "TMT")
+    @SerialName("TMT")
     var USD_TMT: Double = 0.0
 
-    @Json(name = "TND")
+    @SerialName("TND")
     var USD_TND: Double = 0.0
 
-    @Json(name = "TOP")
+    @SerialName("TOP")
     var USD_TOP: Double = 0.0
 
-    @Json(name = "TRY")
+    @SerialName("TRY")
     var USD_TRY: Double = 0.0
 
-    @Json(name = "TTD")
+    @SerialName("TTD")
     var USD_TTD: Double = 0.0
 
-    @Json(name = "TWD")
+    @SerialName("TWD")
     var USD_TWD: Double = 0.0
 
-    @Json(name = "TZS")
+    @SerialName("TZS")
     var USD_TZS: Double = 0.0
 
-    @Json(name = "UAH")
+    @SerialName("UAH")
     var USD_UAH: Double = 0.0
 
-    @Json(name = "UGX")
+    @SerialName("UGX")
     var USD_UGX: Double = 0.0
 
-    @Json(name = "USD")
+    @SerialName("USD")
     var USD_USD: Double = 0.0
 
-    @Json(name = "UYU")
+    @SerialName("UYU")
     var USD_UYU: Double = 0.0
 
-    @Json(name = "UZS")
+    @SerialName("UZS")
     var USD_UZS: Double = 0.0
 
-    @Json(name = "VES")
+    @SerialName("VES")
     var USD_VES: Double = 0.0
 
-    @Json(name = "VND")
+    @SerialName("VND")
     var USD_VND: Double = 0.0
 
-    @Json(name = "VUV")
+    @SerialName("VUV")
     var USD_VUV: Double = 0.0
 
-    @Json(name = "WST")
+    @SerialName("WST")
     var USD_WST: Double = 0.0
 
-    @Json(name = "XAF")
+    @SerialName("XAF")
     var USD_XAF: Double = 0.0
 
-    @Json(name = "XAG")
+    @SerialName("XAG")
     var USD_XAG: Double = 0.0
 
-    @Json(name = "XAU")
+    @SerialName("XAU")
     var USD_XAU: Double = 0.0
 
-    @Json(name = "XCD")
+    @SerialName("XCD")
     var USD_XCD: Double = 0.0
 
-    @Json(name = "XDR")
+    @SerialName("XDR")
     var USD_XDR: Double = 0.0
 
-    @Json(name = "XOF")
+    @SerialName("XOF")
     var USD_XOF: Double = 0.0
 
-    @Json(name = "XPD")
+    @SerialName("XPD")
     var USD_XPD: Double = 0.0
 
-    @Json(name = "XPF")
+    @SerialName("XPF")
     var USD_XPF: Double = 0.0
 
-    @Json(name = "XPT")
+    @SerialName("XPT")
     var USD_XPT: Double = 0.0
 
-    @Json(name = "YER")
+    @SerialName("YER")
     var USD_YER: Double = 0.0
 
-    @Json(name = "ZAR")
+    @SerialName("ZAR")
     var USD_ZAR: Double = 0.0
 
-    @Json(name = "ZMW")
+    @SerialName("ZMW")
     var USD_ZMW: Double = 0.0
 
-    @Json(name = "ZWL")
+    @SerialName("ZWL")
     var USD_ZWL: Double = 0.0
 }

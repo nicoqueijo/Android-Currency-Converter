@@ -22,18 +22,6 @@ android {
         vectorDrawables {
             useSupportLibrary = true
         }
-        val localProperties = Properties().apply {
-            load(project.rootProject.file("local.properties").inputStream())
-        }
-        buildConfigField(
-            "String", "API_KEY_RELEASE", localProperties.getProperty("API_KEY_RELEASE")
-        )
-        buildConfigField(
-            "String", "API_KEY_DEBUG", localProperties.getProperty("API_KEY_DEBUG")
-        )
-    }
-    buildFeatures {
-        buildConfig = true
     }
     buildTypes {
         release {
@@ -65,6 +53,7 @@ android {
 }
 
 dependencies {
+    implementation(project(":core"))
     implementation(project(":network"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
