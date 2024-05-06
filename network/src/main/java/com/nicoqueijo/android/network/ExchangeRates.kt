@@ -18,9 +18,6 @@ data class ExchangeRates(
     @SerialName("AMD")
     var USD_AMD: Double = 0.0,
 
-    @SerialName("ANG")
-    var USD_ANG: Double = 0.0,
-
     @SerialName("AOA")
     var USD_AOA: Double = 0.0,
 
@@ -29,9 +26,6 @@ data class ExchangeRates(
 
     @SerialName("AUD")
     var USD_AUD: Double = 0.0,
-
-    @SerialName("AWG")
-    var USD_AWG: Double = 0.0,
 
     @SerialName("AZN")
     var USD_AZN: Double = 0.0,
@@ -51,14 +45,8 @@ data class ExchangeRates(
     @SerialName("BHD")
     var USD_BHD: Double = 0.0,
 
-    @SerialName("BIF")
-    var USD_BIF: Double = 0.0,
-
     @SerialName("BMD")
     var USD_BMD: Double = 0.0,
-
-    @SerialName("BND")
-    var USD_BND: Double = 0.0,
 
     @SerialName("BOB")
     var USD_BOB: Double = 0.0,
@@ -71,9 +59,6 @@ data class ExchangeRates(
 
     @SerialName("BTC")
     var USD_BTC: Double = 0.0,
-
-    @SerialName("BTN")
-    var USD_BTN: Double = 0.0,
 
     @SerialName("BWP")
     var USD_BWP: Double = 0.0,
@@ -93,14 +78,8 @@ data class ExchangeRates(
     @SerialName("CHF")
     var USD_CHF: Double = 0.0,
 
-    @SerialName("CLF")
-    var USD_CLF: Double = 0.0,
-
     @SerialName("CLP")
     var USD_CLP: Double = 0.0,
-
-    @SerialName("CNH")
-    var USD_CNH: Double = 0.0,
 
     @SerialName("CNY")
     var USD_CNY: Double = 0.0,
@@ -111,9 +90,6 @@ data class ExchangeRates(
     @SerialName("CRC")
     var USD_CRC: Double = 0.0,
 
-    @SerialName("CUC")
-    var USD_CUC: Double = 0.0,
-
     @SerialName("CUP")
     var USD_CUP: Double = 0.0,
 
@@ -122,9 +98,6 @@ data class ExchangeRates(
 
     @SerialName("CZK")
     var USD_CZK: Double = 0.0,
-
-    @SerialName("DJF")
-    var USD_DJF: Double = 0.0,
 
     @SerialName("DKK")
     var USD_DKK: Double = 0.0,
@@ -138,9 +111,6 @@ data class ExchangeRates(
     @SerialName("EGP")
     var USD_EGP: Double = 0.0,
 
-    @SerialName("ERN")
-    var USD_ERN: Double = 0.0,
-
     @SerialName("ETB")
     var USD_ETB: Double = 0.0,
 
@@ -150,23 +120,14 @@ data class ExchangeRates(
     @SerialName("FJD")
     var USD_FJD: Double = 0.0,
 
-    @SerialName("FKP")
-    var USD_FKP: Double = 0.0,
-
     @SerialName("GBP")
     var USD_GBP: Double = 0.0,
 
     @SerialName("GEL")
     var USD_GEL: Double = 0.0,
 
-    @SerialName("GGP")
-    var USD_GGP: Double = 0.0,
-
     @SerialName("GHS")
     var USD_GHS: Double = 0.0,
-
-    @SerialName("GIP")
-    var USD_GIP: Double = 0.0,
 
     @SerialName("GMD")
     var USD_GMD: Double = 0.0,
@@ -176,9 +137,6 @@ data class ExchangeRates(
 
     @SerialName("GTQ")
     var USD_GTQ: Double = 0.0,
-
-    @SerialName("GYD")
-    var USD_GYD: Double = 0.0,
 
     @SerialName("HKD")
     var USD_HKD: Double = 0.0,
@@ -201,9 +159,6 @@ data class ExchangeRates(
     @SerialName("ILS")
     var USD_ILS: Double = 0.0,
 
-    @SerialName("IMP")
-    var USD_IMP: Double = 0.0,
-
     @SerialName("INR")
     var USD_INR: Double = 0.0,
 
@@ -215,9 +170,6 @@ data class ExchangeRates(
 
     @SerialName("ISK")
     var USD_ISK: Double = 0.0,
-
-    @SerialName("JEP")
-    var USD_JEP: Double = 0.0,
 
     @SerialName("JMD")
     var USD_JMD: Double = 0.0,
@@ -237,9 +189,6 @@ data class ExchangeRates(
     @SerialName("KHR")
     var USD_KHR: Double = 0.0,
 
-    @SerialName("KMF")
-    var USD_KMF: Double = 0.0,
-
     @SerialName("KPW")
     var USD_KPW: Double = 0.0,
 
@@ -254,9 +203,6 @@ data class ExchangeRates(
 
     @SerialName("KZT")
     var USD_KZT: Double = 0.0,
-
-    @SerialName("LAK")
-    var USD_LAK: Double = 0.0,
 
     @SerialName("LBP")
     var USD_LBP: Double = 0.0,
@@ -279,9 +225,6 @@ data class ExchangeRates(
     @SerialName("MDL")
     var USD_MDL: Double = 0.0,
 
-    @SerialName("MGA")
-    var USD_MGA: Double = 0.0,
-
     @SerialName("MKD")
     var USD_MKD: Double = 0.0,
 
@@ -294,17 +237,8 @@ data class ExchangeRates(
     @SerialName("MOP")
     var USD_MOP: Double = 0.0,
 
-    @SerialName("MRU")
-    var USD_MRU: Double = 0.0,
-
-    @SerialName("MUR")
-    var USD_MUR: Double = 0.0,
-
     @SerialName("MVR")
     var USD_MVR: Double = 0.0,
-
-    @SerialName("MWK")
-    var USD_MWK: Double = 0.0,
 
     @SerialName("MXN")
     var USD_MXN: Double = 0.0,
@@ -375,41 +309,17 @@ data class ExchangeRates(
     @SerialName("SAR")
     var USD_SAR: Double = 0.0,
 
-    @SerialName("SBD")
-    var USD_SBD: Double = 0.0,
-
-    @SerialName("SCR")
-    var USD_SCR: Double = 0.0,
-
-    @SerialName("SDG")
-    var USD_SDG: Double = 0.0,
-
     @SerialName("SEK")
     var USD_SEK: Double = 0.0,
 
     @SerialName("SGD")
     var USD_SGD: Double = 0.0,
 
-    @SerialName("SHP")
-    var USD_SHP: Double = 0.0,
-
-    @SerialName("SLL")
-    var USD_SLL: Double = 0.0,
-
     @SerialName("SOS")
     var USD_SOS: Double = 0.0,
 
-    @SerialName("SRD")
-    var USD_SRD: Double = 0.0,
-
     @SerialName("SSP")
     var USD_SSP: Double = 0.0,
-
-    @SerialName("STD")
-    var USD_STD: Double = 0.0,
-
-    @SerialName("STN")
-    var USD_STN: Double = 0.0,
 
     @SerialName("SVC")
     var USD_SVC: Double = 0.0,
@@ -417,23 +327,11 @@ data class ExchangeRates(
     @SerialName("SYP")
     var USD_SYP: Double = 0.0,
 
-    @SerialName("SZL")
-    var USD_SZL: Double = 0.0,
-
     @SerialName("THB")
     var USD_THB: Double = 0.0,
 
-    @SerialName("TJS")
-    var USD_TJS: Double = 0.0,
-
-    @SerialName("TMT")
-    var USD_TMT: Double = 0.0,
-
     @SerialName("TND")
     var USD_TND: Double = 0.0,
-
-    @SerialName("TOP")
-    var USD_TOP: Double = 0.0,
 
     @SerialName("TRY")
     var USD_TRY: Double = 0.0,
@@ -459,50 +357,17 @@ data class ExchangeRates(
     @SerialName("UYU")
     var USD_UYU: Double = 0.0,
 
-    @SerialName("UZS")
-    var USD_UZS: Double = 0.0,
-
     @SerialName("VES")
     var USD_VES: Double = 0.0,
 
     @SerialName("VND")
     var USD_VND: Double = 0.0,
 
-    @SerialName("VUV")
-    var USD_VUV: Double = 0.0,
-
-    @SerialName("WST")
-    var USD_WST: Double = 0.0,
-
-    @SerialName("XAF")
-    var USD_XAF: Double = 0.0,
-
     @SerialName("XAG")
     var USD_XAG: Double = 0.0,
 
     @SerialName("XAU")
     var USD_XAU: Double = 0.0,
-
-    @SerialName("XCD")
-    var USD_XCD: Double = 0.0,
-
-    @SerialName("XDR")
-    var USD_XDR: Double = 0.0,
-
-    @SerialName("XOF")
-    var USD_XOF: Double = 0.0,
-
-    @SerialName("XPD")
-    var USD_XPD: Double = 0.0,
-
-    @SerialName("XPF")
-    var USD_XPF: Double = 0.0,
-
-    @SerialName("XPT")
-    var USD_XPT: Double = 0.0,
-
-    @SerialName("YER")
-    var USD_YER: Double = 0.0,
 
     @SerialName("ZAR")
     var USD_ZAR: Double = 0.0,
