@@ -14,19 +14,10 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
-import com.nicoqueijo.android.network.ExchangeRates
-import com.nicoqueijo.android.network.KtorClient
-import kotlinx.coroutines.runBlocking
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
-        val ktorClient = KtorClient()
-        var exchangeRates: ExchangeRates?
-        runBlocking {
-            exchangeRates = ktorClient.getExchangeRates().exchangeRates
-        }
 
         enableEdgeToEdge()
         setContent {
@@ -34,10 +25,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    Greeting(
+                    /*Greeting(
                         currencies = exchangeRates!!.currencies,
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    )*/
                 }
             }
         }
