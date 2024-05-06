@@ -13,5 +13,7 @@ object NetworkModule {
 
     @Singleton
     @Provides
-    fun provideKtorClient() = KtorClient()
+    fun provideKtorClient(): KtorClient {
+        return KtorClient()
+    }
 }

@@ -2,6 +2,7 @@ package com.nicoqueijo.android.core
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
+import androidx.room.PrimaryKey
 
 /**
  * Represents a currency with its code and exchange rate.
@@ -11,6 +12,7 @@ import androidx.room.Entity
  */
 @Entity(tableName = "table_currency")
 data class Currency(
+    @PrimaryKey
     @ColumnInfo(name = "column_currencyCode")
     val currencyCode: String,
     @ColumnInfo(name = "column_exchangeRate")

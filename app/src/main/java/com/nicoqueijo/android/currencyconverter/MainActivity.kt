@@ -14,10 +14,25 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
+import com.nicoqueijo.android.data.Repository
+import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.runBlocking
+import javax.inject.Inject
 
+@AndroidEntryPoint
 class MainActivity : ComponentActivity() {
+
+    @Inject
+    lateinit var repository: Repository
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+
+        var currencies: List<Currency>
+
+        runBlocking {
+            currencies = repository.getCurrencies()!!
+        }
 
         enableEdgeToEdge()
         setContent {
@@ -25,10 +40,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    /*Greeting(
-                        currencies = exchangeRates!!.currencies,
+                    Greeting(
+                        currencies = currencies,
                         modifier = Modifier.padding(innerPadding)
-                    )*/
+                    )
                 }
             }
         }
