@@ -31,12 +31,12 @@ class KtorClient {
         }
     }
 
-    suspend fun getExchangeRates(): ApiEndPoint {
+    suspend fun getExchangeRates(): OpenExchangeRatesEndPoint {
         val apiKey = when (BuildConfig.BUILD_TYPE) {
             "debug" -> BuildConfig.API_KEY_DEBUG
             else -> BuildConfig.API_KEY_RELEASE
         }
-        return client.get("latest.json?app_id=$apiKey").body<ApiEndPoint>()
+        return client.get("latest.json?app_id=$apiKey").body<OpenExchangeRatesEndPoint>()
     }
 
     companion object {
