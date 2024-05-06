@@ -40,6 +40,7 @@ junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.r
 kotest-assertions-core = { group = "io.kotest", name ="kotest-assertions-core", version.ref = "kotestAssertionsCore" }
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-http = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
+ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-logging = { group = "io.ktor", name ="ktor-client-logging", version.ref = "ktor" }
