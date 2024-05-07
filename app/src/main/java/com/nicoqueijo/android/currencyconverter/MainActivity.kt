@@ -6,13 +6,10 @@ import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.data.CurrencyRepository
 import dagger.hilt.android.AndroidEntryPoint
@@ -28,10 +25,14 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
-        var currencies: List<Currency>
+        var result = "Uninitialized"
 
         runBlocking {
-            /*currencies = currencyRepository.getExchangeRates()*/
+            currencyRepository.getExchangeRates().onSuccess {
+                result = it.exchangeRates!!.currencies.toString()
+            }.onFailure {
+                result = it.message.toString()
+            }
         }
 
         enableEdgeToEdge()
@@ -40,10 +41,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    /*Greeting(
-                        currencies = currencies,
+                    Greeting(
+                        message = result,
                         modifier = Modifier.padding(innerPadding)
-                    )*/
+                    )
                 }
             }
         }
@@ -51,12 +52,6 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun Greeting(currencies: List<Currency>, modifier: Modifier = Modifier) {
-    LazyColumn(
-        modifier = modifier
-    ) {
-        items(currencies) {
-            Text(text = "${it.currencyCode} - ${it.exchangeRate}")
-        }
-    }
+fun Greeting(message: String, modifier: Modifier = Modifier) {
+    Text(text = message)
 }

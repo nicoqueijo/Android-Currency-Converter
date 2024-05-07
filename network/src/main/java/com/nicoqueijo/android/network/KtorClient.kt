@@ -31,15 +31,50 @@ class KtorClient {
         }
     }
 
-    suspend fun getExchangeRates(): OpenExchangeRatesEndPoint {
+    suspend fun getExchangeRates(): ApiOperation<OpenExchangeRatesEndPoint> {
         val apiKey = when (BuildConfig.BUILD_TYPE) {
             "debug" -> BuildConfig.API_KEY_DEBUG
             else -> BuildConfig.API_KEY_RELEASE
         }
-        return client.get("latest.json?app_id=$apiKey").body<OpenExchangeRatesEndPoint>()
+        return makeApiCall {
+            val response = client.get(
+                urlString = "latest.json?app_id=$apiKey"
+            )
+            if (response.status.value != 200) {
+                throw Exception("Failed to fetch exchange rates.")
+            }
+            response.body<OpenExchangeRatesEndPoint>()
+        }
+    }
+
+    private inline fun <T> makeApiCall(apiCall: () -> T): ApiOperation<T> {
+        return try {
+            ApiOperation.Success(data = apiCall())
+        } catch (exception: Exception) {
+            ApiOperation.Failure(exception = exception)
+        }
     }
 
     companion object {
         const val BASE_URL = "https://openexchangerates.org/api/"
+    }
+}
+
+sealed interface ApiOperation<T> {
+    data class Success<T>(val data: T) : ApiOperation<T>
+    data class Failure<T>(val exception: Exception) : ApiOperation<T>
+
+    fun onSuccess(block: (T) -> Unit): ApiOperation<T> {
+        if (this is Success) {
+            block(data)
+        }
+        return this
+    }
+
+    fun onFailure(block: (Exception) -> Unit): ApiOperation<T> {
+        if (this is Failure) {
+            block(exception)
+        }
+        return this
     }
 }

@@ -2,6 +2,7 @@ package com.nicoqueijo.android.data
 
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.IODispatcher
+import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.KtorClient
 import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
 import kotlinx.coroutines.CoroutineDispatcher
@@ -16,8 +17,7 @@ class CurrencyRepository @Inject constructor(
     @IODispatcher private val dispatcher: CoroutineDispatcher
 ) : Repository {
 
-    override suspend fun getExchangeRates(): OpenExchangeRatesEndPoint {
-        // TODO: Wrap endpoint object in a Result class
+    override suspend fun getExchangeRates(): ApiOperation<OpenExchangeRatesEndPoint> {
         return withContext(context = dispatcher) {
             ktorClient.getExchangeRates()
         }
