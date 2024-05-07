@@ -6,7 +6,7 @@ import javax.inject.Inject
 class Repository @Inject constructor(
     private val ktorClient: KtorClient,
     private val currencyDao: CurrencyDao,
-    val dataStoreManager: DataStoreManager
+    private val dataStoreManager: DataStoreManager
 ){
     suspend fun getCurrencies() = ktorClient.getExchangeRates().exchangeRates?.currencies
 }
