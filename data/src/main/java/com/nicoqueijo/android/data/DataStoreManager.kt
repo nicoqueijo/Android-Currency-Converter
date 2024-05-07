@@ -20,7 +20,7 @@ class DataStoreManager(context: Context) {
         }
     }
 
-    suspend fun setTimestamp(value: Long) {
+    suspend fun setTimestampInSeconds(value: Long) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.TIMESTAMP] = value
         }
@@ -37,16 +37,16 @@ class DataStoreManager(context: Context) {
     }
 
     suspend fun isDataEmpty(): Boolean {
-        return timeSinceLastUpdateInMillis() == Constants.NO_DATA
+        return getTimeSinceLastUpdateInSeconds() == Constants.NO_DATA
     }
 
     suspend fun isDataStale(): Boolean {
-        return timeSinceLastUpdateInMillis() > Constants.TWENTY_FOUR_HOURS_IN_MILLIS
+        return getTimeSinceLastUpdateInSeconds() > Constants.TWENTY_FOUR_HOURS_IN_SECONDS
     }
 
-    private suspend fun timeSinceLastUpdateInMillis(): Long {
+    private suspend fun getTimeSinceLastUpdateInSeconds(): Long {
             return if (getTimestampInSeconds() != Constants.NO_DATA) {
-                System.currentTimeMillis() - getTimestampInSeconds().toMillis()
+                System.currentTimeMillis().toSeconds() - getTimestampInSeconds()
             } else {
                 Constants.NO_DATA
             }
@@ -58,7 +58,7 @@ class DataStoreManager(context: Context) {
     }
 
     private object Constants {
-        const val TWENTY_FOUR_HOURS_IN_MILLIS = 86_400_000L
+        const val TWENTY_FOUR_HOURS_IN_SECONDS = 86_400L
         const val NO_DATA = 0L
     }
 }
