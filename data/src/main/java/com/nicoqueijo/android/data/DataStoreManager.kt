@@ -45,12 +45,12 @@ class DataStoreManager(context: Context) {
     }
 
     private suspend fun getTimeSinceLastUpdateInSeconds(): Long {
-            return if (getTimestampInSeconds() != Constants.NO_DATA) {
-                System.currentTimeMillis().toSeconds() - getTimestampInSeconds()
-            } else {
-                Constants.NO_DATA
-            }
+        return if (getTimestampInSeconds() != Constants.NO_DATA) {
+            System.currentTimeMillis().toSeconds() - getTimestampInSeconds()
+        } else {
+            Constants.NO_DATA
         }
+    }
 
     private object PreferencesKeys {
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
