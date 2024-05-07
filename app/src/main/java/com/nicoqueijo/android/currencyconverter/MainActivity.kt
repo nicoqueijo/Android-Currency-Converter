@@ -23,7 +23,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var repository: Repository
+    lateinit var currencyRepository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         var currencies: List<Currency>
 
         runBlocking {
-            currencies = repository.getCurrencies()!!
+
         }
 
         enableEdgeToEdge()
@@ -40,10 +40,10 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     modifier = Modifier.fillMaxSize()
                 ) { innerPadding ->
-                    Greeting(
+                    /*Greeting(
                         currencies = currencies,
                         modifier = Modifier.padding(innerPadding)
-                    )
+                    )*/
                 }
             }
         }
