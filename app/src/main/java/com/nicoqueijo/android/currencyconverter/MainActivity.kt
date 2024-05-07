@@ -14,7 +14,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
-import com.nicoqueijo.android.data.Repository
+import com.nicoqueijo.android.data.CurrencyRepository
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.runBlocking
 import javax.inject.Inject
@@ -23,7 +23,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var currencyRepository: Repository
+    lateinit var currencyRepository: CurrencyRepository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -31,7 +31,7 @@ class MainActivity : ComponentActivity() {
         var currencies: List<Currency>
 
         runBlocking {
-
+            /*currencies = currencyRepository.getExchangeRates()*/
         }
 
         enableEdgeToEdge()

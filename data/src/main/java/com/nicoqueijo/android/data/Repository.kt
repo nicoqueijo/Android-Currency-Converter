@@ -13,8 +13,8 @@ interface Repository {
     suspend fun getAllCurrencies(): Flow<MutableList<Currency>>
     suspend fun getSelectedCurrencies(): Flow<MutableList<Currency>>
     suspend fun setFirstLaunch(value: Boolean)
+    suspend fun isFirstLaunch(): Boolean
     suspend fun setTimestampInSeconds(value: Long)
-    suspend fun getFirstLaunch(): Boolean
     suspend fun getTimestampInSeconds(): Long
     suspend fun isDataEmpty(): Boolean
     suspend fun isDataStale(): Boolean

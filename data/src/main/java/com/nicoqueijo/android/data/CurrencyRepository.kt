@@ -6,6 +6,7 @@ import com.nicoqueijo.android.network.KtorClient
 import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 class CurrencyRepository @Inject constructor(
@@ -14,55 +15,83 @@ class CurrencyRepository @Inject constructor(
     private val dataStoreManager: DataStoreManager,
     @IODispatcher private val dispatcher: CoroutineDispatcher
 ) : Repository {
+
     override suspend fun getExchangeRates(): OpenExchangeRatesEndPoint {
-        TODO("Not yet implemented")
+        // TODO: Wrap endpoint object in a Result class
+        return withContext(context = dispatcher) {
+            ktorClient.getExchangeRates()
+        }
     }
 
     override suspend fun upsertCurrency(currency: Currency) {
-        TODO("Not yet implemented")
+        withContext(context = dispatcher) {
+            currencyDao.upsertCurrency(currency = currency)
+        }
     }
 
     override suspend fun upsertCurrencies(currencies: List<Currency>) {
-        TODO("Not yet implemented")
+        withContext(context = dispatcher) {
+            currencyDao.upsertCurrencies(currencies = currencies)
+        }
     }
 
     override suspend fun updateExchangeRates(currencies: List<Currency>) {
-        TODO("Not yet implemented")
+        withContext(context = dispatcher) {
+            currencyDao.updateExchangeRates(currencies = currencies)
+        }
     }
 
     override suspend fun getCurrency(currencyCode: String): Currency {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            currencyDao.getCurrency(currencyCode)
+        }
     }
 
     override suspend fun getAllCurrencies(): Flow<MutableList<Currency>> {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            currencyDao.getAllCurrencies()
+        }
     }
 
     override suspend fun getSelectedCurrencies(): Flow<MutableList<Currency>> {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            currencyDao.getSelectedCurrencies()
+        }
     }
 
     override suspend fun setFirstLaunch(value: Boolean) {
-        TODO("Not yet implemented")
+        withContext(context = dispatcher) {
+            dataStoreManager.setFirstLaunch(value = value)
+        }
+    }
+
+    override suspend fun isFirstLaunch(): Boolean {
+        return withContext(context = dispatcher) {
+            dataStoreManager.isFirstLaunch()
+        }
     }
 
     override suspend fun setTimestampInSeconds(value: Long) {
-        TODO("Not yet implemented")
-    }
-
-    override suspend fun getFirstLaunch(): Boolean {
-        TODO("Not yet implemented")
+        withContext(context = dispatcher) {
+            dataStoreManager.setTimestampInSeconds(value = value)
+        }
     }
 
     override suspend fun getTimestampInSeconds(): Long {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            dataStoreManager.getTimestampInSeconds()
+        }
     }
 
     override suspend fun isDataEmpty(): Boolean {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            dataStoreManager.isDataEmpty()
+        }
     }
 
     override suspend fun isDataStale(): Boolean {
-        TODO("Not yet implemented")
+        return withContext(context = dispatcher) {
+            dataStoreManager.isDataStale()
+        }
     }
 }

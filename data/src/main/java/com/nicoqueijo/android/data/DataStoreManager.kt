@@ -20,15 +20,15 @@ class DataStoreManager(context: Context) {
         }
     }
 
+    suspend fun isFirstLaunch(): Boolean {
+        val preferences = dataStore.data.first()
+        return preferences[PreferencesKeys.FIRST_LAUNCH] ?: true
+    }
+
     suspend fun setTimestampInSeconds(value: Long) {
         dataStore.edit { preferences ->
             preferences[PreferencesKeys.TIMESTAMP] = value
         }
-    }
-
-    suspend fun getFirstLaunch(): Boolean {
-        val preferences = dataStore.data.first()
-        return preferences[PreferencesKeys.FIRST_LAUNCH] ?: true
     }
 
     suspend fun getTimestampInSeconds(): Long {
