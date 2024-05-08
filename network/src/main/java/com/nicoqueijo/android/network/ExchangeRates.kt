@@ -7,379 +7,377 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class ExchangeRates(
 
-    // TODO: Figure out if I can make this a val and remove the default value of 0.0
-
     @SerialName("AED")
-    var USD_AED: Double = 0.0,
+    val USD_AED: Double,
 
     @SerialName("AFN")
-    var USD_AFN: Double = 0.0,
+    val USD_AFN: Double,
 
     @SerialName("ALL")
-    var USD_ALL: Double = 0.0,
+    val USD_ALL: Double,
 
     @SerialName("AMD")
-    var USD_AMD: Double = 0.0,
+    val USD_AMD: Double,
 
     @SerialName("AOA")
-    var USD_AOA: Double = 0.0,
+    val USD_AOA: Double,
 
     @SerialName("ARS")
-    var USD_ARS: Double = 0.0,
+    val USD_ARS: Double,
 
     @SerialName("AUD")
-    var USD_AUD: Double = 0.0,
+    val USD_AUD: Double,
 
     @SerialName("AZN")
-    var USD_AZN: Double = 0.0,
+    val USD_AZN: Double,
 
     @SerialName("BAM")
-    var USD_BAM: Double = 0.0,
+    val USD_BAM: Double,
 
     @SerialName("BBD")
-    var USD_BBD: Double = 0.0,
+    val USD_BBD: Double,
 
     @SerialName("BDT")
-    var USD_BDT: Double = 0.0,
+    val USD_BDT: Double,
 
     @SerialName("BGN")
-    var USD_BGN: Double = 0.0,
+    val USD_BGN: Double,
 
     @SerialName("BHD")
-    var USD_BHD: Double = 0.0,
+    val USD_BHD: Double,
 
     @SerialName("BMD")
-    var USD_BMD: Double = 0.0,
+    val USD_BMD: Double,
 
     @SerialName("BOB")
-    var USD_BOB: Double = 0.0,
+    val USD_BOB: Double,
 
     @SerialName("BRL")
-    var USD_BRL: Double = 0.0,
+    val USD_BRL: Double,
 
     @SerialName("BSD")
-    var USD_BSD: Double = 0.0,
+    val USD_BSD: Double,
 
     @SerialName("BTC")
-    var USD_BTC: Double = 0.0,
+    val USD_BTC: Double,
 
     @SerialName("BWP")
-    var USD_BWP: Double = 0.0,
+    val USD_BWP: Double,
 
     @SerialName("BYN")
-    var USD_BYN: Double = 0.0,
+    val USD_BYN: Double,
 
     @SerialName("BZD")
-    var USD_BZD: Double = 0.0,
+    val USD_BZD: Double,
 
     @SerialName("CAD")
-    var USD_CAD: Double = 0.0,
+    val USD_CAD: Double,
 
     @SerialName("CDF")
-    var USD_CDF: Double = 0.0,
+    val USD_CDF: Double,
 
     @SerialName("CHF")
-    var USD_CHF: Double = 0.0,
+    val USD_CHF: Double,
 
     @SerialName("CLP")
-    var USD_CLP: Double = 0.0,
+    val USD_CLP: Double,
 
     @SerialName("CNY")
-    var USD_CNY: Double = 0.0,
+    val USD_CNY: Double,
 
     @SerialName("COP")
-    var USD_COP: Double = 0.0,
+    val USD_COP: Double,
 
     @SerialName("CRC")
-    var USD_CRC: Double = 0.0,
+    val USD_CRC: Double,
 
     @SerialName("CUP")
-    var USD_CUP: Double = 0.0,
+    val USD_CUP: Double,
 
     @SerialName("CVE")
-    var USD_CVE: Double = 0.0,
+    val USD_CVE: Double,
 
     @SerialName("CZK")
-    var USD_CZK: Double = 0.0,
+    val USD_CZK: Double,
 
     @SerialName("DKK")
-    var USD_DKK: Double = 0.0,
+    val USD_DKK: Double,
 
     @SerialName("DOP")
-    var USD_DOP: Double = 0.0,
+    val USD_DOP: Double,
 
     @SerialName("DZD")
-    var USD_DZD: Double = 0.0,
+    val USD_DZD: Double,
 
     @SerialName("EGP")
-    var USD_EGP: Double = 0.0,
+    val USD_EGP: Double,
 
     @SerialName("ETB")
-    var USD_ETB: Double = 0.0,
+    val USD_ETB: Double,
 
     @SerialName("EUR")
-    var USD_EUR: Double = 0.0,
+    val USD_EUR: Double,
 
     @SerialName("FJD")
-    var USD_FJD: Double = 0.0,
+    val USD_FJD: Double,
 
     @SerialName("GBP")
-    var USD_GBP: Double = 0.0,
+    val USD_GBP: Double,
 
     @SerialName("GEL")
-    var USD_GEL: Double = 0.0,
+    val USD_GEL: Double,
 
     @SerialName("GHS")
-    var USD_GHS: Double = 0.0,
+    val USD_GHS: Double,
 
     @SerialName("GMD")
-    var USD_GMD: Double = 0.0,
+    val USD_GMD: Double,
 
     @SerialName("GNF")
-    var USD_GNF: Double = 0.0,
+    val USD_GNF: Double,
 
     @SerialName("GTQ")
-    var USD_GTQ: Double = 0.0,
+    val USD_GTQ: Double,
 
     @SerialName("HKD")
-    var USD_HKD: Double = 0.0,
+    val USD_HKD: Double,
 
     @SerialName("HNL")
-    var USD_HNL: Double = 0.0,
+    val USD_HNL: Double,
 
     @SerialName("HRK")
-    var USD_HRK: Double = 0.0,
+    val USD_HRK: Double,
 
     @SerialName("HTG")
-    var USD_HTG: Double = 0.0,
+    val USD_HTG: Double,
 
     @SerialName("HUF")
-    var USD_HUF: Double = 0.0,
+    val USD_HUF: Double,
 
     @SerialName("IDR")
-    var USD_IDR: Double = 0.0,
+    val USD_IDR: Double,
 
     @SerialName("ILS")
-    var USD_ILS: Double = 0.0,
+    val USD_ILS: Double,
 
     @SerialName("INR")
-    var USD_INR: Double = 0.0,
+    val USD_INR: Double,
 
     @SerialName("IQD")
-    var USD_IQD: Double = 0.0,
+    val USD_IQD: Double,
 
     @SerialName("IRR")
-    var USD_IRR: Double = 0.0,
+    val USD_IRR: Double,
 
     @SerialName("ISK")
-    var USD_ISK: Double = 0.0,
+    val USD_ISK: Double,
 
     @SerialName("JMD")
-    var USD_JMD: Double = 0.0,
+    val USD_JMD: Double,
 
     @SerialName("JOD")
-    var USD_JOD: Double = 0.0,
+    val USD_JOD: Double,
 
     @SerialName("JPY")
-    var USD_JPY: Double = 0.0,
+    val USD_JPY: Double,
 
     @SerialName("KES")
-    var USD_KES: Double = 0.0,
+    val USD_KES: Double,
 
     @SerialName("KGS")
-    var USD_KGS: Double = 0.0,
+    val USD_KGS: Double,
 
     @SerialName("KHR")
-    var USD_KHR: Double = 0.0,
+    val USD_KHR: Double,
 
     @SerialName("KPW")
-    var USD_KPW: Double = 0.0,
+    val USD_KPW: Double,
 
     @SerialName("KRW")
-    var USD_KRW: Double = 0.0,
+    val USD_KRW: Double,
 
     @SerialName("KWD")
-    var USD_KWD: Double = 0.0,
+    val USD_KWD: Double,
 
     @SerialName("KYD")
-    var USD_KYD: Double = 0.0,
+    val USD_KYD: Double,
 
     @SerialName("KZT")
-    var USD_KZT: Double = 0.0,
+    val USD_KZT: Double,
 
     @SerialName("LBP")
-    var USD_LBP: Double = 0.0,
+    val USD_LBP: Double,
 
     @SerialName("LKR")
-    var USD_LKR: Double = 0.0,
+    val USD_LKR: Double,
 
     @SerialName("LRD")
-    var USD_LRD: Double = 0.0,
+    val USD_LRD: Double,
 
     @SerialName("LSL")
-    var USD_LSL: Double = 0.0,
+    val USD_LSL: Double,
 
     @SerialName("LYD")
-    var USD_LYD: Double = 0.0,
+    val USD_LYD: Double,
 
     @SerialName("MAD")
-    var USD_MAD: Double = 0.0,
+    val USD_MAD: Double,
 
     @SerialName("MDL")
-    var USD_MDL: Double = 0.0,
+    val USD_MDL: Double,
 
     @SerialName("MKD")
-    var USD_MKD: Double = 0.0,
+    val USD_MKD: Double,
 
     @SerialName("MMK")
-    var USD_MMK: Double = 0.0,
+    val USD_MMK: Double,
 
     @SerialName("MNT")
-    var USD_MNT: Double = 0.0,
+    val USD_MNT: Double,
 
     @SerialName("MOP")
-    var USD_MOP: Double = 0.0,
+    val USD_MOP: Double,
 
     @SerialName("MVR")
-    var USD_MVR: Double = 0.0,
+    val USD_MVR: Double,
 
     @SerialName("MXN")
-    var USD_MXN: Double = 0.0,
+    val USD_MXN: Double,
 
     @SerialName("MYR")
-    var USD_MYR: Double = 0.0,
+    val USD_MYR: Double,
 
     @SerialName("MZN")
-    var USD_MZN: Double = 0.0,
+    val USD_MZN: Double,
 
     @SerialName("NAD")
-    var USD_NAD: Double = 0.0,
+    val USD_NAD: Double,
 
     @SerialName("NGN")
-    var USD_NGN: Double = 0.0,
+    val USD_NGN: Double,
 
     @SerialName("NIO")
-    var USD_NIO: Double = 0.0,
+    val USD_NIO: Double,
 
     @SerialName("NOK")
-    var USD_NOK: Double = 0.0,
+    val USD_NOK: Double,
 
     @SerialName("NPR")
-    var USD_NPR: Double = 0.0,
+    val USD_NPR: Double,
 
     @SerialName("NZD")
-    var USD_NZD: Double = 0.0,
+    val USD_NZD: Double,
 
     @SerialName("OMR")
-    var USD_OMR: Double = 0.0,
+    val USD_OMR: Double,
 
     @SerialName("PAB")
-    var USD_PAB: Double = 0.0,
+    val USD_PAB: Double,
 
     @SerialName("PEN")
-    var USD_PEN: Double = 0.0,
+    val USD_PEN: Double,
 
     @SerialName("PGK")
-    var USD_PGK: Double = 0.0,
+    val USD_PGK: Double,
 
     @SerialName("PHP")
-    var USD_PHP: Double = 0.0,
+    val USD_PHP: Double,
 
     @SerialName("PKR")
-    var USD_PKR: Double = 0.0,
+    val USD_PKR: Double,
 
     @SerialName("PLN")
-    var USD_PLN: Double = 0.0,
+    val USD_PLN: Double,
 
     @SerialName("PYG")
-    var USD_PYG: Double = 0.0,
+    val USD_PYG: Double,
 
     @SerialName("QAR")
-    var USD_QAR: Double = 0.0,
+    val USD_QAR: Double,
 
     @SerialName("RON")
-    var USD_RON: Double = 0.0,
+    val USD_RON: Double,
 
     @SerialName("RSD")
-    var USD_RSD: Double = 0.0,
+    val USD_RSD: Double,
 
     @SerialName("RUB")
-    var USD_RUB: Double = 0.0,
+    val USD_RUB: Double,
 
     @SerialName("RWF")
-    var USD_RWF: Double = 0.0,
+    val USD_RWF: Double,
 
     @SerialName("SAR")
-    var USD_SAR: Double = 0.0,
+    val USD_SAR: Double,
 
     @SerialName("SEK")
-    var USD_SEK: Double = 0.0,
+    val USD_SEK: Double,
 
     @SerialName("SGD")
-    var USD_SGD: Double = 0.0,
+    val USD_SGD: Double,
 
     @SerialName("SOS")
-    var USD_SOS: Double = 0.0,
+    val USD_SOS: Double,
 
     @SerialName("SSP")
-    var USD_SSP: Double = 0.0,
+    val USD_SSP: Double,
 
     @SerialName("SVC")
-    var USD_SVC: Double = 0.0,
+    val USD_SVC: Double,
 
     @SerialName("SYP")
-    var USD_SYP: Double = 0.0,
+    val USD_SYP: Double,
 
     @SerialName("THB")
-    var USD_THB: Double = 0.0,
+    val USD_THB: Double,
 
     @SerialName("TND")
-    var USD_TND: Double = 0.0,
+    val USD_TND: Double,
 
     @SerialName("TRY")
-    var USD_TRY: Double = 0.0,
+    val USD_TRY: Double,
 
     @SerialName("TTD")
-    var USD_TTD: Double = 0.0,
+    val USD_TTD: Double,
 
     @SerialName("TWD")
-    var USD_TWD: Double = 0.0,
+    val USD_TWD: Double,
 
     @SerialName("TZS")
-    var USD_TZS: Double = 0.0,
+    val USD_TZS: Double,
 
     @SerialName("UAH")
-    var USD_UAH: Double = 0.0,
+    val USD_UAH: Double,
 
     @SerialName("UGX")
-    var USD_UGX: Double = 0.0,
+    val USD_UGX: Double,
 
     @SerialName("USD")
-    var USD_USD: Double = 0.0,
+    val USD_USD: Double,
 
     @SerialName("UYU")
-    var USD_UYU: Double = 0.0,
+    val USD_UYU: Double,
 
     @SerialName("VES")
-    var USD_VES: Double = 0.0,
+    val USD_VES: Double,
 
     @SerialName("VND")
-    var USD_VND: Double = 0.0,
+    val USD_VND: Double,
 
     @SerialName("XAG")
-    var USD_XAG: Double = 0.0,
+    val USD_XAG: Double,
 
     @SerialName("XAU")
-    var USD_XAU: Double = 0.0,
+    val USD_XAU: Double,
 
     @SerialName("ZAR")
-    var USD_ZAR: Double = 0.0,
+    val USD_ZAR: Double,
 
     @SerialName("ZMW")
-    var USD_ZMW: Double = 0.0,
+    val USD_ZMW: Double,
 
     @SerialName("ZWL")
-    var USD_ZWL: Double = 0.0,
+    val USD_ZWL: Double,
 ) {
     /**
      * Creates a list of [Currency]s from the declared fields of this class using reflection to
