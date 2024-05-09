@@ -2,4 +2,5 @@
     <string name="app_name">Android-Currency-Converter</string>
     <string name="error_title">Error Occurred</string>
     <string name="error_description">An error has occurred while attempting to retrieve the data from the internet.</string>
+    <string name="splash_title">Fetching data…</string>
 </resources>
