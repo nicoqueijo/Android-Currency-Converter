@@ -25,28 +25,26 @@ import com.nicoqueijo.android.ui.XXXS
 
 @Composable
 fun SplashScreen(modifier: Modifier = Modifier) {
-    AndroidCurrencyConverterTheme {
-        Surface(
-            modifier = modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = L, vertical = XL),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(space = S)
         ) {
-            Column(
-                modifier = Modifier.padding(horizontal = L, vertical = XL),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(space = S)
-            ) {
-                CircularProgressIndicator(
-                    modifier = Modifier
-                        .size(size = 125.dp)
-                        .padding(all = XXXS),
-                    strokeWidth = 8.dp
-                )
-                Text(
-                    text = stringResource(id = R.string.splash_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Center
-                )
-            }
+            CircularProgressIndicator(
+                modifier = Modifier
+                    .size(size = 125.dp)
+                    .padding(all = XXXS),
+                strokeWidth = 8.dp
+            )
+            Text(
+                text = stringResource(id = R.string.splash_title),
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center
+            )
         }
     }
 }
@@ -54,5 +52,7 @@ fun SplashScreen(modifier: Modifier = Modifier) {
 @DarkLightPreviews
 @Composable
 fun SplashScreenPreview() {
-    SplashScreen()
+    AndroidCurrencyConverterTheme {
+        SplashScreen()
+    }
 }

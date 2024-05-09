@@ -15,13 +15,13 @@ import androidx.compose.ui.tooling.preview.Preview
  */
 @Preview(
     name = "Light Mode",
-    apiLevel = 33,
+    apiLevel = 34,
     uiMode = Configuration.UI_MODE_NIGHT_NO,
     device = Devices.PIXEL_7_PRO
 )
 @Preview(
     name = "Dark Mode",
-    apiLevel = 33,
+    apiLevel = 34,
     uiMode = Configuration.UI_MODE_NIGHT_YES,
     device = Devices.PIXEL_7_PRO
 )

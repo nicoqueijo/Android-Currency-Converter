@@ -31,38 +31,39 @@ import com.nicoqueijo.android.ui.XS
  */
 @Composable
 fun ErrorScreen(modifier: Modifier = Modifier) {
-    AndroidCurrencyConverterTheme {
-        Surface(
-            modifier = modifier.fillMaxSize(),
-            color = MaterialTheme.colorScheme.background
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
+    ) {
+        Column(
+            modifier = Modifier.padding(horizontal = L, vertical = XL),
+            horizontalAlignment = Alignment.CenterHorizontally,
+            verticalArrangement = Arrangement.spacedBy(space = XS)
         ) {
-            Column(
-                modifier = Modifier.padding(horizontal = L, vertical = XL),
-                horizontalAlignment = Alignment.CenterHorizontally,
-                verticalArrangement = Arrangement.spacedBy(space = XS)
-            ) {
-                Icon(
-                    modifier = Modifier.size(size = 125.dp),
-                    imageVector = Icons.Default.Info,
-                    contentDescription = null
-                )
-                Text(
-                    text = stringResource(id = R.string.error_title),
-                    style = MaterialTheme.typography.titleLarge,
-                    textAlign = TextAlign.Center
-                )
-                Text(
-                    text = stringResource(id = R.string.error_description),
-                    style = MaterialTheme.typography.titleMedium,
-                    textAlign = TextAlign.Center
-                )
-            }
+            Icon(
+                modifier = Modifier.size(size = 125.dp),
+                imageVector = Icons.Default.Info,
+                contentDescription = null
+            )
+            Text(
+                text = stringResource(id = R.string.error_title),
+                style = MaterialTheme.typography.titleLarge,
+                textAlign = TextAlign.Center
+            )
+            Text(
+                text = stringResource(id = R.string.error_description),
+                style = MaterialTheme.typography.titleMedium,
+                textAlign = TextAlign.Center
+            )
         }
     }
+
 }
 
 @DarkLightPreviews
 @Composable
 fun ErrorScreenPreview() {
-    ErrorScreen()
+    AndroidCurrencyConverterTheme {
+        ErrorScreen()
+    }
 }
