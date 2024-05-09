@@ -1,7 +1,8 @@
 package com.nicoqueijo.android.selectcurrency
 
-import androidx.compose.material3.FloatingActionButton
-import androidx.compose.material3.Text
+import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
@@ -9,11 +10,10 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 
 @Composable
 fun SelectCurrencyScreen(modifier: Modifier = Modifier) {
-    Text(text = "SelectCurrencyScreen")
-    FloatingActionButton(
-        onClick = { /*TODO*/ },
+    Surface(
+        modifier = modifier.fillMaxSize(),
+        color = MaterialTheme.colorScheme.background
     ) {
-
     }
 }
 

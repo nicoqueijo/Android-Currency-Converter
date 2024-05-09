@@ -6,6 +6,7 @@ import androidx.activity.compose.setContent
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreen
 import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.data.CurrencyRepository
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
@@ -34,7 +35,7 @@ class MainActivity : ComponentActivity() {
 
         setContent {
             AndroidCurrencyConverterTheme {
-                ErrorScreen()
+                ConvertCurrencyScreen()
             }
         }
     }
