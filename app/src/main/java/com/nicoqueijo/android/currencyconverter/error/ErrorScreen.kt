@@ -18,7 +18,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.nicoqueijo.android.currencyconverter.R
-import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
+import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.XL

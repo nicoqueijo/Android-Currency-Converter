@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.currencyconverter.ui.theme
+package com.nicoqueijo.android.ui
 
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

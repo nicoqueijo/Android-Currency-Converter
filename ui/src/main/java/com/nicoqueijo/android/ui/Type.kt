@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.currencyconverter.ui.theme
+package com.nicoqueijo.android.ui
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle

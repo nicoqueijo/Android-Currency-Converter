@@ -26,6 +26,12 @@ android {
         sourceCompatibility = JavaVersion.VERSION_1_8
         targetCompatibility = JavaVersion.VERSION_1_8
     }
+    buildFeatures {
+        compose = true
+    }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.13"
+    }
     kotlinOptions {
         jvmTarget = "1.8"
     }
@@ -34,6 +40,8 @@ android {
 dependencies {
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(platform(libs.androidx.compose.bom))
+    api(libs.androidx.material3)
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.tooling.preview.android)
     testImplementation(libs.junit)
