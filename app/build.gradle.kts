@@ -54,6 +54,7 @@ dependencies {
     implementation(project(":core"))
     implementation(project(":data"))
     implementation(project(":network"))
+    implementation(project(":ui"))
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)

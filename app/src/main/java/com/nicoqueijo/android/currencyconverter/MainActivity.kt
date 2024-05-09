@@ -1,15 +1,20 @@
 package com.nicoqueijo.android.currencyconverter
 
 import android.os.Bundle
+import android.widget.ProgressBar
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.LinearProgressIndicator
+import androidx.compose.material3.ProgressIndicatorDefaults
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.currencyconverter.ui.theme.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.data.CurrencyRepository
 import dagger.hilt.android.AndroidEntryPoint
@@ -35,17 +40,9 @@ class MainActivity : ComponentActivity() {
             }
         }
 
-        enableEdgeToEdge()
         setContent {
             AndroidCurrencyConverterTheme {
-                Scaffold(
-                    modifier = Modifier.fillMaxSize()
-                ) { innerPadding ->
-                    Greeting(
-                        message = result,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                ErrorScreen()
             }
         }
     }
