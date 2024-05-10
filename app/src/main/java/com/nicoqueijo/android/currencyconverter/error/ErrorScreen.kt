@@ -30,7 +30,10 @@ import com.nicoqueijo.android.ui.XS
  * @param modifier An optional [Modifier] to customize the Composable's layout and appearance.
  */
 @Composable
-fun ErrorScreen(modifier: Modifier = Modifier) {
+fun ErrorScreen(
+    modifier: Modifier = Modifier,
+    // hiltViewModel()
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background

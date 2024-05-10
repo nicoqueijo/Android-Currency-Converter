@@ -18,7 +18,6 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
-    currency: String? = null,
     onFabClick: (() -> Unit)? = null,
 ) {
 
@@ -26,7 +25,6 @@ fun ConvertCurrencyScreen(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
     ) {
-        Text(text = currency ?: "No data")
         Box(
             modifier = Modifier.fillMaxSize(),
             contentAlignment = Alignment.BottomCenter

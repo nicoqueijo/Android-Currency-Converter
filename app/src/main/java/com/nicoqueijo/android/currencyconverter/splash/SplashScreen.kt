@@ -27,6 +27,7 @@ import com.nicoqueijo.android.ui.XXXS
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
+    // hiltViewModel()
     onSuccess: (() -> Unit)? = null,
     onFailure: (() -> Unit)? = null,
 ) {
