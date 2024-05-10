@@ -1,5 +1,6 @@
 package com.nicoqueijo.android.currencyconverter.splash
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -24,7 +25,11 @@ import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
 
 @Composable
-fun SplashScreen(modifier: Modifier = Modifier) {
+fun SplashScreen(
+    modifier: Modifier = Modifier,
+    onSuccess: (() -> Unit)? = null,
+    onFailure: (() -> Unit)? = null,
+) {
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background
@@ -37,10 +42,16 @@ fun SplashScreen(modifier: Modifier = Modifier) {
             CircularProgressIndicator(
                 modifier = Modifier
                     .size(size = 125.dp)
-                    .padding(all = XXXS),
+                    .padding(all = XXXS)
+                    .clickable {
+                        onSuccess?.invoke()
+                    },
                 strokeWidth = 8.dp
             )
             Text(
+                modifier = Modifier.clickable {
+                    onFailure?.invoke()
+                },
                 text = stringResource(id = R.string.splash_title),
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
