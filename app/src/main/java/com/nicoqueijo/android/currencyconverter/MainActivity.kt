@@ -59,19 +59,22 @@ class MainActivity : ComponentActivity() {
                         TopAppBar(
                             title = { Text(text = "Currency Converter") },
                             actions = {
-                                IconButton(
-                                    onClick = {
-                                        navController.navigate("splash_screen") {
-                                            popUpTo("splash_screen") {
-                                                inclusive = true
+                                if (navController.currentDestination?.route == Screen.Error.route) {
+                                    // Not working. Maybe I have to init with remember()?
+                                    IconButton(
+                                        onClick = {
+                                            navController.navigate(Screen.Splash.route) {
+                                                popUpTo(Screen.Splash.route) {
+                                                    inclusive = true
+                                                }
                                             }
                                         }
+                                    ) {
+                                        Icon(
+                                            imageVector = Icons.Default.Refresh,
+                                            contentDescription = null
+                                        )
                                     }
-                                ) {
-                                    Icon(
-                                        imageVector = Icons.Default.Refresh,
-                                        contentDescription = null
-                                    )
                                 }
                             }
                         )
@@ -79,47 +82,47 @@ class MainActivity : ComponentActivity() {
                 ) { innerPadding ->
                     NavHost(
                         navController = navController,
-                        startDestination = "splash_screen",
+                        startDestination = Screen.Splash.route,
                         modifier = Modifier.padding(innerPadding)
                     ) {
-                        composable("splash_screen") {
+                        composable(Screen.Splash.route) {
                             SplashScreen(
                                 onSuccess = {
-                                    navController.navigate("features_flow") {
-                                        popUpTo("splash_screen") {
+                                    navController.navigate(Screen.FeatureFlow.route) {
+                                        popUpTo(Screen.Splash.route) {
                                             inclusive = true
                                         }
                                     }
                                 },
                                 onFailure = {
-                                    navController.navigate("error_screen") {
-                                        popUpTo("splash_screen") {
+                                    navController.navigate(Screen.Error.route) {
+                                        popUpTo(Screen.Splash.route) {
                                             inclusive = true
                                         }
                                     }
                                 }
                             )
                         }
-                        composable("error_screen") {
+                        composable(Screen.Error.route) {
                             ErrorScreen()
                         }
                         navigation(
-                            startDestination = "convert_currency_screen",
-                            route = "features_flow"
+                            startDestination = Screen.ConvertCurrency.route,
+                            route = Screen.FeatureFlow.route
                         ) {
-                            composable("convert_currency_screen") {
+                            composable(Screen.ConvertCurrency.route) {
                                 ConvertCurrencyScreen(
                                     currency = result,
                                     onFabClick = {
-                                        navController.navigate("select_currency_screen")
+                                        navController.navigate(Screen.SelectCurrency.route)
                                     }
                                 )
                             }
-                            composable("select_currency_screen") {
+                            composable(Screen.SelectCurrency.route) {
                                 SelectCurrencyScreen(
                                     onCurrencyClick = {
-                                        navController.navigate("convert_currency_screen") {
-                                            popUpTo("convert_currency_screen") {
+                                        navController.navigate(Screen.ConvertCurrency.route) {
+                                            popUpTo(Screen.ConvertCurrency.route) {
                                                 inclusive = true
                                             }
                                         }
