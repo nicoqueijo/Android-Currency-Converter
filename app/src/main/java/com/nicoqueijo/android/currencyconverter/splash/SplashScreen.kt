@@ -30,7 +30,7 @@ import kotlinx.coroutines.flow.collectLatest
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,
-    viewModel: SplashViewModel = hiltViewModel(),
+    viewModel: SplashViewModel? = hiltViewModel(),
     onSuccess: (() -> Unit)? = null,
     onFailure: (() -> Unit)? = null,
 ) {
@@ -58,13 +58,13 @@ fun SplashScreen(
     }
 
     LaunchedEffect(Unit) {
-        viewModel.fetchCurrencies()
+        viewModel?.fetchCurrencies()
         /**
          * Small delay so the user can actually see the splash screen for a moment as feedback of
          * an attempt to retrieve data.
          */
         delay(timeMillis = 200)
-        viewModel.uiState.collectLatest { uiState ->
+        viewModel?.uiState?.collectLatest { uiState ->
             uiState.isDataRetrievalSuccessful?.let { isDataRetrievalSuccessful ->
                 when (isDataRetrievalSuccessful) {
                     true -> onSuccess?.invoke()
@@ -79,6 +79,6 @@ fun SplashScreen(
 @Composable
 fun SplashScreenPreview() {
     AndroidCurrencyConverterTheme {
-        SplashScreen()
+        SplashScreen(viewModel = null)
     }
 }

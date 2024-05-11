@@ -10,6 +10,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
 @HiltViewModel
@@ -22,46 +23,54 @@ class SplashViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     suspend fun fetchCurrencies() {
-        if (repository.isDataEmpty() || repository.isDataStale()) {
-            when (val apiResponse = repository.getExchangeRates()) {
-                is ApiOperation.Success -> {
-                    persistResponse(payload = apiResponse.data)
-                    _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
+        withContext(context = dispatcher) {
+            if (repository.isDataEmpty() || repository.isDataStale()) {
+                when (val apiResponse = repository.getExchangeRates()) {
+                    is ApiOperation.Success -> {
+                        persistResponse(payload = apiResponse.data)
+                        _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
+                    }
+
+                    is ApiOperation.Failure -> {
+                        _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
+                    }
                 }
 
-                is ApiOperation.Failure -> {
-                    _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
-                }
+            } else if (!repository.isDataEmpty()) {
+                _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
+            } else {
+                _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
             }
-
-        } else if (!repository.isDataEmpty()) {
-            _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
-        } else {
-            _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
         }
     }
 
     private suspend fun persistResponse(payload: OpenExchangeRatesEndPoint) {
-        payload.exchangeRates?.let { exchangeRates ->
-            persistCurrencies(exchangeRates = exchangeRates)
+        withContext(context = dispatcher) {
+            payload.exchangeRates?.let { exchangeRates ->
+                persistCurrencies(exchangeRates = exchangeRates)
+            }
+            persistTimestamp(timestamp = payload.timestamp)
         }
-        persistTimestamp(timestamp = payload.timestamp)
     }
 
     private suspend fun persistCurrencies(exchangeRates: ExchangeRates) {
-        when {
-            repository.isDataEmpty() -> {
-                repository.upsertCurrencies(currencies = exchangeRates.currencies)
-            }
+        withContext(context = dispatcher) {
+            when {
+                repository.isDataEmpty() -> {
+                    repository.upsertCurrencies(currencies = exchangeRates.currencies)
+                }
 
-            repository.isDataStale() -> {
-                repository.updateExchangeRates(currencies = exchangeRates.currencies)
+                repository.isDataStale() -> {
+                    repository.updateExchangeRates(currencies = exchangeRates.currencies)
+                }
             }
         }
     }
 
     private suspend fun persistTimestamp(timestamp: Long) {
-        repository.setTimestampInSeconds(value = timestamp)
+        withContext(context = dispatcher) {
+            repository.setTimestampInSeconds(value = timestamp)
+        }
     }
 }
 
