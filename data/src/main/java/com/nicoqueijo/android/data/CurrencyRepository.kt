@@ -43,7 +43,7 @@ class CurrencyRepository @Inject constructor(
 
     override suspend fun getCurrency(currencyCode: String): Currency {
         return withContext(context = dispatcher) {
-            currencyDao.getCurrency(currencyCode)
+            currencyDao.getCurrency(currencyCode = currencyCode)
         }
     }
 
