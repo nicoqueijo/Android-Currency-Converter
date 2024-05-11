@@ -19,6 +19,7 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
 import com.nicoqueijo.android.currencyconverter.splash.SplashScreen
 import com.nicoqueijo.android.data.CurrencyRepository
+import com.nicoqueijo.android.data.Repository
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import dagger.hilt.android.AndroidEntryPoint
@@ -29,7 +30,7 @@ import javax.inject.Inject
 class MainActivity : ComponentActivity() {
 
     @Inject
-    lateinit var currencyRepository: CurrencyRepository
+    lateinit var currencyRepository: Repository
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
