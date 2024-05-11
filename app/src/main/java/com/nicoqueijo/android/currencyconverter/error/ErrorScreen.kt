@@ -32,7 +32,6 @@ import com.nicoqueijo.android.ui.XS
 @Composable
 fun ErrorScreen(
     modifier: Modifier = Modifier,
-    // hiltViewModel()
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
