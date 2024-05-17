@@ -1,9 +1,9 @@
 package com.nicoqueijo.android.currencyconverter.splash
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import com.nicoqueijo.android.data.Repository
-import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.ExchangeRates
 import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -25,17 +25,18 @@ class SplashViewModel @Inject constructor(
     suspend fun fetchCurrencies() {
         withContext(context = dispatcher) {
             if (repository.isDataEmpty() || repository.isDataStale()) {
-                when (val apiResponse = repository.getExchangeRates()) {
-                    is ApiOperation.Success -> {
-                        persistResponse(payload = apiResponse.data)
-                        _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
-                    }
-
-                    is ApiOperation.Failure -> {
-                        _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
+                repository.getExchangeRates().onSuccess { data ->
+                    persistResponse(payload = data)
+                    _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
+                }.onFailure { exception ->
+                    _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = false)
+                    exception.message?.let { errorMessage ->
+                        Log.e(
+                            SplashViewModel::class.simpleName,
+                            errorMessage
+                        )
                     }
                 }
-
             } else if (!repository.isDataEmpty()) {
                 _uiState.value = uiState.value.copy(isDataRetrievalSuccessful = true)
             } else {
