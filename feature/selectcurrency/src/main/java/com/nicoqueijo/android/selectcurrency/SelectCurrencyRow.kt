@@ -31,7 +31,7 @@ import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
 @Composable
-fun CurrencyRow(
+fun SelectCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
 ) {
@@ -91,7 +91,7 @@ fun CurrencyRow(
 
 @DarkLightPreviews
 @Composable
-fun CurrencyRowPreview() {
+fun SelectCurrencyRowPreview() {
     AndroidCurrencyConverterTheme {
         val currency = Currency(
             currencyCode = "USD_USD",
@@ -99,11 +99,10 @@ fun CurrencyRowPreview() {
             isSelected = true,
         )
         Column {
-            CurrencyRow(state = currency)
+            SelectCurrencyRow(state = currency)
         }
     }
 }
-
 
 // TODO: Move these functions somewhere more appropriate
 /**
