@@ -2,24 +2,28 @@ package com.nicoqueijo.android.selectcurrency
 
 import android.content.Context
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
-import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.CheckCircle
-import androidx.compose.material3.Card
+import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.Currency
@@ -31,42 +35,55 @@ fun CurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
 ) {
-    Row(modifier = modifier.height(64.dp)) {
-        Card(
+    Row(
+        modifier = modifier
+            .background(color = Color.White) // TODO: should be black/white according to the theme
+            .fillMaxWidth()
+            .height(64.dp)
+            .padding(
+                horizontal = 12.dp,
+                vertical = 8.dp,
+            )
+    ) {
+        Image(
             modifier = Modifier
-                .size(50.dp, 37.dp)
-                .padding(start = 4.dp, end = 8.dp),
-            shape = RoundedCornerShape(2.dp)
-        ) {
-            // Assuming you have an image asset for the flag
-            Image(
-                modifier = Modifier.fillMaxSize(),
-                contentDescription = null,
-                painter = painterResource(
-                    id = getDrawableResourceByName(
-                        name = state.currencyCode.lowercase(),
-                        context = LocalContext.current
-                    )
+                .padding(vertical = 4.dp)
+                .clip(shape = RoundedCornerShape(2.dp)),
+            contentDescription = null,
+            painter = painterResource(
+                id = getDrawableResourceByName(
+                    name = state.currencyCode.lowercase(),
+                    context = LocalContext.current
                 )
             )
-        }
-        Spacer(modifier = Modifier.width(8.dp))
+        )
+
+        Spacer(modifier = Modifier.width(16.dp))
         Column(modifier = Modifier.weight(1f)) {
             Text(
                 text = state.trimmedCurrencyCode,
                 fontSize = 18.sp,
+                fontWeight = FontWeight.SemiBold,
             )
             Text(
-                text = state.currencyCode,
-                fontSize = 16.sp,
+                text = getStringResourceByName(
+                    name = state.currencyCode,
+                    context = LocalContext.current
+                ),
+                fontSize = 18.sp,
                 maxLines = 1,
             )
         }
         if (state.isSelected) {
             Icon(
-                modifier = Modifier.size(32.dp),
-                imageVector = Icons.Outlined.CheckCircle,
-                contentDescription = "Selected currency"
+                modifier = Modifier
+                    .size(32.dp)
+                    .align(
+                        Alignment.CenterVertically
+                    ),
+                imageVector = Icons.Outlined.Check,
+                contentDescription = null,
+                tint = Color.Green, // TODO: Change to better green that matches the theme
             )
         }
     }
@@ -76,23 +93,19 @@ fun CurrencyRow(
 @Composable
 fun CurrencyRowPreview() {
     AndroidCurrencyConverterTheme {
-        val selectedCurrency = Currency(
+        val currency = Currency(
             currencyCode = "USD_USD",
             exchangeRate = 1.0,
             isSelected = true,
         )
-        val unselectedCurrency = Currency(
-            currencyCode = "USD_CAD",
-            exchangeRate = 1.36175,
-            isSelected = false,
-        )
         Column {
-            CurrencyRow(state = selectedCurrency)
-            CurrencyRow(state = unselectedCurrency)
+            CurrencyRow(state = currency)
         }
     }
 }
 
+
+// TODO: Move these functions somewhere more appropriate
 /**
  * Retrieves string resources using a String instead of an int.
  * Credit: https://stackoverflow.com/a/11595723/5906793
