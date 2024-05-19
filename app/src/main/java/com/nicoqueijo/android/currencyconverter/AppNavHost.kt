@@ -7,17 +7,28 @@ import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.navigation
+import androidx.navigation.navigation
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreen
 import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.currencyconverter.splash.SplashScreen
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyScreen
+import kotlinx.serialization.Serializable
 
+/**
+ * Sealed class representing the screens within the application.
+ */
+@Serializable
 sealed class Screen(val route: String) {
+
+    @Serializable
     data object Splash : Screen("splash")
+    @Serializable
     data object Error : Screen("error")
+    @Serializable
     data object FeatureFlow : Screen("feature_flow")
+    @Serializable
     data object ConvertCurrency : Screen("convert_currency")
+    @Serializable
     data object SelectCurrency : Screen("select_currency")
 }
 
