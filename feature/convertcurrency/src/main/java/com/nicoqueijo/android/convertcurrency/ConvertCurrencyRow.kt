@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.selectcurrency
+package com.nicoqueijo.android.convertcurrency
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -8,15 +8,10 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
-import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.outlined.Check
-import androidx.compose.material3.Icon
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
@@ -29,10 +24,9 @@ import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
-import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 
 @Composable
-fun SelectCurrencyRow(
+fun ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
 ) {
@@ -40,7 +34,7 @@ fun SelectCurrencyRow(
         modifier = modifier
             .background(color = Color.White) // TODO: should be black/white according to the theme
             .fillMaxWidth()
-            .height(64.dp)
+            .height(56.dp)
             .padding(
                 horizontal = 12.dp,
                 vertical = 8.dp,
@@ -63,38 +57,20 @@ fun SelectCurrencyRow(
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
             )
-            Text(
-                text = LocalContext.current.getStringResourceByName(name = state.currencyCode),
-                fontSize = 18.sp,
-                maxLines = 1,
-            )
-        }
-        if (state.isSelected) {
-            Icon(
-                modifier = Modifier
-                    .size(32.dp)
-                    .align(
-                        Alignment.CenterVertically
-                    ),
-                imageVector = Icons.Outlined.Check,
-                contentDescription = null,
-                tint = Color.Green, // TODO: Change to better green that matches the theme
-            )
         }
     }
 }
 
 @DarkLightPreviews
 @Composable
-fun SelectCurrencyRowPreview() {
+fun ConvertCurrencyRowPreview() {
     AndroidCurrencyConverterTheme {
         val currency = Currency(
-            currencyCode = "USD_USD",
-            exchangeRate = 1.0,
-            isSelected = true,
+            currencyCode = "USD_CAD",
+            exchangeRate = 1.36175,
         )
         Column {
-            SelectCurrencyRow(state = currency)
+            ConvertCurrencyRow(state = currency)
         }
     }
 }
