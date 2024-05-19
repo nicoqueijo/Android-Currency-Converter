@@ -43,7 +43,7 @@ class MainActivity : ComponentActivity() {
                                         IconButton(
                                             onClick = {
                                                 navController.navigate(Screen.Splash.route) {
-                                                    popUpTo(Screen.Splash.route) { inclusive = true }
+                                                    popUpTo(Screen.Error.route) { inclusive = true }
                                                 }
                                             }
                                         ) {
