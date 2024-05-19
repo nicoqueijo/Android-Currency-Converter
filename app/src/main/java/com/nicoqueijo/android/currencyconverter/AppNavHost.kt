@@ -21,15 +21,15 @@ import kotlinx.serialization.Serializable
 sealed class Screen(val route: String) {
 
     @Serializable
-    data object Splash : Screen("splash")
+    data object Splash : Screen(route = "splash")
     @Serializable
-    data object Error : Screen("error")
+    data object Error : Screen(route = "error")
     @Serializable
-    data object FeatureFlow : Screen("feature_flow")
+    data object FeatureFlow : Screen(route = "feature_flow")
     @Serializable
-    data object ConvertCurrency : Screen("convert_currency")
+    data object ConvertCurrency : Screen(route = "convert_currency")
     @Serializable
-    data object SelectCurrency : Screen("select_currency")
+    data object SelectCurrency : Screen(route = "select_currency")
 }
 
 @Composable

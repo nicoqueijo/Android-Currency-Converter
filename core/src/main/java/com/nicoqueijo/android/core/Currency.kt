@@ -21,7 +21,14 @@ data class Currency(
     var order: Int = Order.INVALID.position,
     @ColumnInfo(name = "column_isSelected")
     var isSelected: Boolean = false,
-)
+) {
+    /**
+     * Currency code without the "USD_" prefix.
+     * Example: USD_EUR -> EUR
+     */
+    val trimmedCurrencyCode
+        get() = currencyCode.substring(CURRENCY_CODE_START_INDEX)
+}
 
 enum class Order(val position: Int) {
     INVALID(-1),
@@ -30,3 +37,5 @@ enum class Order(val position: Int) {
     THIRD(2),
     FOURTH(3)
 }
+
+const val CURRENCY_CODE_START_INDEX = 4

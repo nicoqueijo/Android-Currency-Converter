@@ -15,8 +15,7 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
+import androidx.compose.ui.res.stringResource
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
@@ -35,7 +34,9 @@ class MainActivity : ComponentActivity() {
                 Scaffold(
                     topBar = {
                         TopAppBar(
-                            title = { Text(text = "Currency Converter") },
+                            title = {
+                                Text(text = stringResource(id = R.string.app_name))
+                            },
                             actions = {
 
                                 when (currentDestination.value?.destination?.route) {
@@ -53,6 +54,7 @@ class MainActivity : ComponentActivity() {
                                             )
                                         }
                                     }
+
                                     Screen.ConvertCurrency.route -> {
                                         IconButton(
                                             onClick = {
@@ -65,6 +67,7 @@ class MainActivity : ComponentActivity() {
                                             )
                                         }
                                     }
+
                                     Screen.SelectCurrency.route -> {
                                         IconButton(
                                             onClick = {
