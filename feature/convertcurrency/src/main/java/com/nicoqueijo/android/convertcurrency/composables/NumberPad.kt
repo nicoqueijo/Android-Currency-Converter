@@ -1,6 +1,5 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
-import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
@@ -22,8 +21,8 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
  */
 @Composable
 fun NumberPad(
+    modifier: Modifier = Modifier,
     state: NumberPadState,
-    modifier: Modifier = Modifier
 ) {
     VerticalGrid(
         modifier = modifier,
@@ -33,18 +32,18 @@ fun NumberPad(
             NumberPadButton(char = entry.value) {
                 with(state) {
                     when (entry) {
-                        NumPadKey.ONE -> digitButtonOnClick.invoke(Digit.One)
-                        NumPadKey.TWO -> digitButtonOnClick.invoke(Digit.Two)
-                        NumPadKey.THREE -> digitButtonOnClick.invoke(Digit.Three)
-                        NumPadKey.FOUR -> digitButtonOnClick.invoke(Digit.Four)
-                        NumPadKey.FIVE -> digitButtonOnClick.invoke(Digit.Five)
-                        NumPadKey.SIX -> digitButtonOnClick.invoke(Digit.Six)
-                        NumPadKey.SEVEN -> digitButtonOnClick.invoke(Digit.Seven)
-                        NumPadKey.EIGHT -> digitButtonOnClick.invoke(Digit.Eight)
-                        NumPadKey.NINE -> digitButtonOnClick.invoke(Digit.Nine)
-                        NumPadKey.DECIMAL_POINT -> decimalPointButtonOnClick.invoke()
-                        NumPadKey.ZERO -> digitButtonOnClick.invoke(Digit.Zero)
-                        NumPadKey.BACKSPACE -> backspaceButtonOnClick.invoke()
+                        NumPadKey.ONE -> digitButtonOnClick?.invoke(Digit.One)
+                        NumPadKey.TWO -> digitButtonOnClick?.invoke(Digit.Two)
+                        NumPadKey.THREE -> digitButtonOnClick?.invoke(Digit.Three)
+                        NumPadKey.FOUR -> digitButtonOnClick?.invoke(Digit.Four)
+                        NumPadKey.FIVE -> digitButtonOnClick?.invoke(Digit.Five)
+                        NumPadKey.SIX -> digitButtonOnClick?.invoke(Digit.Six)
+                        NumPadKey.SEVEN -> digitButtonOnClick?.invoke(Digit.Seven)
+                        NumPadKey.EIGHT -> digitButtonOnClick?.invoke(Digit.Eight)
+                        NumPadKey.NINE -> digitButtonOnClick?.invoke(Digit.Nine)
+                        NumPadKey.DECIMAL_POINT -> decimalPointButtonOnClick?.invoke()
+                        NumPadKey.ZERO -> digitButtonOnClick?.invoke(Digit.Zero)
+                        NumPadKey.BACKSPACE -> backspaceButtonOnClick?.invoke()
                     }
                 }
             }
@@ -88,25 +87,15 @@ fun NumberPadButton(
  * @property backspaceButtonOnClick The event to be executed among the click of the backspace button.
  */
 data class NumberPadState(
-    val digitButtonOnClick: (Digit) -> Unit,
-    val decimalPointButtonOnClick: () -> Unit,
-    val backspaceButtonOnClick: () -> Unit,
+    val digitButtonOnClick: ((Digit) -> Unit)? = null,
+    val decimalPointButtonOnClick: (() -> Unit)? = null,
+    val backspaceButtonOnClick: (() -> Unit)? = null,
 )
 
 @Composable
 @DarkLightPreviews
 fun NumberPadPreview() {
-    val state = NumberPadState(
-        digitButtonOnClick = {
-            Log.d("NumberPadState", "Button digit clicked.")
-        },
-        decimalPointButtonOnClick = {
-            Log.d("NumberPadState", "Button decimal point clicked.")
-        },
-        backspaceButtonOnClick = {
-            Log.d("NumberPadState", "Button backspace clicked.")
-        }
-    )
+    val state = NumberPadState()
     AndroidCurrencyConverterTheme {
         NumberPad(state = state)
     }
