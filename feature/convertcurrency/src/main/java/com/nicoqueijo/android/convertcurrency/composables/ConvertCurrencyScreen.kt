@@ -16,6 +16,7 @@ import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
+// TODO: Style this nicely
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
@@ -32,6 +33,7 @@ fun ConvertCurrencyScreen(
                     .weight(1f),
                 contentAlignment = Alignment.BottomCenter
             ) {
+                EmptyListIndicator() // TODO: Only display if no currencies selected
                 FloatingActionButton(
                     onClick = { state.onFabClick?.invoke() },
                 ) {
@@ -51,6 +53,7 @@ fun ConvertCurrencyScreen(
     }
 }
 
+// TODO: Figure out if I should keep this here or put in another file
 data class ConvertCurrencyScreenState(
     val onFabClick: (() -> Unit)? = null,
     val onDigitButtonClick: ((Digit) -> Unit)? = null,

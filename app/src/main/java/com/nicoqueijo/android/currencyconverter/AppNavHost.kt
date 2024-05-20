@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
 import com.nicoqueijo.android.convertcurrency.composables.ConvertCurrencyScreen
+import com.nicoqueijo.android.convertcurrency.composables.ConvertCurrencyScreenState
 import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.currencyconverter.splash.SplashScreen
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyScreen
@@ -22,12 +23,16 @@ sealed class Screen(val route: String) {
 
     @Serializable
     data object Splash : Screen(route = "splash")
+
     @Serializable
     data object Error : Screen(route = "error")
+
     @Serializable
     data object FeatureFlow : Screen(route = "feature_flow")
+
     @Serializable
     data object ConvertCurrency : Screen(route = "convert_currency")
+
     @Serializable
     data object SelectCurrency : Screen(route = "select_currency")
 }
@@ -65,9 +70,11 @@ fun AppNavHost(
         ) {
             composable(Screen.ConvertCurrency.route) {
                 ConvertCurrencyScreen(
-                    onFabClick = {
-                        navController.navigate(Screen.SelectCurrency.route)
-                    }
+                    state = ConvertCurrencyScreenState(
+                        onFabClick = {
+                            navController.navigate(Screen.SelectCurrency.route)
+                        }
+                    )
                 )
             }
             composable(Screen.SelectCurrency.route) {

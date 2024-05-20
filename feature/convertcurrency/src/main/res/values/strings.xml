@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_list_title">Empty list</string>
+    <string name="add_currency_instruction">Press the + button to add</string>
+</resources>

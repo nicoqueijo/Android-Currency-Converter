@@ -14,6 +14,7 @@ import com.nicoqueijo.android.convertcurrency.NumPadKey
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
+// TODO: Style this nice
 /**
  * A Composable component to display a [NumberPadState].
  * Has the function of a numerical keyboard with three buttons on each row.
@@ -51,6 +52,7 @@ fun NumberPad(
     }
 }
 
+// TODO: Style this nice
 /**
  * A Composable component to display a button with a single character.
  * @param modifier [Modifier] to control the internal Box element.
@@ -80,6 +82,7 @@ fun NumberPadButton(
     }
 }
 
+// TODO: Figure out if I should keep this here or put in another file
 /**
  * UI State object to be used by [NumberPad] Composable.
  * @property onDigitButtonClick The event to be executed among the click of a digit button.
