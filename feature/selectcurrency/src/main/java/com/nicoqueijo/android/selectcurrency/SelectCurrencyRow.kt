@@ -44,7 +44,8 @@ fun SelectCurrencyRow(
             .padding(
                 horizontal = 12.dp,
                 vertical = 8.dp,
-            )
+            ),
+        verticalAlignment = Alignment.CenterVertically
     ) {
         Image(
             modifier = Modifier
@@ -71,11 +72,7 @@ fun SelectCurrencyRow(
         }
         if (state.isSelected) {
             Icon(
-                modifier = Modifier
-                    .size(32.dp)
-                    .align(
-                        Alignment.CenterVertically
-                    ),
+                modifier = Modifier.size(32.dp),
                 imageVector = Icons.Outlined.Check,
                 contentDescription = null,
                 tint = Color.Green, // TODO: Change to better green that matches the theme

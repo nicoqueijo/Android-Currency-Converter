@@ -102,36 +102,36 @@ data class Currency(
          * The underlying numeric conversion result.
          * Example: 1234.5678
          */
-        var conversionValue: BigDecimal = conversionValue
+        var value: BigDecimal = conversionValue
             set(value) {
                 field = value.roundToFourDecimalPlaces()
-                conversionString = field.toString()
+                valueAsString = field.toString()
             }
 
         /**
-         * The [conversionValue] as a String.
+         * The [value] as a String.
          * Example: "1234.5678"
          */
-        var conversionString = ""
+        var valueAsString = ""
 
         /**
-         * The [conversionString] formatted according to locale.
+         * The [valueAsString] formatted according to locale.
          * Example:    USA: 1,234.5678
          *          France: 1.234,5678
          */
-        val conversionText: String
+        val valueAsText: String
             get() {
-                return if (conversionString.isNotBlank()) {
-                    formatConversion(conversionString)
+                return if (valueAsString.isNotBlank()) {
+                    formatConversion(valueAsString)
                 } else {
                     ""
                 }
             }
 
         /**
-         * The hint displayed when [conversionText] is empty.
+         * The hint displayed when [valueAsText] is empty.
          */
-        var conversionHint = ""
+        var hint = ""
             set(value) {
                 field = formatConversion(BigDecimal(value).toString())
             }
