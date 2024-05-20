@@ -32,18 +32,18 @@ fun NumberPad(
             NumberPadButton(char = entry.value) {
                 with(state) {
                     when (entry) {
-                        NumPadKey.ONE -> digitButtonOnClick?.invoke(Digit.One)
-                        NumPadKey.TWO -> digitButtonOnClick?.invoke(Digit.Two)
-                        NumPadKey.THREE -> digitButtonOnClick?.invoke(Digit.Three)
-                        NumPadKey.FOUR -> digitButtonOnClick?.invoke(Digit.Four)
-                        NumPadKey.FIVE -> digitButtonOnClick?.invoke(Digit.Five)
-                        NumPadKey.SIX -> digitButtonOnClick?.invoke(Digit.Six)
-                        NumPadKey.SEVEN -> digitButtonOnClick?.invoke(Digit.Seven)
-                        NumPadKey.EIGHT -> digitButtonOnClick?.invoke(Digit.Eight)
-                        NumPadKey.NINE -> digitButtonOnClick?.invoke(Digit.Nine)
-                        NumPadKey.DECIMAL_POINT -> decimalPointButtonOnClick?.invoke()
-                        NumPadKey.ZERO -> digitButtonOnClick?.invoke(Digit.Zero)
-                        NumPadKey.BACKSPACE -> backspaceButtonOnClick?.invoke()
+                        NumPadKey.ONE -> onDigitButtonClick?.invoke(Digit.One)
+                        NumPadKey.TWO -> onDigitButtonClick?.invoke(Digit.Two)
+                        NumPadKey.THREE -> onDigitButtonClick?.invoke(Digit.Three)
+                        NumPadKey.FOUR -> onDigitButtonClick?.invoke(Digit.Four)
+                        NumPadKey.FIVE -> onDigitButtonClick?.invoke(Digit.Five)
+                        NumPadKey.SIX -> onDigitButtonClick?.invoke(Digit.Six)
+                        NumPadKey.SEVEN -> onDigitButtonClick?.invoke(Digit.Seven)
+                        NumPadKey.EIGHT -> onDigitButtonClick?.invoke(Digit.Eight)
+                        NumPadKey.NINE -> onDigitButtonClick?.invoke(Digit.Nine)
+                        NumPadKey.DECIMAL_POINT -> onDecimalPointButtonClick?.invoke()
+                        NumPadKey.ZERO -> onDigitButtonClick?.invoke(Digit.Zero)
+                        NumPadKey.BACKSPACE -> onBackspaceButtonClick?.invoke()
                     }
                 }
             }
@@ -82,14 +82,14 @@ fun NumberPadButton(
 
 /**
  * UI State object to be used by [NumberPad] Composable.
- * @property digitButtonOnClick The event to be executed among the click of a digit button.
- * @property decimalPointButtonOnClick The event to be executed among the click of the decimal button.
- * @property backspaceButtonOnClick The event to be executed among the click of the backspace button.
+ * @property onDigitButtonClick The event to be executed among the click of a digit button.
+ * @property onDecimalPointButtonClick The event to be executed among the click of the decimal button.
+ * @property onBackspaceButtonClick The event to be executed among the click of the backspace button.
  */
 data class NumberPadState(
-    val digitButtonOnClick: ((Digit) -> Unit)? = null,
-    val decimalPointButtonOnClick: (() -> Unit)? = null,
-    val backspaceButtonOnClick: (() -> Unit)? = null,
+    val onDigitButtonClick: ((Digit) -> Unit)? = null,
+    val onDecimalPointButtonClick: (() -> Unit)? = null,
+    val onBackspaceButtonClick: (() -> Unit)? = null,
 )
 
 @Composable

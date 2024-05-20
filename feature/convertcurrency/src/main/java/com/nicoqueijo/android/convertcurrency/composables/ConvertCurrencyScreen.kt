@@ -12,13 +12,14 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
-    onFabClick: (() -> Unit)? = null,
+    state: ConvertCurrencyScreenState,
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -26,11 +27,13 @@ fun ConvertCurrencyScreen(
     ) {
         Column {
             Box(
-                modifier = Modifier.fillMaxSize().weight(1f),
+                modifier = Modifier
+                    .fillMaxSize()
+                    .weight(1f),
                 contentAlignment = Alignment.BottomCenter
             ) {
                 FloatingActionButton(
-                    onClick = { onFabClick?.invoke() },
+                    onClick = { state.onFabClick?.invoke() },
                 ) {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                 }
@@ -38,9 +41,9 @@ fun ConvertCurrencyScreen(
             Box {
                 NumberPad(
                     state = NumberPadState(
-                        digitButtonOnClick = null, // TODO: Pass the correct implementation
-                        decimalPointButtonOnClick = null, // TODO: Pass the correct implementation
-                        backspaceButtonOnClick = null, // TODO: Pass the correct implementation
+                        onDigitButtonClick = null, // TODO: Pass the correct implementation
+                        onDecimalPointButtonClick = null, // TODO: Pass the correct implementation
+                        onBackspaceButtonClick = null, // TODO: Pass the correct implementation
                     )
                 )
             }
@@ -48,10 +51,20 @@ fun ConvertCurrencyScreen(
     }
 }
 
+data class ConvertCurrencyScreenState(
+    val onFabClick: (() -> Unit)? = null,
+    val onDigitButtonClick: ((Digit) -> Unit)? = null,
+    val onDecimalPointButtonClick: (() -> Unit)? = null,
+    val onBackspaceButtonClick: (() -> Unit)? = null,
+)
+
 @DarkLightPreviews
 @Composable
 fun ConvertCurrencyScreenPreview() {
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyScreen()
+        val state = ConvertCurrencyScreenState()
+        ConvertCurrencyScreen(
+            state = state
+        )
     }
 }
