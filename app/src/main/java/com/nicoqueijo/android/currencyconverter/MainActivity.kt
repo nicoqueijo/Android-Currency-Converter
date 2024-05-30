@@ -55,7 +55,7 @@ class MainActivity : ComponentActivity() {
                                         }
                                     }
 
-                                    Screen.ConvertCurrency.route -> {
+                                    Screen.ConvertCurrency.route -> { // TODO: Only show if currency list is now empty
                                         IconButton(
                                             onClick = {
                                                 // TODO: Remove all selected currencies

@@ -23,6 +23,7 @@ navigationCompose = "2.8.0-beta01"
 room = "2.6.1"
 roomCommon = "2.6.1"
 uiToolingPreviewAndroid = "1.6.7"
+lifecycleRuntimeComposeAndroid = "2.8.0"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
@@ -59,6 +60,7 @@ room-common = { group = "androidx.room", name = "room-common", version.ref = "ro
 room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
 room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "room" }
+androidx-lifecycle-runtime-compose-android = { group = "androidx.lifecycle", name = "lifecycle-runtime-compose-android", version.ref = "lifecycleRuntimeComposeAndroid" }
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

@@ -11,7 +11,7 @@ interface Repository {
     suspend fun upsertCurrencies(currencies: List<Currency>)
     suspend fun updateExchangeRates(currencies: List<Currency>)
     suspend fun getCurrency(currencyCode: String): Currency
-    suspend fun getAllCurrencies(): Flow<MutableList<Currency>>
+    fun getAllCurrencies(): Flow<MutableList<Currency>>
     suspend fun getSelectedCurrencies(): Flow<MutableList<Currency>>
     suspend fun setFirstLaunch(value: Boolean)
     suspend fun isFirstLaunch(): Boolean

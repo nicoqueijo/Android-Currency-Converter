@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency.composables
+package com.nicoqueijo.android.convertcurrency
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -12,7 +12,6 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 

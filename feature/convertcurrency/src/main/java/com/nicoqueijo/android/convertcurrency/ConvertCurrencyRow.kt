@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency.composables
+package com.nicoqueijo.android.convertcurrency
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background

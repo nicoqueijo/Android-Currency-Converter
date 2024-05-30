@@ -28,6 +28,7 @@ import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
+import com.nicoqueijo.android.ui.Green
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 
@@ -75,7 +76,7 @@ fun SelectCurrencyRow(
                 modifier = Modifier.size(32.dp),
                 imageVector = Icons.Outlined.Check,
                 contentDescription = null,
-                tint = Color.Green, // TODO: Change to better green that matches the theme
+                tint = Green, // TODO: Ensure this looks good on dark/light themes
             )
         }
     }

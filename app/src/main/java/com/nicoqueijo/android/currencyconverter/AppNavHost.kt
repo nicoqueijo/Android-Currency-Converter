@@ -8,8 +8,8 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.nicoqueijo.android.convertcurrency.composables.ConvertCurrencyScreen
-import com.nicoqueijo.android.convertcurrency.composables.ConvertCurrencyScreenState
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreen
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreenState
 import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.currencyconverter.splash.SplashScreen
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyScreen

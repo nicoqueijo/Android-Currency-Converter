@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency.composables
+package com.nicoqueijo.android.convertcurrency
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
