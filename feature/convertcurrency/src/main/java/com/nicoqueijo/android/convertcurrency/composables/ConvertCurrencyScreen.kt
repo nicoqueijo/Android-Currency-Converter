@@ -1,8 +1,9 @@
-package com.nicoqueijo.android.convertcurrency
+package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
@@ -12,15 +13,24 @@ import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
-import com.nicoqueijo.android.ui.DarkLightPreviews
+import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
+import com.nicoqueijo.android.convertcurrency.Digit
 
 // TODO: Style this nicely
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
-    state: ConvertCurrencyScreenState,
+    viewModel: ConvertCurrencyViewModel? = hiltViewModel(),
+    onFabClick: (() -> Unit)? = null,
+    onDigitButtonClick: ((Digit) -> Unit)? = null,
+    onDecimalPointButtonClick: (() -> Unit)? = null,
+    onBackspaceButtonClick: (() -> Unit)? = null,
 ) {
+
+    val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()
+
     Surface(
         modifier = modifier.fillMaxSize(),
         color = MaterialTheme.colorScheme.background,
@@ -32,9 +42,24 @@ fun ConvertCurrencyScreen(
                     .weight(1f),
                 contentAlignment = Alignment.BottomCenter
             ) {
-                EmptyListIndicator() // TODO: Only display if no currencies selected
+                when(uiState?.value?.selectedCurrencies?.isEmpty()) {
+                    true -> {
+                        EmptyListIndicator()
+                    }
+                    else -> {
+                        LazyColumn(
+                            modifier = Modifier.fillMaxSize()
+                        ) {
+                            uiState?.value?.selectedCurrencies?.forEach { currency ->
+                                item {
+                                    ConvertCurrencyRow(state = currency)
+                                }
+                            }
+                        }
+                    }
+                }
                 FloatingActionButton(
-                    onClick = { state.onFabClick?.invoke() },
+                    onClick = { onFabClick?.invoke() },
                 ) {
                     Icon(imageVector = Icons.Filled.Add, contentDescription = null)
                 }
@@ -49,24 +74,5 @@ fun ConvertCurrencyScreen(
                 )
             }
         }
-    }
-}
-
-// TODO: Figure out if I should keep this here or put in another file
-data class ConvertCurrencyScreenState(
-    val onFabClick: (() -> Unit)? = null,
-    val onDigitButtonClick: ((Digit) -> Unit)? = null,
-    val onDecimalPointButtonClick: (() -> Unit)? = null,
-    val onBackspaceButtonClick: (() -> Unit)? = null,
-)
-
-@DarkLightPreviews
-@Composable
-fun ConvertCurrencyScreenPreview() {
-    AndroidCurrencyConverterTheme {
-        val state = ConvertCurrencyScreenState()
-        ConvertCurrencyScreen(
-            state = state
-        )
     }
 }

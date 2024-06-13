@@ -8,11 +8,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navigation
-import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreen
-import com.nicoqueijo.android.convertcurrency.ConvertCurrencyScreenState
+import com.nicoqueijo.android.convertcurrency.composables.ConvertCurrencyScreen
 import com.nicoqueijo.android.currencyconverter.error.ErrorScreen
 import com.nicoqueijo.android.currencyconverter.splash.SplashScreen
-import com.nicoqueijo.android.selectcurrency.SelectCurrencyScreen
+import com.nicoqueijo.android.selectcurrency.composables.SelectCurrencyScreen
 import kotlinx.serialization.Serializable
 
 /**
@@ -70,11 +69,9 @@ fun AppNavHost(
         ) {
             composable(Screen.ConvertCurrency.route) {
                 ConvertCurrencyScreen(
-                    state = ConvertCurrencyScreenState(
-                        onFabClick = {
-                            navController.navigate(Screen.SelectCurrency.route)
-                        }
-                    )
+                    onFabClick = {
+                        navController.navigate(Screen.SelectCurrency.route)
+                    }
                 )
             }
             composable(Screen.SelectCurrency.route) {

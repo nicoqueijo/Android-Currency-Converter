@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.selectcurrency
+package com.nicoqueijo.android.convertcurrency
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -14,23 +14,24 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class SelectCurrencyViewModel @Inject constructor(
+class ConvertCurrencyViewModel @Inject constructor(
     private val repository: Repository,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(value = SelectCurrencyUiState())
+    private val _uiState = MutableStateFlow(value = ConvertCurrencyUiState())
     val uiState = _uiState.asStateFlow()
 
     init {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                filteredCurrencies = repository.getAllCurrencies().first()
+                selectedCurrencies = repository.getSelectedCurrencies().first()
             )
         }
     }
+
 }
 
-data class SelectCurrencyUiState(
-    val filteredCurrencies: List<Currency> = emptyList(),
+data class ConvertCurrencyUiState(
+    val selectedCurrencies: List<Currency> = emptyList()
 )
