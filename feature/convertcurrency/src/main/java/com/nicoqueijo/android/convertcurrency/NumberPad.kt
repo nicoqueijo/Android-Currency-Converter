@@ -3,6 +3,7 @@ package com.nicoqueijo.android.convertcurrency
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -23,26 +24,28 @@ fun NumberPad(
     modifier: Modifier = Modifier,
     state: NumberPadState,
 ) {
-    VerticalGrid(
-        modifier = modifier,
-        columns = 3
-    ) {
-        NumPadKey.entries.forEach { entry ->
-            NumberPadButton(char = entry.value) {
-                with(state) {
-                    when (entry) {
-                        NumPadKey.ONE -> onDigitButtonClick?.invoke(Digit.One)
-                        NumPadKey.TWO -> onDigitButtonClick?.invoke(Digit.Two)
-                        NumPadKey.THREE -> onDigitButtonClick?.invoke(Digit.Three)
-                        NumPadKey.FOUR -> onDigitButtonClick?.invoke(Digit.Four)
-                        NumPadKey.FIVE -> onDigitButtonClick?.invoke(Digit.Five)
-                        NumPadKey.SIX -> onDigitButtonClick?.invoke(Digit.Six)
-                        NumPadKey.SEVEN -> onDigitButtonClick?.invoke(Digit.Seven)
-                        NumPadKey.EIGHT -> onDigitButtonClick?.invoke(Digit.Eight)
-                        NumPadKey.NINE -> onDigitButtonClick?.invoke(Digit.Nine)
-                        NumPadKey.DECIMAL_POINT -> onDecimalPointButtonClick?.invoke()
-                        NumPadKey.ZERO -> onDigitButtonClick?.invoke(Digit.Zero)
-                        NumPadKey.BACKSPACE -> onBackspaceButtonClick?.invoke()
+    Surface {
+        VerticalGrid(
+            modifier = modifier,
+            columns = 3
+        ) {
+            NumPadKey.entries.forEach { entry ->
+                NumberPadButton(char = entry.value) {
+                    with(state) {
+                        when (entry) {
+                            NumPadKey.ONE -> onDigitButtonClick?.invoke(Digit.One)
+                            NumPadKey.TWO -> onDigitButtonClick?.invoke(Digit.Two)
+                            NumPadKey.THREE -> onDigitButtonClick?.invoke(Digit.Three)
+                            NumPadKey.FOUR -> onDigitButtonClick?.invoke(Digit.Four)
+                            NumPadKey.FIVE -> onDigitButtonClick?.invoke(Digit.Five)
+                            NumPadKey.SIX -> onDigitButtonClick?.invoke(Digit.Six)
+                            NumPadKey.SEVEN -> onDigitButtonClick?.invoke(Digit.Seven)
+                            NumPadKey.EIGHT -> onDigitButtonClick?.invoke(Digit.Eight)
+                            NumPadKey.NINE -> onDigitButtonClick?.invoke(Digit.Nine)
+                            NumPadKey.DECIMAL_POINT -> onDecimalPointButtonClick?.invoke()
+                            NumPadKey.ZERO -> onDigitButtonClick?.invoke(Digit.Zero)
+                            NumPadKey.BACKSPACE -> onBackspaceButtonClick?.invoke()
+                        }
                     }
                 }
             }
