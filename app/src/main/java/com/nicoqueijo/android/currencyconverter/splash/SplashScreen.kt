@@ -46,6 +46,7 @@ fun SplashScreen(
                 modifier = Modifier
                     .size(size = 125.dp)
                     .padding(all = XXXS),
+                color = MaterialTheme.colorScheme.inverseSurface,
                 strokeWidth = 8.dp
             )
             Text(
