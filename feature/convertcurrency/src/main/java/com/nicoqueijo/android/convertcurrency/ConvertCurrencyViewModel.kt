@@ -7,8 +7,11 @@ import com.nicoqueijo.android.core.di.DefaultDispatcher
 import com.nicoqueijo.android.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.debounce
+import kotlinx.coroutines.flow.distinctUntilChanged
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,13 +26,12 @@ class ConvertCurrencyViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
                 selectedCurrencies = repository.getSelectedCurrencies()
             )
         }
     }
-
 }
 
 data class ConvertCurrencyUiState(
