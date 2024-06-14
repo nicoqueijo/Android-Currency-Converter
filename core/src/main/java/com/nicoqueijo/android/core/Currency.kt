@@ -1,6 +1,5 @@
 package com.nicoqueijo.android.core
 
-import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
@@ -16,16 +15,12 @@ import java.util.Locale
  * @property currencyCode The three-letter ISO 4217 currency code.
  * @property exchangeRate The exchange rate of this currency to one US Dollar (USD).
  */
-@Entity(tableName = "table_currency")
+@Entity
 data class Currency(
     @PrimaryKey
-    @ColumnInfo(name = "column_currencyCode")
     val currencyCode: String,
-    @ColumnInfo(name = "column_exchangeRate")
     val exchangeRate: Double,
-    @ColumnInfo(name = "column_order")
-    var order: Int = Order.INVALID.position,
-    @ColumnInfo(name = "column_isSelected")
+    var position: Int = Position.INVALID.value,
     var isSelected: Boolean = false,
 ) {
 
@@ -67,7 +62,7 @@ data class Currency(
         return (this.currencyCode == other.currencyCode &&
                 this.exchangeRate == other.exchangeRate &&
                 this.isSelected == other.isSelected &&
-                this.order == other.order)
+                this.position == other.position)
     }
 
     override fun hashCode() = currencyCode.hashCode()
@@ -87,7 +82,7 @@ data class Currency(
      */
     override fun toString() = buildString {
         append("{")
-        append(order)
+        append(position)
         append(" ")
         append(trimmedCurrencyCode)
         append(" ")
@@ -143,8 +138,8 @@ data class Currency(
             return when {
                 conversion.contains(".") -> {
                     val splitConversion = conversion.split(".")
-                    val wholePart = splitConversion[Order.FIRST.position]
-                    val decimalPart = splitConversion[Order.SECOND.position]
+                    val wholePart = splitConversion[Position.FIRST.value]
+                    val decimalPart = splitConversion[Position.SECOND.value]
                     decimalFormatter.format(BigDecimal(wholePart)) + decimalSeparator + decimalPart
                 }
                 else -> {
@@ -155,7 +150,7 @@ data class Currency(
     }
 }
 
-enum class Order(val position: Int) {
+enum class Position(val value: Int) {
     INVALID(-1),
     FIRST(0),
     SECOND(1),

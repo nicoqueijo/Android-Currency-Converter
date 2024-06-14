@@ -29,6 +29,13 @@ class SelectCurrencyViewModel @Inject constructor(
             )
         }
     }
+
+    fun handleCurrencySelection(selectedCurrency: Currency) {
+        viewModelScope.launch(context = dispatcher) {
+            selectedCurrency.isSelected = true
+            repository.upsertCurrency(selectedCurrency)
+        }
+    }
 }
 
 data class SelectCurrencyUiState(

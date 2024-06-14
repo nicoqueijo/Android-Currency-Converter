@@ -21,7 +21,7 @@ interface CurrencyDao {
         }
     }
 
-    @Query("UPDATE table_currency SET column_exchangeRate = :exchangeRate WHERE column_currencyCode = :currencyCode")
+    @Query("UPDATE Currency SET exchangeRate = :exchangeRate WHERE currencyCode = :currencyCode")
     suspend fun updateExchangeRate(currencyCode: String, exchangeRate: Double)
 
     @Transaction
@@ -31,12 +31,12 @@ interface CurrencyDao {
         }
     }
 
-    @Query("SELECT * FROM table_currency WHERE column_currencyCode = :currencyCode")
+    @Query("SELECT * FROM Currency WHERE currencyCode = :currencyCode")
     suspend fun getCurrency(currencyCode: String): Currency
 
-    @Query("SELECT * FROM table_currency ORDER BY column_currencyCode ASC")
+    @Query("SELECT * FROM Currency ORDER BY currencyCode ASC")
     fun getAllCurrencies(): Flow<MutableList<Currency>>
 
-    @Query("SELECT * FROM table_currency WHERE column_isSelected = 1 ORDER BY column_order ASC")
+    @Query("SELECT * FROM Currency WHERE isSelected = 1 ORDER BY position ASC")
     fun getSelectedCurrencies(): Flow<MutableList<Currency>>
 }

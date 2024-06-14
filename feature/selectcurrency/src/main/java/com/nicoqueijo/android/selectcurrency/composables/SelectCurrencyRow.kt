@@ -1,6 +1,7 @@
 package com.nicoqueijo.android.selectcurrency.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -35,10 +36,15 @@ import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 fun SelectCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
+    onClick: (() -> Unit)? = null,
 ) {
-    Surface {
+    Surface(
+        modifier = modifier.clickable {
+            onClick?.invoke()
+        }
+    ) {
         Row(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxWidth()
                 .height(64.dp)
                 .padding(
