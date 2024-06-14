@@ -40,7 +40,9 @@ fun SelectCurrencyRow(
 ) {
     Surface(
         modifier = modifier.clickable {
-            onClick?.invoke()
+            if (!state.isSelected) {
+                onClick?.invoke()
+            }
         }
     ) {
         Row(
@@ -81,7 +83,7 @@ fun SelectCurrencyRow(
                     modifier = Modifier.size(32.dp),
                     imageVector = Icons.Outlined.Check,
                     contentDescription = null,
-                    tint = Green, // TODO: Ensure this looks good on dark/light themes
+                    tint = Green,
                 )
             }
         }
