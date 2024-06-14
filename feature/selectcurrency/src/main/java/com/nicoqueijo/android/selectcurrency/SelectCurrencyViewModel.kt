@@ -23,7 +23,7 @@ class SelectCurrencyViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        viewModelScope.launch {
+        viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
                 filteredCurrencies = repository.getAllCurrencies().first()
             )
@@ -32,7 +32,11 @@ class SelectCurrencyViewModel @Inject constructor(
 
     fun handleCurrencySelection(selectedCurrency: Currency) {
         viewModelScope.launch(context = dispatcher) {
-            selectedCurrency.isSelected = true
+            val lastPosition = repository.getSelectedCurrencyCount()
+            selectedCurrency.apply {
+                isSelected = true
+                position = lastPosition
+            }
             repository.upsertCurrency(selectedCurrency)
         }
     }

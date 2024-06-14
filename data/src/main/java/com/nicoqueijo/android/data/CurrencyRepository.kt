@@ -57,6 +57,12 @@ class CurrencyRepository @Inject constructor(
         }
     }
 
+    override suspend fun getSelectedCurrencyCount(): Int {
+        return withContext(context = dispatcher) {
+            currencyDao.getSelectedCurrencyCount()
+        }
+    }
+
     override suspend fun setFirstLaunch(value: Boolean) {
         withContext(context = dispatcher) {
             dataStoreManager.setFirstLaunch(value = value)
