@@ -25,7 +25,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     init {
         viewModelScope.launch {
             _uiState.value = _uiState.value.copy(
-                selectedCurrencies = repository.getSelectedCurrencies().first()
+                selectedCurrencies = repository.getSelectedCurrencies()
             )
         }
     }

@@ -21,7 +21,6 @@ fun SelectCurrencyScreen(
 
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
     ) {
         LazyColumn {
             uiState?.value?.filteredCurrencies?.forEach { currency ->

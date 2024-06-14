@@ -33,7 +33,6 @@ fun ConvertCurrencyScreen(
 
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background,
     ) {
         Column {
             Box(

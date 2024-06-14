@@ -30,7 +30,6 @@ fun EmptyListIndicator(
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
-        color = MaterialTheme.colorScheme.background
     ) {
         Column(
             modifier = Modifier.padding(horizontal = L, vertical = XL),

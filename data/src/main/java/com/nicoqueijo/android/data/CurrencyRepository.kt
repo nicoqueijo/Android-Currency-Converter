@@ -47,11 +47,11 @@ class CurrencyRepository @Inject constructor(
         }
     }
 
-    override fun getAllCurrencies(): Flow<MutableList<Currency>> {
+    override suspend fun getAllCurrencies(): MutableList<Currency> {
         return currencyDao.getAllCurrencies()
     }
 
-    override suspend fun getSelectedCurrencies(): Flow<MutableList<Currency>> {
+    override suspend fun getSelectedCurrencies(): MutableList<Currency> {
         return withContext(context = dispatcher) {
             currencyDao.getSelectedCurrencies()
         }
