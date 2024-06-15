@@ -1,7 +1,5 @@
 package com.nicoqueijo.android.currencyconverter
 
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
@@ -38,13 +36,13 @@ sealed class Screen(val route: String) {
 
 @Composable
 fun AppNavHost(
+    modifier: Modifier = Modifier,
     navController: NavHostController,
-    innerPadding: PaddingValues
 ) {
     NavHost(
         navController = navController,
         startDestination = Screen.Splash.route,
-        modifier = Modifier.padding(innerPadding)
+        modifier = modifier,
     ) {
         composable(Screen.Splash.route) {
             SplashScreen(
@@ -61,7 +59,13 @@ fun AppNavHost(
             )
         }
         composable(Screen.Error.route) {
-            ErrorScreen()
+            ErrorScreen(
+                onRefreshClick = {
+                    navController.navigate(Screen.Splash.route) {
+                        popUpTo(Screen.Error.route) { inclusive = true }
+                    }
+                }
+            )
         }
         navigation(
             startDestination = Screen.ConvertCurrency.route,

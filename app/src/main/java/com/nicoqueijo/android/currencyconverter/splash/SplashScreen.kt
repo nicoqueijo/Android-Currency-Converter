@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMaterial3Api::class)
+
 package com.nicoqueijo.android.currencyconverter.splash
 
 import androidx.compose.foundation.layout.Arrangement
@@ -6,9 +8,12 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
@@ -34,26 +39,37 @@ fun SplashScreen(
     onSuccess: (() -> Unit)? = null,
     onFailure: (() -> Unit)? = null,
 ) {
-    Surface(
-        modifier = modifier.fillMaxSize(),
-    ) {
-        Column(
-            modifier = Modifier.padding(horizontal = L, vertical = XL),
-            horizontalAlignment = Alignment.CenterHorizontally,
-            verticalArrangement = Arrangement.spacedBy(space = S)
+    Scaffold(
+        topBar = {
+            TopAppBar(
+                title = {
+                    Text(text = stringResource(id = R.string.app_name))
+                },
+                actions = {}
+            )
+        }
+    ) { innerPadding ->
+        Surface(
+            modifier = modifier.fillMaxSize().padding(paddingValues = innerPadding),
         ) {
-            CircularProgressIndicator(
-                modifier = Modifier
-                    .size(size = 125.dp)
-                    .padding(all = XXXS),
-                color = MaterialTheme.colorScheme.inverseSurface,
-                strokeWidth = 8.dp
-            )
-            Text(
-                text = stringResource(id = R.string.splash_title),
-                style = MaterialTheme.typography.titleLarge,
-                textAlign = TextAlign.Center
-            )
+            Column(
+                modifier = Modifier.padding(horizontal = L, vertical = XL),
+                horizontalAlignment = Alignment.CenterHorizontally,
+                verticalArrangement = Arrangement.spacedBy(space = S)
+            ) {
+                CircularProgressIndicator(
+                    modifier = Modifier
+                        .size(size = 125.dp)
+                        .padding(all = XXXS),
+                    color = MaterialTheme.colorScheme.inverseSurface,
+                    strokeWidth = 8.dp
+                )
+                Text(
+                    text = stringResource(id = R.string.splash_title),
+                    style = MaterialTheme.typography.titleLarge,
+                    textAlign = TextAlign.Center
+                )
+            }
         }
     }
 
