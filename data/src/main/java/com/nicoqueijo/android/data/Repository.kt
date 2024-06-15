@@ -10,8 +10,8 @@ interface Repository {
     suspend fun upsertCurrencies(currencies: List<Currency>)
     suspend fun updateExchangeRates(currencies: List<Currency>)
     suspend fun getCurrency(currencyCode: String): Currency
-    suspend fun getAllCurrencies(): MutableList<Currency>
-    suspend fun getSelectedCurrencies(): MutableList<Currency>
+    suspend fun getAllCurrencies(): List<Currency>
+    suspend fun getSelectedCurrencies(): List<Currency>
     suspend fun getSelectedCurrencyCount(): Int
     suspend fun setFirstLaunch(value: Boolean)
     suspend fun isFirstLaunch(): Boolean

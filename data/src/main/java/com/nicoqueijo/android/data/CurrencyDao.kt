@@ -32,10 +32,10 @@ interface CurrencyDao {
     suspend fun getCurrency(currencyCode: String): Currency
 
     @Query("SELECT * FROM Currency ORDER BY currencyCode ASC")
-    suspend fun getAllCurrencies(): MutableList<Currency>
+    suspend fun getAllCurrencies(): List<Currency>
 
     @Query("SELECT * FROM Currency WHERE isSelected = 1 ORDER BY position ASC")
-    suspend fun getSelectedCurrencies(): MutableList<Currency>
+    suspend fun getSelectedCurrencies(): List<Currency>
 
     @Query("SELECT COUNT(*) FROM Currency WHERE isSelected = 1")
     suspend fun getSelectedCurrencyCount(): Int

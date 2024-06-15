@@ -4,7 +4,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
-import com.nicoqueijo.android.data.Repository
+import com.nicoqueijo.android.selectcurrency.usecases.SelectCurrencyUseCases
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 @HiltViewModel
 class SelectCurrencyViewModel @Inject constructor(
-    private val repository: Repository,
+    private val useCases: SelectCurrencyUseCases,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -24,19 +24,14 @@ class SelectCurrencyViewModel @Inject constructor(
     init {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
-                filteredCurrencies = repository.getAllCurrencies()
+                filteredCurrencies = useCases.retrieveCurrenciesUseCase()
             )
         }
     }
 
     fun handleCurrencySelection(selectedCurrency: Currency) {
         viewModelScope.launch(context = dispatcher) {
-            val lastPosition = repository.getSelectedCurrencyCount()
-            selectedCurrency.apply {
-                isSelected = true
-                position = lastPosition
-            }
-            repository.upsertCurrency(selectedCurrency)
+            useCases.selectCurrencyUseCase(selectedCurrency = selectedCurrency)
         }
     }
 }
