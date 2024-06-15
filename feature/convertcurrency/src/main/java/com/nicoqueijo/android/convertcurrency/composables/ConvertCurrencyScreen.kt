@@ -8,7 +8,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -41,10 +40,11 @@ fun ConvertCurrencyScreen(
                     .weight(1f),
                 contentAlignment = Alignment.BottomCenter
             ) {
-                when(uiState?.value?.selectedCurrencies?.isEmpty()) {
+                when (uiState?.value?.selectedCurrencies?.isEmpty()) {
                     true -> {
                         EmptyListIndicator()
                     }
+
                     else -> {
                         LazyColumn(
                             modifier = Modifier.fillMaxSize()
