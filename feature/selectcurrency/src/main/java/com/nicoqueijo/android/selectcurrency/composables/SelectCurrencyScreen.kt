@@ -2,24 +2,29 @@
 
 package com.nicoqueijo.android.selectcurrency.composables
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.nicoqueijo.android.core.R
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
 
 @Composable
@@ -28,37 +33,52 @@ fun SelectCurrencyScreen(
     viewModel: SelectCurrencyViewModel? = hiltViewModel(),
     onCurrencyClick: (() -> Unit)? = null,
 ) {
-
     val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()
+    val keyboardController = LocalSoftwareKeyboardController.current
+    var searchTerm by remember { mutableStateOf("") }
+    Surface(
+        modifier = modifier.fillMaxSize()
+    ) {
+        Scaffold(
+            topBar = {
+                TopAppBar(
+                    title = {
+                        DockedSearchBar(
+                            query = searchTerm,
+                            onQueryChange = { queryChange ->
+                                searchTerm = queryChange
+                            },
+                            onSearch = {
+                                keyboardController?.hide()
+                            },
+                            active = false,
+                            onActiveChange = { },
+                            placeholder = {
+                                Text(text = "Search...")
+                            },
+                            leadingIcon = {
+                                Icon(
+                                    imageVector = Icons.Default.Search,
+                                    contentDescription = null
+                                )
+                            },
+                            trailingIcon = {
+                                Icon(
+                                    modifier = Modifier.clickable { searchTerm = "" },
+                                    imageVector = Icons.Default.Close,
+                                    contentDescription = null,
+                                )
+                            }
+                        ) {
 
-    Scaffold(
-        modifier = modifier,
-        topBar = {
-            TopAppBar(
-                title = {
-                    Text(text = stringResource(id = R.string.app_name))
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            // TODO: Summon search bar to filter currencies
                         }
-                    ) {
-                        Icon(
-                            imageVector = Icons.Default.Search,
-                            contentDescription = null
-                        )
-                    }
-                }
-            )
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues = innerPadding),
-        ) {
-            LazyColumn {
+                    },
+                )
+            }
+        ) { innerPadding ->
+            LazyColumn(
+                modifier = Modifier.padding(paddingValues = innerPadding)
+            ) {
                 uiState?.value?.filteredCurrencies?.forEach { currency ->
                     item {
                         SelectCurrencyRow(
