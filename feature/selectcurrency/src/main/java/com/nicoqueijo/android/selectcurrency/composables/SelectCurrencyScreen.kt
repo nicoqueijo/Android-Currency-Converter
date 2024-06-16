@@ -23,8 +23,10 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nicoqueijo.android.selectcurrency.R
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
 
 @Composable
@@ -54,7 +56,7 @@ fun SelectCurrencyScreen(
                             active = false,
                             onActiveChange = { },
                             placeholder = {
-                                Text(text = "Search...")
+                                Text(text = stringResource(id = R.string.search_hint))
                             },
                             leadingIcon = {
                                 Icon(
