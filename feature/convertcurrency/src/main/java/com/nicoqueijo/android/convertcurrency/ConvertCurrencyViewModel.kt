@@ -35,5 +35,6 @@ class ConvertCurrencyViewModel @Inject constructor(
 }
 
 data class ConvertCurrencyUiState(
-    val selectedCurrencies: List<Currency> = emptyList()
+    val selectedCurrencies: List<Currency> = emptyList(),
+    val focusedCurrency: Currency? = null, // unused for now
 )

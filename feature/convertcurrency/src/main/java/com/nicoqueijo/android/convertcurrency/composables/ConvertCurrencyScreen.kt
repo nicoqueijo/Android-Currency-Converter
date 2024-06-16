@@ -9,7 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.MoreVert
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.Icon
@@ -45,6 +45,12 @@ fun ConvertCurrencyScreen(
         modifier = modifier,
         topBar = {
             TopAppBar(
+                navigationIcon = {
+                    /*Icon(
+                        imageVector = painterResource(id = R.drawable.app_icon),
+                        contentDescription = null
+                    )*/
+                },
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
                 },
@@ -54,17 +60,20 @@ fun ConvertCurrencyScreen(
                             // TODO: Remove all selected currencies
                         }
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.MoreVert,
-                            contentDescription = null
-                        )
+                        if (uiState?.value?.selectedCurrencies?.isNotEmpty() == true) {
+                            Icon(
+                                imageVector = Icons.Default.Delete,
+                                contentDescription = null
+                            )
+                        }
                     }
                 }
             )
         }
     ) { innerPadding ->
         Surface(
-            modifier = Modifier.fillMaxSize()
+            modifier = Modifier
+                .fillMaxSize()
                 .padding(paddingValues = innerPadding),
         ) {
             Column {
