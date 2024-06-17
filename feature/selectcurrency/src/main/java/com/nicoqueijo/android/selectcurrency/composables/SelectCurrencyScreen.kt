@@ -3,14 +3,18 @@
 package com.nicoqueijo.android.selectcurrency.composables
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
+import androidx.compose.material3.Divider
 import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
@@ -43,43 +47,45 @@ fun SelectCurrencyScreen(
     ) {
         Scaffold(
             topBar = {
-                TopAppBar(
-                    title = {
-                        DockedSearchBar(
-                            query = searchTerm,
-                            onQueryChange = { queryChange ->
-                                searchTerm = queryChange
-                            },
-                            onSearch = {
-                                keyboardController?.hide()
-                            },
-                            active = false,
-                            onActiveChange = { },
-                            placeholder = {
-                                Text(text = stringResource(id = R.string.search_hint))
-                            },
-                            leadingIcon = {
-                                Icon(
-                                    imageVector = Icons.Default.Search,
-                                    contentDescription = null
-                                )
-                            },
-                            trailingIcon = {
-                                Icon(
-                                    modifier = Modifier.clickable { searchTerm = "" },
-                                    imageVector = Icons.Default.Close,
-                                    contentDescription = null,
-                                )
-                            }
-                        ) {
-
-                        }
-                    },
-                )
+                Column {
+                    TopAppBar(
+                        title = {
+                            DockedSearchBar(
+                                modifier = Modifier.fillMaxWidth(),
+                                query = searchTerm,
+                                onQueryChange = { queryChange ->
+                                    searchTerm = queryChange
+                                },
+                                onSearch = {
+                                    keyboardController?.hide()
+                                },
+                                active = false,
+                                onActiveChange = { },
+                                placeholder = {
+                                    Text(text = stringResource(id = R.string.search_hint))
+                                },
+                                leadingIcon = {
+                                    Icon(
+                                        imageVector = Icons.Default.Search,
+                                        contentDescription = null
+                                    )
+                                },
+                                trailingIcon = {
+                                    Icon(
+                                        modifier = Modifier.clickable { searchTerm = "" },
+                                        imageVector = Icons.Default.Close,
+                                        contentDescription = null,
+                                    )
+                                }
+                            ) { }
+                        },
+                    )
+                    HorizontalDivider()
+                }
             }
         ) { innerPadding ->
             LazyColumn(
-                modifier = Modifier.padding(paddingValues = innerPadding)
+                modifier = Modifier.padding(paddingValues = innerPadding),
             ) {
                 uiState?.value?.filteredCurrencies?.forEach { currency ->
                     item {
@@ -90,6 +96,7 @@ fun SelectCurrencyScreen(
                                 viewModel.handleCurrencySelection(selectedCurrency = currency)
                             },
                         )
+                        HorizontalDivider()
                     }
                 }
             }

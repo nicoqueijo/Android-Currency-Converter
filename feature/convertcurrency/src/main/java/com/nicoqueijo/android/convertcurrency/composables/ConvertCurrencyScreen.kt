@@ -14,6 +14,7 @@ import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.Scaffold
@@ -48,32 +49,35 @@ fun ConvertCurrencyScreen(
     Scaffold(
         modifier = modifier,
         topBar = {
-            TopAppBar(
-                navigationIcon = {
-                    Image(
-                        modifier = Modifier.size(size = XL),
-                        painter = painterResource(id = R.drawable.app_icon),
-                        contentDescription = null
-                    )
-                },
-                title = {
-                    Text(text = stringResource(id = R.string.app_name))
-                },
-                actions = {
-                    IconButton(
-                        onClick = {
-                            // TODO: Remove all selected currencies
-                        }
-                    ) {
-                        if (uiState?.value?.selectedCurrencies?.isNotEmpty() == true) {
-                            Icon(
-                                imageVector = Icons.Default.Delete,
-                                contentDescription = null
-                            )
+            Column {
+                TopAppBar(
+                    navigationIcon = {
+                        Image(
+                            modifier = Modifier.size(size = XL),
+                            painter = painterResource(id = R.drawable.app_icon),
+                            contentDescription = null
+                        )
+                    },
+                    title = {
+                        Text(text = stringResource(id = R.string.app_name))
+                    },
+                    actions = {
+                        IconButton(
+                            onClick = {
+                                // TODO: Remove all selected currencies
+                            }
+                        ) {
+                            if (uiState?.value?.selectedCurrencies?.isNotEmpty() == true) {
+                                Icon(
+                                    imageVector = Icons.Default.Delete,
+                                    contentDescription = null
+                                )
+                            }
                         }
                     }
-                }
-            )
+                )
+                HorizontalDivider()
+            }
         }
     ) { innerPadding ->
         Surface(
@@ -100,6 +104,7 @@ fun ConvertCurrencyScreen(
                                 uiState?.value?.selectedCurrencies?.forEach { currency ->
                                     item {
                                         ConvertCurrencyRow(state = currency)
+                                        HorizontalDivider()
                                     }
                                 }
                             }
