@@ -2,10 +2,12 @@
 
 package com.nicoqueijo.android.convertcurrency.composables
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -21,12 +23,14 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.Digit
-import com.nicoqueijo.android.core.R
+import com.nicoqueijo.android.convertcurrency.R
+import com.nicoqueijo.android.ui.XL
 
 // TODO: Style this nicely
 @Composable
@@ -46,10 +50,11 @@ fun ConvertCurrencyScreen(
         topBar = {
             TopAppBar(
                 navigationIcon = {
-                    /*Icon(
-                        imageVector = painterResource(id = R.drawable.app_icon),
+                    Image(
+                        modifier = Modifier.size(size = XL),
+                        painter = painterResource(id = R.drawable.app_icon),
                         contentDescription = null
-                    )*/
+                    )
                 },
                 title = {
                     Text(text = stringResource(id = R.string.app_name))
