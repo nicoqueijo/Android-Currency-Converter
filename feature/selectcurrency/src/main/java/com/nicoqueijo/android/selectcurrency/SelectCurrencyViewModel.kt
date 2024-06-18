@@ -34,8 +34,17 @@ class SelectCurrencyViewModel @Inject constructor(
             useCases.selectCurrencyUseCase(selectedCurrency = selectedCurrency)
         }
     }
+
+    fun handleSearchTermChange(searchTerm: String) {
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                searchTerm = searchTerm
+            )
+        }
+    }
 }
 
 data class SelectCurrencyUiState(
     val filteredCurrencies: List<Currency> = emptyList(),
+    val searchTerm: String = "",
 )

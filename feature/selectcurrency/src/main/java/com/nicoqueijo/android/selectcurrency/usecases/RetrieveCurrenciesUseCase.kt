@@ -2,8 +2,9 @@ package com.nicoqueijo.android.selectcurrency.usecases
 
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.data.Repository
+import javax.inject.Inject
 
-class RetrieveCurrenciesUseCase(
+class RetrieveCurrenciesUseCase @Inject constructor(
     private val repository: Repository,
 ) {
 
