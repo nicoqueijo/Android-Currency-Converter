@@ -43,8 +43,8 @@ fun SelectCurrencyScreen(
     SelectCurrency(
         modifier = modifier,
         state = uiState?.value,
-        onCurrencyClick = { onCurrencyClick?.invoke() },
-        onCurrencyClick1 = { currency ->
+        onCurrencyClick = { currency ->
+            onCurrencyClick?.invoke()
             viewModel?.handleCurrencySelection(selectedCurrency = currency)
         },
         onSearchTermChange = { searchTerm ->
@@ -57,8 +57,7 @@ fun SelectCurrencyScreen(
 fun SelectCurrency(
     modifier: Modifier = Modifier,
     state: SelectCurrencyUiState?,
-    onCurrencyClick: (() -> Unit)? = null,
-    onCurrencyClick1: ((selectedCurrency: Currency) -> Unit)? = null,
+    onCurrencyClick: ((selectedCurrency: Currency) -> Unit)? = null,
     onSearchTermChange: ((searchTerm: String) -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
@@ -115,8 +114,7 @@ fun SelectCurrency(
                             SelectCurrencyRow(
                                 state = currency,
                                 onClick = {
-                                    onCurrencyClick?.invoke()
-                                    onCurrencyClick1?.invoke(currency)
+                                    onCurrencyClick?.invoke(currency)
                                 },
                             )
                             HorizontalDivider()
