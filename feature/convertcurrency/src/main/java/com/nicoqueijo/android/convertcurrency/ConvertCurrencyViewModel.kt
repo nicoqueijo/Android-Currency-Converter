@@ -2,23 +2,19 @@ package com.nicoqueijo.android.convertcurrency
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
-import com.nicoqueijo.android.data.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.FlowPreview
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
-import kotlinx.coroutines.flow.debounce
-import kotlinx.coroutines.flow.distinctUntilChanged
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
 class ConvertCurrencyViewModel @Inject constructor(
-    private val repository: Repository,
+    private val useCases: ConvertCurrencyUseCases,
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
@@ -28,15 +24,27 @@ class ConvertCurrencyViewModel @Inject constructor(
     init {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
-                selectedCurrencies = repository.getSelectedCurrencies()
+                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
             )
         }
     }
 
-    fun handleDeleteMenuItemClick(toggle: Boolean) {
-        _uiState.value = _uiState.value.copy(
-            showDialog = toggle
-        )
+    fun handleDialogDisplay(toggle: Boolean) {
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                showDialog = toggle
+            )
+        }
+
+    }
+
+    fun handleSelectedCurrenciesRemoval() {
+        viewModelScope.launch(context = dispatcher) {
+            useCases.removeAllCurrenciesUseCase()
+            _uiState.value = _uiState.value.copy(
+                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
+            )
+        }
     }
 }
 

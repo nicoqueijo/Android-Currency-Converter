@@ -56,14 +56,15 @@ fun ConvertCurrencyScreen(
         modifier = modifier,
         state = uiState,
         onFabClick = onFabClick,
-        onRemoveAllCurrenciesClick = {
-            viewModel?.handleDeleteMenuItemClick(toggle = true)
+        onTrashIconClick = {
+            viewModel?.handleDialogDisplay(toggle = true)
         },
         onDialogConfirmClick = {
-            viewModel?.handleDeleteMenuItemClick(toggle = false)
+            viewModel?.handleSelectedCurrenciesRemoval()
+            viewModel?.handleDialogDisplay(toggle = false)
         },
         onDialogDismissClick = {
-            viewModel?.handleDeleteMenuItemClick(toggle = false)
+            viewModel?.handleDialogDisplay(toggle = false)
         },
     )
 }
@@ -73,7 +74,7 @@ fun ConvertCurrency(
     modifier: Modifier = Modifier,
     state: ConvertCurrencyUiState?,
     onFabClick: (() -> Unit)? = null,
-    onRemoveAllCurrenciesClick: (() -> Unit)? = null,
+    onTrashIconClick: (() -> Unit)? = null,
     onDialogConfirmClick: (() -> Unit)? = null,
     onDialogDismissClick: (() -> Unit)? = null,
 ) {
@@ -98,7 +99,7 @@ fun ConvertCurrency(
                         actions = {
                             IconButton(
                                 onClick = {
-                                    onRemoveAllCurrenciesClick?.invoke()
+                                    onTrashIconClick?.invoke()
                                 }
                             ) {
                                 if (state?.selectedCurrencies?.isNotEmpty() == true) {

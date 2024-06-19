@@ -9,12 +9,12 @@ class RemoveAllCurrenciesUseCase @Inject constructor(
     private val repository: Repository,
 ) {
 
-    suspend operator fun invoke(currenciesToRemove: List<Currency>): List<Currency> {
+    suspend operator fun invoke() {
+        val currenciesToRemove = repository.getSelectedCurrencies()
         currenciesToRemove.forEach { currency ->
             currency.isSelected = false
             currency.position = Position.INVALID.value
         }
         repository.upsertCurrencies(currencies = currenciesToRemove)
-        return repository.getSelectedCurrencies()
     }
 }

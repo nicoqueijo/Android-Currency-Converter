@@ -47,7 +47,9 @@ class CurrencyRepository @Inject constructor(
     }
 
     override suspend fun getAllCurrencies(): List<Currency> {
-        return currencyDao.getAllCurrencies()
+        return withContext(context = dispatcher) {
+            currencyDao.getAllCurrencies()
+        }
     }
 
     override suspend fun getSelectedCurrencies(): List<Currency> {
