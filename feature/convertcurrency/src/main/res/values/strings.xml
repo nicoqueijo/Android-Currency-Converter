@@ -3,4 +3,7 @@
     <string name="empty_list_title">Empty list</string>
     <string name="add_currency_instruction">Press the + button to add</string>
     <string name="app_name">Currency Converter</string>
+    <string name="remove_currencies_dialog_title">Remove all currencies?</string>
+    <string name="remove_currencies_dialog_confirm_label">OK</string>
+    <string name="remove_currencies_dialog_dismiss_label">Cancel</string>
 </resources>

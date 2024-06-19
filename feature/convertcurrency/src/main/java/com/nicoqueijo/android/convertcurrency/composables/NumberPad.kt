@@ -44,7 +44,7 @@ fun NumberPad(
                             NumPadKey.SEVEN -> onDigitButtonClick?.invoke(Digit.Seven)
                             NumPadKey.EIGHT -> onDigitButtonClick?.invoke(Digit.Eight)
                             NumPadKey.NINE -> onDigitButtonClick?.invoke(Digit.Nine)
-                            NumPadKey.DECIMAL_POINT -> onDecimalPointButtonClick?.invoke()
+                            NumPadKey.DECIMAL_POINT -> onDecimalSeparatorButtonClick?.invoke()
                             NumPadKey.ZERO -> onDigitButtonClick?.invoke(Digit.Zero)
                             NumPadKey.BACKSPACE -> onBackspaceButtonClick?.invoke()
                         }
@@ -89,12 +89,13 @@ fun NumberPadButton(
 /**
  * UI State object to be used by [NumberPad] Composable.
  * @property onDigitButtonClick The event to be executed among the click of a digit button.
- * @property onDecimalPointButtonClick The event to be executed among the click of the decimal button.
+ * @property onDecimalSeparatorButtonClick The event to be executed among the click of the decimal
+ * separator button.
  * @property onBackspaceButtonClick The event to be executed among the click of the backspace button.
  */
 data class NumberPadState(
     val onDigitButtonClick: ((Digit) -> Unit)? = null,
-    val onDecimalPointButtonClick: (() -> Unit)? = null,
+    val onDecimalSeparatorButtonClick: (() -> Unit)? = null,
     val onBackspaceButtonClick: (() -> Unit)? = null,
 )
 

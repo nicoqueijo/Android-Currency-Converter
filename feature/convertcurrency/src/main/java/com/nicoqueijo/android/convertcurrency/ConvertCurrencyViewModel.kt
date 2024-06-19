@@ -32,9 +32,16 @@ class ConvertCurrencyViewModel @Inject constructor(
             )
         }
     }
+
+    fun handleDeleteMenuItemClick(toggle: Boolean) {
+        _uiState.value = _uiState.value.copy(
+            showDialog = toggle
+        )
+    }
 }
 
 data class ConvertCurrencyUiState(
     val selectedCurrencies: List<Currency> = emptyList(),
     val focusedCurrency: Currency? = null, // unused for now
+    val showDialog: Boolean = false,
 )

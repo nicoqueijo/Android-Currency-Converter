@@ -43,10 +43,10 @@ fun SelectCurrencyScreen(
     viewModel: SelectCurrencyViewModel? = hiltViewModel(),
     onCurrencyClick: (() -> Unit)? = null,
 ) {
-    val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()
+    val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()?.value
     SelectCurrency(
         modifier = modifier,
-        state = uiState?.value,
+        state = uiState,
         onCurrencyClick = { currency ->
             onCurrencyClick?.invoke()
             viewModel?.handleCurrencySelection(selectedCurrency = currency)

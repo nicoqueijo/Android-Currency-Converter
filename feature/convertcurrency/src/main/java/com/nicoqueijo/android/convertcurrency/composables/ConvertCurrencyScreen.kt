@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiState
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.convertcurrency.R
@@ -47,100 +48,139 @@ fun ConvertCurrencyScreen(
     onDecimalPointButtonClick: (() -> Unit)? = null,
     onBackspaceButtonClick: (() -> Unit)? = null,
 ) {
-
-    val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()
-
-    Scaffold(
+    val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()?.value
+    ConvertCurrency(
         modifier = modifier,
-        topBar = {
-            Column {
-                TopAppBar(
-                    navigationIcon = {
-                        Image(
-                            modifier = Modifier.size(size = XL),
-                            painter = painterResource(id = R.drawable.app_icon),
-                            contentDescription = null
-                        )
-                    },
-                    title = {
-                        Text(text = stringResource(id = R.string.app_name))
-                    },
-                    actions = {
-                        IconButton(
-                            onClick = {
-                                // TODO: Remove all selected currencies
-                            }
-                        ) {
-                            if (uiState?.value?.selectedCurrencies?.isNotEmpty() == true) {
-                                Icon(
-                                    imageVector = Icons.Default.Delete,
-                                    contentDescription = null
-                                )
-                            }
-                        }
-                    }
-                )
-                HorizontalDivider()
-            }
-        }
-    ) { innerPadding ->
-        Surface(
-            modifier = Modifier
-                .fillMaxSize()
-                .padding(paddingValues = innerPadding),
-        ) {
-            Column {
-                Box(
-                    modifier = Modifier
-                        .fillMaxSize()
-                        .weight(1f),
-                    contentAlignment = Alignment.BottomCenter
-                ) {
-                    when (uiState?.value?.selectedCurrencies?.isEmpty()) {
-                        true -> {
-                            EmptyListIndicator()
-                        }
+        state = uiState,
+        onFabClick = onFabClick,
+        onRemoveAllCurrenciesClick = {
+            viewModel?.handleDeleteMenuItemClick(toggle = true)
+        },
+        onDialogConfirmClick = {
+            viewModel?.handleDeleteMenuItemClick(toggle = false)
+        },
+        onDialogDismissClick = {
+            viewModel?.handleDeleteMenuItemClick(toggle = false)
+        },
+    )
+}
 
-                        else -> {
-                            LazyColumn(
-                                modifier = Modifier.fillMaxSize()
-                            ) {
-                                uiState?.value?.selectedCurrencies?.forEach { currency ->
-                                    item {
-                                        ConvertCurrencyRow(
-                                            modifier = Modifier.animateItem(),
-                                            state = currency
-                                        )
-                                        HorizontalDivider()
-                                    }
+@Composable
+fun ConvertCurrency(
+    modifier: Modifier = Modifier,
+    state: ConvertCurrencyUiState?,
+    onFabClick: (() -> Unit)? = null,
+    onRemoveAllCurrenciesClick: (() -> Unit)? = null,
+    onDialogConfirmClick: (() -> Unit)? = null,
+    onDialogDismissClick: (() -> Unit)? = null,
+) {
+    Surface(
+        modifier = modifier.fillMaxSize(),
+    ) {
+        Scaffold(
+            modifier = modifier,
+            topBar = {
+                Column {
+                    TopAppBar(
+                        navigationIcon = {
+                            Image(
+                                modifier = Modifier.size(size = XL),
+                                painter = painterResource(id = R.drawable.app_icon),
+                                contentDescription = null
+                            )
+                        },
+                        title = {
+                            Text(text = stringResource(id = R.string.app_name))
+                        },
+                        actions = {
+                            IconButton(
+                                onClick = {
+                                    onRemoveAllCurrenciesClick?.invoke()
                                 }
-                                item {
-                                    // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
-                                    Spacer(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(76.dp)
+                            ) {
+                                if (state?.selectedCurrencies?.isNotEmpty() == true) {
+                                    Icon(
+                                        imageVector = Icons.Default.Delete,
+                                        contentDescription = null,
                                     )
                                 }
                             }
                         }
-                    }
-                    FloatingActionButton(
-                        onClick = { onFabClick?.invoke() },
-                    ) {
-                        Icon(imageVector = Icons.Filled.Add, contentDescription = null)
-                    }
-                }
-                Box {
-                    NumberPad(
-                        state = NumberPadState(
-                            onDigitButtonClick = null, // TODO: Pass the correct implementation
-                            onDecimalPointButtonClick = null, // TODO: Pass the correct implementation
-                            onBackspaceButtonClick = null, // TODO: Pass the correct implementation
-                        )
                     )
+                    HorizontalDivider()
+                }
+            }
+        ) { innerPadding ->
+            Box(
+                modifier = Modifier.padding(paddingValues = innerPadding),
+            ) {
+                if (state?.showDialog == true) {
+                    RemoveCurrenciesDialog(
+                        onConfirmClick = {
+                            onDialogConfirmClick?.invoke()
+                        },
+                        onDismissClick = {
+                            onDialogDismissClick?.invoke()
+                        },
+                    )
+                }
+                Column {
+                    Box(
+                        modifier = Modifier
+                            .fillMaxSize()
+                            .weight(1f),
+                        contentAlignment = Alignment.BottomCenter
+                    ) {
+                        when (state?.selectedCurrencies?.isEmpty()) {
+                            true -> {
+                                EmptyListIndicator()
+                            }
+
+                            else -> {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxSize()
+                                ) {
+                                    state?.selectedCurrencies?.forEach { currency ->
+                                        item {
+                                            ConvertCurrencyRow(
+                                                modifier = Modifier.animateItem(),
+                                                state = currency
+                                            )
+                                            HorizontalDivider()
+                                        }
+                                    }
+                                    item {
+                                        // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
+                                        Spacer(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(76.dp)
+                                        )
+                                    }
+                                }
+                            }
+                        }
+                        FloatingActionButton(
+                            onClick = { onFabClick?.invoke() },
+                        ) {
+                            Icon(
+                                imageVector = Icons.Filled.Add,
+                                contentDescription = null,
+                            )
+                        }
+                    }
+                    Box {
+                        NumberPad(
+                            state = NumberPadState(
+                                onDigitButtonClick = null, // TODO: Pass the correct implementation
+                                onDecimalSeparatorButtonClick = null, // TODO: Pass the correct implementation
+                                onBackspaceButtonClick = null, // TODO: Pass the correct implementation
+                            )
+                        )
+                    }
                 }
             }
         }
     }
 }
+
