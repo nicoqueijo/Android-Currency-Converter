@@ -36,6 +36,9 @@ import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiState
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.convertcurrency.R
+import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
+import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.XL
 
 // TODO: Style this nicely
@@ -184,3 +187,20 @@ fun ConvertCurrency(
     }
 }
 
+
+@DarkLightPreviews
+@Composable
+fun ConvertCurrencyScreenPreview() {
+    val state = ConvertCurrencyUiState(
+        selectedCurrencies = listOf(
+            Currency(
+                currencyCode = "USD_USD",
+                exchangeRate = 1.0,
+                isSelected = true,
+            ),
+        )
+    )
+    AndroidCurrencyConverterTheme {
+        ConvertCurrency(state = state)
+    }
+}
