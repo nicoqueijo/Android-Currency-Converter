@@ -24,6 +24,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.style.TextAlign
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.core.Currency
@@ -32,6 +33,8 @@ import com.nicoqueijo.android.selectcurrency.SelectCurrencyUiState
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
+import com.nicoqueijo.android.ui.L
+import com.nicoqueijo.android.ui.XL
 
 @Composable
 fun SelectCurrencyScreen(
@@ -108,16 +111,32 @@ fun SelectCurrency(
             Box(
                 modifier = Modifier.padding(paddingValues = innerPadding),
             ) {
-                LazyColumn {
-                    state?.filteredCurrencies?.forEach { currency ->
-                        item {
-                            SelectCurrencyRow(
-                                state = currency,
-                                onClick = {
-                                    onCurrencyClick?.invoke(currency)
-                                },
-                            )
-                            HorizontalDivider()
+                if (state?.isSearchResultEmpty == true) {
+                    Text(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(
+                                horizontal = L,
+                                vertical = XL,
+                            ),
+                        text = stringResource(
+                            id = R.string.no_results_label,
+                            state.searchTerm
+                        ),
+                        textAlign = TextAlign.Center
+                    )
+                } else {
+                    LazyColumn {
+                        state?.filteredCurrencies?.forEach { currency ->
+                            item {
+                                SelectCurrencyRow(
+                                    state = currency,
+                                    onClick = {
+                                        onCurrencyClick?.invoke(currency)
+                                    },
+                                )
+                                HorizontalDivider()
+                            }
                         }
                     }
                 }
@@ -173,7 +192,10 @@ fun SelectCurrencyScreenPreview() {
 @DarkLightPreviews
 @Composable
 fun SelectCurrencyEmptyScreenPreview() {
-    val state = SelectCurrencyUiState()
+    val state = SelectCurrencyUiState(
+        searchTerm = "german deutsche",
+        isSearchResultEmpty = true,
+    )
     AndroidCurrencyConverterTheme {
         SelectCurrency(state = state)
     }

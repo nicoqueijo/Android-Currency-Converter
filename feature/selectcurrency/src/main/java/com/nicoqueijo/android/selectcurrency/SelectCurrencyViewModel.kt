@@ -38,7 +38,14 @@ class SelectCurrencyViewModel @Inject constructor(
     fun handleSearchTermChange(searchTerm: String) {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
+                searchTerm = searchTerm,
+            )
+            val filteredCurrencies = useCases.filterCurrenciesUseCase.invoke(
                 searchTerm = searchTerm
+            )
+            _uiState.value = _uiState.value.copy(
+                filteredCurrencies = filteredCurrencies,
+                isSearchResultEmpty = filteredCurrencies.isEmpty() && searchTerm.isNotEmpty(),
             )
         }
     }
@@ -47,4 +54,5 @@ class SelectCurrencyViewModel @Inject constructor(
 data class SelectCurrencyUiState(
     val filteredCurrencies: List<Currency> = emptyList(),
     val searchTerm: String = "",
+    val isSearchResultEmpty: Boolean = false,
 )
