@@ -7,6 +7,8 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
 import com.nicoqueijo.android.convertcurrency.R
+import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
+import com.nicoqueijo.android.ui.DarkLightPreviews
 
 @Composable
 fun RemoveCurrenciesDialog(
@@ -47,4 +49,12 @@ fun RemoveCurrenciesDialog(
             onDismissClick?.invoke()
         },
     )
+}
+
+@DarkLightPreviews
+@Composable
+fun RemoveCurrenciesDialogPreview() {
+    AndroidCurrencyConverterTheme {
+        RemoveCurrenciesDialog()
+    }
 }

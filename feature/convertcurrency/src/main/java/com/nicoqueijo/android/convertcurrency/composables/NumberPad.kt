@@ -10,6 +10,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.composables.util.Digit
 import com.nicoqueijo.android.convertcurrency.composables.util.NumPadKey
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
@@ -84,20 +85,6 @@ fun NumberPadButton(
         )
     }
 }
-
-// TODO: Figure out if I should keep this here or put in another file
-/**
- * UI State object to be used by [NumberPad] Composable.
- * @property onDigitButtonClick The event to be executed among the click of a digit button.
- * @property onDecimalSeparatorButtonClick The event to be executed among the click of the decimal
- * separator button.
- * @property onBackspaceButtonClick The event to be executed among the click of the backspace button.
- */
-data class NumberPadState(
-    val onDigitButtonClick: ((Digit) -> Unit)? = null,
-    val onDecimalSeparatorButtonClick: (() -> Unit)? = null,
-    val onBackspaceButtonClick: (() -> Unit)? = null,
-)
 
 @Composable
 @DarkLightPreviews
