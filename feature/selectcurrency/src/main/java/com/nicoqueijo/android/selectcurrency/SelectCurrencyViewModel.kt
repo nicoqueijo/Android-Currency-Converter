@@ -18,7 +18,7 @@ class SelectCurrencyViewModel @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(value = SelectCurrencyUiState())
+    private val _uiState = MutableStateFlow(value = UiState())
     val uiState = _uiState.asStateFlow()
 
     init {
@@ -29,13 +29,25 @@ class SelectCurrencyViewModel @Inject constructor(
         }
     }
 
-    fun handleCurrencySelection(selectedCurrency: Currency) {
+    fun onEvent(event: UiEvent) {
+        when (event) {
+            is UiEvent.SearchTermChange -> {
+                filterCurrencies(searchTerm = event.searchTerm)
+            }
+
+            is UiEvent.SelectCurrency -> {
+                selectCurrency(selectedCurrency = event.currency)
+            }
+        }
+    }
+
+    private fun selectCurrency(selectedCurrency: Currency) {
         viewModelScope.launch(context = dispatcher) {
             useCases.selectCurrencyUseCase(selectedCurrency = selectedCurrency)
         }
     }
 
-    fun handleSearchTermChange(searchTerm: String) {
+    private fun filterCurrencies(searchTerm: String) {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
                 searchTerm = searchTerm,
@@ -50,9 +62,3 @@ class SelectCurrencyViewModel @Inject constructor(
         }
     }
 }
-
-data class SelectCurrencyUiState(
-    val filteredCurrencies: List<Currency> = emptyList(),
-    val searchTerm: String = "",
-    val isSearchResultEmpty: Boolean = false,
-)

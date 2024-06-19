@@ -30,8 +30,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.selectcurrency.R
-import com.nicoqueijo.android.selectcurrency.SelectCurrencyUiState
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
+import com.nicoqueijo.android.selectcurrency.UiEvent
+import com.nicoqueijo.android.selectcurrency.UiState
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
@@ -47,22 +48,21 @@ fun SelectCurrencyScreen(
     SelectCurrency(
         modifier = modifier,
         state = uiState,
-        onCurrencyClick = { currency ->
+        onCurrencyClick = {
             onCurrencyClick?.invoke()
-            viewModel?.handleCurrencySelection(selectedCurrency = currency)
         },
-        onSearchTermChange = { searchTerm ->
-            viewModel?.handleSearchTermChange(searchTerm = searchTerm)
-        },
+        onEvent = { event ->
+            viewModel?.onEvent(event = event)
+        }
     )
 }
 
 @Composable
 fun SelectCurrency(
     modifier: Modifier = Modifier,
-    state: SelectCurrencyUiState?,
-    onCurrencyClick: ((selectedCurrency: Currency) -> Unit)? = null,
-    onSearchTermChange: ((searchTerm: String) -> Unit)? = null,
+    state: UiState?,
+    onCurrencyClick: (() -> Unit)? = null,
+    onEvent: ((UiEvent) -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
     Surface(
@@ -77,7 +77,9 @@ fun SelectCurrency(
                                 modifier = Modifier.fillMaxWidth(),
                                 query = state?.searchTerm ?: "",
                                 onQueryChange = { queryChange ->
-                                    onSearchTermChange?.invoke(queryChange)
+                                    onEvent?.invoke(
+                                        UiEvent.SearchTermChange(searchTerm = queryChange)
+                                    )
                                 },
                                 onSearch = {
                                     keyboardController?.hide()
@@ -96,7 +98,9 @@ fun SelectCurrency(
                                 trailingIcon = {
                                     Icon(
                                         modifier = Modifier.clickable {
-                                            onSearchTermChange?.invoke("")
+                                            onEvent?.invoke(
+                                                UiEvent.SearchTermChange(searchTerm = "")
+                                            )
                                         },
                                         imageVector = Icons.Default.Close,
                                         contentDescription = null,
@@ -137,7 +141,8 @@ fun SelectCurrency(
                                     modifier = Modifier.animateItem(),
                                     state = currency,
                                     onClick = {
-                                        onCurrencyClick?.invoke(currency)
+                                        onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
+                                        onCurrencyClick?.invoke()
                                     },
                                 )
                                 HorizontalDivider()
@@ -153,7 +158,7 @@ fun SelectCurrency(
 @DarkLightPreviews
 @Composable
 fun SelectCurrencyScreenPreview() {
-    val state = SelectCurrencyUiState(
+    val state = UiState(
         filteredCurrencies = listOf(
             Currency(
                 currencyCode = "USD_ARS",
@@ -197,7 +202,7 @@ fun SelectCurrencyScreenPreview() {
 @DarkLightPreviews
 @Composable
 fun SelectCurrencyEmptyScreenPreview() {
-    val state = SelectCurrencyUiState(
+    val state = UiState(
         searchTerm = "german deutsche",
         isSearchResultEmpty = true,
     )

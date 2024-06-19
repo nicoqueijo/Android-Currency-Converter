@@ -20,6 +20,14 @@ class ConvertCurrencyViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(value = UiState())
     val uiState = _uiState.asStateFlow()
 
+    init {
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
+            )
+        }
+    }
+
     fun onEvent(event: UiEvent) {
         when (event) {
             UiEvent.RemoveAllCurrencies -> {
@@ -37,26 +45,17 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    init {
-        viewModelScope.launch(context = dispatcher) {
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
-            )
-        }
-    }
-
     private fun updateDialogDisplay(toggle: Boolean) {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
                 showDialog = toggle
             )
         }
-
     }
 
     private fun removeSelectedCurrencies() {
         viewModelScope.launch(context = dispatcher) {
-            useCases.removeAllCurrenciesUseCase()
+            useCases.removeSelectedCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
                 selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
             )

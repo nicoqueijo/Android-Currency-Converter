@@ -1,7 +1,7 @@
 package com.nicoqueijo.android.convertcurrency.di
 
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
-import com.nicoqueijo.android.convertcurrency.usecases.RemoveAllCurrenciesUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.RemoveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.data.Repository
 import dagger.Module
@@ -21,7 +21,7 @@ object ConvertCurrencyUseCasesModule {
             retrieveSelectedCurrenciesUseCase = RetrieveSelectedCurrenciesUseCase(
                 repository = repository
             ),
-            removeAllCurrenciesUseCase = RemoveAllCurrenciesUseCase(
+            removeSelectedCurrenciesUseCase = RemoveSelectedCurrenciesUseCase(
                 repository = repository
             )
         )
