@@ -32,6 +32,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
+import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiEvent
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiState
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.Digit
@@ -47,24 +48,14 @@ fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
     viewModel: ConvertCurrencyViewModel? = hiltViewModel(),
     onFabClick: (() -> Unit)? = null,
-    onDigitButtonClick: ((Digit) -> Unit)? = null,
-    onDecimalPointButtonClick: (() -> Unit)? = null,
-    onBackspaceButtonClick: (() -> Unit)? = null,
 ) {
     val uiState = viewModel?.uiState?.collectAsStateWithLifecycle()?.value
     ConvertCurrency(
         modifier = modifier,
         state = uiState,
         onFabClick = onFabClick,
-        onTrashIconClick = {
-            viewModel?.handleDialogDisplay(toggle = true)
-        },
-        onDialogConfirmClick = {
-            viewModel?.handleSelectedCurrenciesRemoval()
-            viewModel?.handleDialogDisplay(toggle = false)
-        },
-        onDialogDismissClick = {
-            viewModel?.handleDialogDisplay(toggle = false)
+        onEvent = { event ->
+            viewModel?.onEvent(event = event)
         },
     )
 }
@@ -74,9 +65,7 @@ fun ConvertCurrency(
     modifier: Modifier = Modifier,
     state: ConvertCurrencyUiState?,
     onFabClick: (() -> Unit)? = null,
-    onTrashIconClick: (() -> Unit)? = null,
-    onDialogConfirmClick: (() -> Unit)? = null,
-    onDialogDismissClick: (() -> Unit)? = null,
+    onEvent: ((ConvertCurrencyUiEvent) -> Unit)? = null,
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -99,7 +88,7 @@ fun ConvertCurrency(
                         actions = {
                             IconButton(
                                 onClick = {
-                                    onTrashIconClick?.invoke()
+                                    onEvent?.invoke(ConvertCurrencyUiEvent.RemoveAllCurrencies)
                                 }
                             ) {
                                 if (state?.selectedCurrencies?.isNotEmpty() == true) {
@@ -121,10 +110,10 @@ fun ConvertCurrency(
                 if (state?.showDialog == true) {
                     RemoveCurrenciesDialog(
                         onConfirmClick = {
-                            onDialogConfirmClick?.invoke()
+                            onEvent?.invoke(ConvertCurrencyUiEvent.ConfirmDialog)
                         },
                         onDismissClick = {
-                            onDialogDismissClick?.invoke()
+                            onEvent?.invoke(ConvertCurrencyUiEvent.CancelDialog)
                         },
                     )
                 }

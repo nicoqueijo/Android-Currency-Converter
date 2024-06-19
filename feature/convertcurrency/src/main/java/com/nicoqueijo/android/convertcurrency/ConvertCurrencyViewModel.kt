@@ -21,6 +21,21 @@ class ConvertCurrencyViewModel @Inject constructor(
     private val _uiState = MutableStateFlow(value = ConvertCurrencyUiState())
     val uiState = _uiState.asStateFlow()
 
+    fun onEvent(event: ConvertCurrencyUiEvent) {
+        when (event) {
+            ConvertCurrencyUiEvent.RemoveAllCurrencies -> {
+                updateDialogDisplay(toggle = true)
+            }
+            ConvertCurrencyUiEvent.ConfirmDialog -> {
+                removeSelectedCurrencies()
+                updateDialogDisplay(toggle = false)
+            }
+            ConvertCurrencyUiEvent.CancelDialog -> {
+                updateDialogDisplay(toggle = false)
+            }
+        }
+    }
+
     init {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
@@ -29,7 +44,7 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    fun handleDialogDisplay(toggle: Boolean) {
+    private fun updateDialogDisplay(toggle: Boolean) {
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
                 showDialog = toggle
@@ -38,7 +53,7 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     }
 
-    fun handleSelectedCurrenciesRemoval() {
+    private fun removeSelectedCurrencies() {
         viewModelScope.launch(context = dispatcher) {
             useCases.removeAllCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
@@ -53,3 +68,9 @@ data class ConvertCurrencyUiState(
     val focusedCurrency: Currency? = null, // unused for now
     val showDialog: Boolean = false,
 )
+
+sealed interface ConvertCurrencyUiEvent {
+    data object RemoveAllCurrencies : ConvertCurrencyUiEvent
+    data object ConfirmDialog : ConvertCurrencyUiEvent
+    data object CancelDialog : ConvertCurrencyUiEvent
+}
