@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency
+package com.nicoqueijo.android.convertcurrency.composables.util
 
 /**
  * Sealed class that allows the use of digits with safety. Using a [Digit] ensures that a number

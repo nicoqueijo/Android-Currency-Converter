@@ -3,7 +3,6 @@ package com.nicoqueijo.android.convertcurrency
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
-import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -18,19 +17,21 @@ class ConvertCurrencyViewModel @Inject constructor(
     @DefaultDispatcher private val dispatcher: CoroutineDispatcher,
 ) : ViewModel() {
 
-    private val _uiState = MutableStateFlow(value = ConvertCurrencyUiState())
+    private val _uiState = MutableStateFlow(value = UiState())
     val uiState = _uiState.asStateFlow()
 
-    fun onEvent(event: ConvertCurrencyUiEvent) {
+    fun onEvent(event: UiEvent) {
         when (event) {
-            ConvertCurrencyUiEvent.RemoveAllCurrencies -> {
+            UiEvent.RemoveAllCurrencies -> {
                 updateDialogDisplay(toggle = true)
             }
-            ConvertCurrencyUiEvent.ConfirmDialog -> {
+
+            UiEvent.ConfirmDialog -> {
                 removeSelectedCurrencies()
                 updateDialogDisplay(toggle = false)
             }
-            ConvertCurrencyUiEvent.CancelDialog -> {
+
+            UiEvent.CancelDialog -> {
                 updateDialogDisplay(toggle = false)
             }
         }
@@ -61,16 +62,4 @@ class ConvertCurrencyViewModel @Inject constructor(
             )
         }
     }
-}
-
-data class ConvertCurrencyUiState(
-    val selectedCurrencies: List<Currency> = emptyList(),
-    val focusedCurrency: Currency? = null, // unused for now
-    val showDialog: Boolean = false,
-)
-
-sealed interface ConvertCurrencyUiEvent {
-    data object RemoveAllCurrencies : ConvertCurrencyUiEvent
-    data object ConfirmDialog : ConvertCurrencyUiEvent
-    data object CancelDialog : ConvertCurrencyUiEvent
 }

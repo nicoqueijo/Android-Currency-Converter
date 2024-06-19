@@ -32,11 +32,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiEvent
-import com.nicoqueijo.android.convertcurrency.ConvertCurrencyUiState
+import com.nicoqueijo.android.convertcurrency.UiEvent
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
-import com.nicoqueijo.android.convertcurrency.Digit
 import com.nicoqueijo.android.convertcurrency.R
+import com.nicoqueijo.android.convertcurrency.UiState
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
@@ -63,9 +62,9 @@ fun ConvertCurrencyScreen(
 @Composable
 fun ConvertCurrency(
     modifier: Modifier = Modifier,
-    state: ConvertCurrencyUiState?,
+    state: UiState?,
     onFabClick: (() -> Unit)? = null,
-    onEvent: ((ConvertCurrencyUiEvent) -> Unit)? = null,
+    onEvent: ((UiEvent) -> Unit)? = null,
 ) {
     Surface(
         modifier = modifier.fillMaxSize(),
@@ -88,7 +87,7 @@ fun ConvertCurrency(
                         actions = {
                             IconButton(
                                 onClick = {
-                                    onEvent?.invoke(ConvertCurrencyUiEvent.RemoveAllCurrencies)
+                                    onEvent?.invoke(UiEvent.RemoveAllCurrencies)
                                 }
                             ) {
                                 if (state?.selectedCurrencies?.isNotEmpty() == true) {
@@ -110,10 +109,10 @@ fun ConvertCurrency(
                 if (state?.showDialog == true) {
                     RemoveCurrenciesDialog(
                         onConfirmClick = {
-                            onEvent?.invoke(ConvertCurrencyUiEvent.ConfirmDialog)
+                            onEvent?.invoke(UiEvent.ConfirmDialog)
                         },
                         onDismissClick = {
-                            onEvent?.invoke(ConvertCurrencyUiEvent.CancelDialog)
+                            onEvent?.invoke(UiEvent.CancelDialog)
                         },
                     )
                 }
@@ -181,7 +180,7 @@ fun ConvertCurrency(
 @DarkLightPreviews
 @Composable
 fun ConvertCurrencyScreenPreview() {
-    val state = ConvertCurrencyUiState(
+    val state = UiState(
         selectedCurrencies = listOf(
             Currency(
                 currencyCode = "USD_USD",

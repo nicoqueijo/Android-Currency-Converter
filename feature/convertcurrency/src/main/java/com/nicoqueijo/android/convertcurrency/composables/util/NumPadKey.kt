@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency
+package com.nicoqueijo.android.convertcurrency.composables.util
 
 enum class NumPadKey(val value: Char) {
     ONE(value = '1'),
