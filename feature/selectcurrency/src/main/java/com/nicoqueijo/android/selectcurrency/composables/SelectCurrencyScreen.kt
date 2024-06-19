@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.core.Currency
@@ -123,13 +124,17 @@ fun SelectCurrency(
                             id = R.string.no_results_label,
                             state.searchTerm
                         ),
-                        textAlign = TextAlign.Center
+                        textAlign = TextAlign.Center,
+                        fontSize = 18.sp,
                     )
                 } else {
-                    LazyColumn {
+                    LazyColumn(
+                        modifier = Modifier.fillMaxSize()
+                    ) {
                         state?.filteredCurrencies?.forEach { currency ->
                             item {
                                 SelectCurrencyRow(
+                                    modifier = Modifier.animateItem(),
                                     state = currency,
                                     onClick = {
                                         onCurrencyClick?.invoke(currency)
