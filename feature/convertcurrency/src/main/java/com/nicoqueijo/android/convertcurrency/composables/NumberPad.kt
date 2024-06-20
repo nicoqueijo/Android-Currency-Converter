@@ -1,15 +1,15 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -74,17 +74,14 @@ fun NumberPad(
 fun NumberPadButton(
     modifier: Modifier = Modifier,
     char: Char,
-    onClick: () -> Unit
+    onClick: () -> Unit,
 ) {
-    Box(
-        modifier = modifier
-            .size(75.dp)
-            .clickable {
-                onClick.invoke()
-            }
+    TextButton(
+        modifier = modifier.size(75.dp),
+        onClick = { onClick.invoke() },
+        shape = RectangleShape,
     ) {
         Text(
-            modifier = modifier.align(Alignment.Center),
             text = char.toString(),
             textAlign = TextAlign.Center,
             color = MaterialTheme.colorScheme.primary,
