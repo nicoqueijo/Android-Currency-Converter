@@ -1,6 +1,7 @@
 package com.nicoqueijo.android.selectcurrency.composables
 
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -14,6 +15,7 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Check
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -47,8 +49,9 @@ fun SelectCurrencyRow(
     ) {
         Row(
             modifier = Modifier
+                .background(color = MaterialTheme.colorScheme.surface)
                 .fillMaxWidth()
-                .height(64.dp)
+                .height(height = 64.dp)
                 .padding(
                     horizontal = 12.dp,
                     vertical = 8.dp,
@@ -69,11 +72,13 @@ fun SelectCurrencyRow(
             Column(modifier = Modifier.weight(1f)) {
                 Text(
                     text = state.trimmedCurrencyCode,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.SemiBold,
                 )
                 Text(
                     text = LocalContext.current.getStringResourceByName(name = state.currencyCode),
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     maxLines = 1,
                 )

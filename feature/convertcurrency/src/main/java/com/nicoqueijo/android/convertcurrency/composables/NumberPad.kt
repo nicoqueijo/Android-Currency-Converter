@@ -1,8 +1,10 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.size
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -10,9 +12,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
+import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.convertcurrency.composables.util.Digit
 import com.nicoqueijo.android.convertcurrency.composables.util.NumPadKey
+import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
@@ -27,9 +30,13 @@ fun NumberPad(
     modifier: Modifier = Modifier,
     state: NumberPadState,
 ) {
-    Surface {
+    Surface(
+        modifier = modifier
+    ) {
         VerticalGrid(
-            modifier = modifier,
+            modifier = Modifier.background(
+                color = MaterialTheme.colorScheme.onTertiary
+            ),
             columns = 3
         ) {
             NumPadKey.entries.forEach { entry ->
@@ -80,8 +87,8 @@ fun NumberPadButton(
             modifier = modifier.align(Alignment.Center),
             text = char.toString(),
             textAlign = TextAlign.Center,
-            /*color = colors.foregroundNeutralMain,
-            style = typography.HM._500*/
+            color = MaterialTheme.colorScheme.primary,
+            fontSize = 28.sp,
         )
     }
 }

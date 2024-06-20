@@ -43,7 +43,7 @@ fun ConvertCurrencyRow(
             modifier = Modifier
                 .background(
                     color = if (state.isFocused) {
-                        Color.Gray
+                        MaterialTheme.colorScheme.tertiary
                     } else {
                         MaterialTheme.colorScheme.surface
                     }
@@ -74,6 +74,7 @@ fun ConvertCurrencyRow(
             )
             Text(
                 text = state.trimmedCurrencyCode,
+                color = MaterialTheme.colorScheme.primary,
                 fontSize = 18.sp,
                 fontWeight = FontWeight.SemiBold,
             )
@@ -92,9 +93,9 @@ fun ConvertCurrencyRow(
                     state.conversion.hint
                 },
                 color = if (state.conversion.valueAsText.isEmpty()) {
-                    Color.Gray
+                    MaterialTheme.colorScheme.scrim
                 } else {
-                    Color.Unspecified
+                    MaterialTheme.colorScheme.primary
                 },
                 textAlign = TextAlign.End,
                 maxLines = 1,

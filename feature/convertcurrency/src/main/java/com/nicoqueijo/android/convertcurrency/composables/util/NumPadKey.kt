@@ -12,5 +12,5 @@ enum class NumPadKey(val value: Char) {
     NINE(value = '9'),
     DECIMAL_POINT(value = '.'),
     ZERO(value = '0'),
-    BACKSPACE(value = '←')
+    BACKSPACE(value = '⌫')
 }

@@ -1,7 +1,6 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.nicoqueijo.android.selectcurrency.composables
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,6 +15,7 @@ import androidx.compose.material3.DockedSearchBar
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -57,6 +57,7 @@ fun SelectCurrencyScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectCurrency(
     modifier: Modifier = Modifier,
@@ -114,12 +115,14 @@ fun SelectCurrency(
             }
         ) { innerPadding ->
             Box(
-                modifier = Modifier.padding(paddingValues = innerPadding),
+                modifier = Modifier
+                    .background(color = MaterialTheme.colorScheme.surface)
+                    .padding(paddingValues = innerPadding),
             ) {
                 if (state?.isSearchResultEmpty == true) {
                     Text(
                         modifier = Modifier
-                            .fillMaxWidth()
+                            .fillMaxSize()
                             .padding(
                                 horizontal = L,
                                 vertical = XL,

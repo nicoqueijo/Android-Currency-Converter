@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.foundation.Image
@@ -21,6 +19,7 @@ import androidx.compose.material3.FloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -28,7 +27,6 @@ import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -42,6 +40,7 @@ import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
+import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import java.math.BigDecimal
 
@@ -63,6 +62,7 @@ fun ConvertCurrencyScreen(
     )
 }
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ConvertCurrency(
     modifier: Modifier = Modifier,
@@ -85,7 +85,10 @@ fun ConvertCurrency(
                             )
                         },
                         title = {
-                            Text(text = stringResource(id = R.string.app_name))
+                            Text(
+                                text = stringResource(id = R.string.app_name),
+                                color = MaterialTheme.colorScheme.primary,
+                            )
                         },
                         actions = {
                             if (state?.selectedCurrencies?.isNotEmpty() == true) {
@@ -107,7 +110,9 @@ fun ConvertCurrency(
             }
         ) { innerPadding ->
             Box(
-                modifier = Modifier.padding(paddingValues = innerPadding),
+                modifier = Modifier
+                    .background(color = MaterialTheme.colorScheme.surface)
+                    .padding(paddingValues = innerPadding),
             ) {
                 if (state?.showDialog == true) {
                     RemoveCurrenciesDialog(
@@ -152,6 +157,8 @@ fun ConvertCurrency(
                             }
                         }
                         FloatingActionButton(
+                            containerColor = MaterialTheme.colorScheme.primary,
+                            contentColor = MaterialTheme.colorScheme.secondary,
                             onClick = { onFabClick?.invoke() },
                         ) {
                             Icon(
@@ -160,6 +167,11 @@ fun ConvertCurrency(
                             )
                         }
                     }
+                    Spacer(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(height = S)
+                    )
                     Box {
                         NumberPad(
                             state = NumberPadState(
