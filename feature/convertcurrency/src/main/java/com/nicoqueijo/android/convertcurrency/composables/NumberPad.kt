@@ -35,7 +35,7 @@ fun NumberPad(
     ) {
         VerticalGrid(
             modifier = Modifier.background(
-                color = MaterialTheme.colorScheme.onTertiary
+                color = MaterialTheme.colorScheme.onSurface
             ),
             columns = 3
         ) {

@@ -2,6 +2,7 @@ package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -37,6 +38,7 @@ import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 fun ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
+    onClick: (() -> Unit)? = null,
 ) {
     Surface(modifier = modifier) {
         Row(
@@ -84,16 +86,17 @@ fun ConvertCurrencyRow(
                     .fillMaxHeight()
             )
             // TODO: Add the fading edge to the start of this Text
-            // TODO: Add a hint (conversion.hint) to this Text when it's empty
             Text(
-                modifier = Modifier.weight(
-                    weight = 1f,
-                ),
+                modifier = Modifier
+                    .weight(weight = 1f)
+                    .clickable {
+                        onClick?.invoke()
+                    },
                 text = state.conversion.valueAsText.ifEmpty {
                     state.conversion.hint
                 },
                 color = if (state.conversion.valueAsText.isEmpty()) {
-                    MaterialTheme.colorScheme.scrim
+                    MaterialTheme.colorScheme.inverseOnSurface
                 } else {
                     MaterialTheme.colorScheme.primary
                 },

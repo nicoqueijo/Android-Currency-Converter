@@ -142,7 +142,12 @@ fun ConvertCurrency(
                                     item {
                                         ConvertCurrencyRow(
                                             modifier = Modifier.animateItem(),
-                                            state = currency
+                                            state = currency,
+                                            onClick = {
+                                                onEvent?.invoke(
+                                                    UiEvent.SetCurrencyFocus(currency = currency)
+                                                )
+                                            }
                                         )
                                         HorizontalDivider()
                                     }
