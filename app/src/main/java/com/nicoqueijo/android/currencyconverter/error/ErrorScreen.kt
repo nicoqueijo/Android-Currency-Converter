@@ -46,7 +46,11 @@ fun ErrorScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.app_name))
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
+
                 },
                 actions = {
                     IconButton(
@@ -54,7 +58,8 @@ fun ErrorScreen(
                     ) {
                         Icon(
                             imageVector = Icons.Default.Refresh,
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = MaterialTheme.colorScheme.primary,
                         )
                     }
                 }
@@ -73,16 +78,19 @@ fun ErrorScreen(
             ) {
                 Icon(
                     modifier = Modifier.size(size = 125.dp),
+                    tint = MaterialTheme.colorScheme.primary,
                     imageVector = Icons.Default.Info,
                     contentDescription = null
                 )
                 Text(
                     text = stringResource(id = R.string.error_title),
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center
                 )
                 Text(
                     text = stringResource(id = R.string.error_description),
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleMedium,
                     textAlign = TextAlign.Center
                 )

@@ -1,6 +1,7 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.material3.AlertDialog
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
@@ -20,7 +21,9 @@ fun RemoveCurrenciesDialog(
         modifier = modifier,
         text = {
             Text(
-                text = stringResource(id = R.string.remove_currencies_dialog_title)
+                text = stringResource(id = R.string.remove_currencies_dialog_title),
+                color = MaterialTheme.colorScheme.primary,
+                style = MaterialTheme.typography.titleMedium,
             )
         },
         confirmButton = {
@@ -30,7 +33,7 @@ fun RemoveCurrenciesDialog(
                 }
             ) {
                 Text(
-                    text = stringResource(id = R.string.remove_currencies_dialog_confirm_label)
+                    text = stringResource(id = R.string.remove_currencies_dialog_confirm_label),
                 )
             }
         },
@@ -41,7 +44,7 @@ fun RemoveCurrenciesDialog(
                 }
             ) {
                 Text(
-                    text = stringResource(id = R.string.remove_currencies_dialog_dismiss_label)
+                    text = stringResource(id = R.string.remove_currencies_dialog_dismiss_label),
                 )
             }
         },

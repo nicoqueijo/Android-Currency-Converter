@@ -25,6 +25,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -36,6 +37,7 @@ import com.nicoqueijo.android.selectcurrency.UiState
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
+import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 
 @Composable
@@ -75,7 +77,9 @@ fun SelectCurrency(
                     TopAppBar(
                         title = {
                             DockedSearchBar(
-                                modifier = Modifier.fillMaxWidth(),
+                                modifier = Modifier
+                                    .fillMaxWidth()
+                                    .padding(end = S),
                                 query = state?.searchTerm ?: "",
                                 onQueryChange = { queryChange ->
                                     onEvent?.invoke(
@@ -93,7 +97,8 @@ fun SelectCurrency(
                                 leadingIcon = {
                                     Icon(
                                         imageVector = Icons.Default.Search,
-                                        contentDescription = null
+                                        contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary,
                                     )
                                 },
                                 trailingIcon = {
@@ -105,6 +110,7 @@ fun SelectCurrency(
                                         },
                                         imageVector = Icons.Default.Close,
                                         contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary,
                                     )
                                 }
                             ) { }
@@ -131,6 +137,7 @@ fun SelectCurrency(
                             id = R.string.no_results_label,
                             state.searchTerm
                         ),
+                        color = MaterialTheme.colorScheme.primary,
                         textAlign = TextAlign.Center,
                         fontSize = 18.sp,
                     )

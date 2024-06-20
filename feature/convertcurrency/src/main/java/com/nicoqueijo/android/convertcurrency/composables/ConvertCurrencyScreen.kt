@@ -100,6 +100,7 @@ fun ConvertCurrency(
                                     Icon(
                                         imageVector = Icons.Default.Delete,
                                         contentDescription = null,
+                                        tint = MaterialTheme.colorScheme.primary,
                                     )
                                 }
                             }

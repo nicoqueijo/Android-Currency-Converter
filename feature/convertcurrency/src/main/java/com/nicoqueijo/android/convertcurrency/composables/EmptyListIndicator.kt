@@ -38,16 +38,19 @@ fun EmptyListIndicator(
         ) {
             Icon(
                 modifier = Modifier.size(size = 125.dp),
+                tint = MaterialTheme.colorScheme.primary,
                 imageVector = Icons.AutoMirrored.Default.List,
                 contentDescription = null
             )
             Text(
                 text = stringResource(id = R.string.empty_list_title),
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleLarge,
                 textAlign = TextAlign.Center
             )
             Text(
                 text = stringResource(id = R.string.add_currency_instruction),
+                color = MaterialTheme.colorScheme.primary,
                 style = MaterialTheme.typography.titleMedium,
                 textAlign = TextAlign.Center
             )

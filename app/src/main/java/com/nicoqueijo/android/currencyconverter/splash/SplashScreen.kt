@@ -43,14 +43,19 @@ fun SplashScreen(
         topBar = {
             TopAppBar(
                 title = {
-                    Text(text = stringResource(id = R.string.app_name))
+                    Text(
+                        text = stringResource(id = R.string.app_name),
+                        color = MaterialTheme.colorScheme.primary,
+                    )
                 },
                 actions = {}
             )
         }
     ) { innerPadding ->
         Surface(
-            modifier = modifier.fillMaxSize().padding(paddingValues = innerPadding),
+            modifier = modifier
+                .fillMaxSize()
+                .padding(paddingValues = innerPadding),
         ) {
             Column(
                 modifier = Modifier.padding(horizontal = L, vertical = XL),
@@ -61,11 +66,12 @@ fun SplashScreen(
                     modifier = Modifier
                         .size(size = 125.dp)
                         .padding(all = XXXS),
-                    color = MaterialTheme.colorScheme.inverseSurface,
+                    color = MaterialTheme.colorScheme.primary,
                     strokeWidth = 8.dp
                 )
                 Text(
                     text = stringResource(id = R.string.splash_title),
+                    color = MaterialTheme.colorScheme.primary,
                     style = MaterialTheme.typography.titleLarge,
                     textAlign = TextAlign.Center
                 )
