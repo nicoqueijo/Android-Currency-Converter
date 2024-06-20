@@ -74,7 +74,7 @@ fun SelectCurrencyRow(
                     text = state.trimmedCurrencyCode,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
-                    fontWeight = FontWeight.SemiBold,
+                    fontWeight = FontWeight.Medium,
                 )
                 Text(
                     text = LocalContext.current.getStringResourceByName(name = state.currencyCode),

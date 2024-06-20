@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.nicoqueijo.android.currencyconverter.error
 
 import androidx.compose.foundation.layout.Arrangement
@@ -36,6 +34,7 @@ import com.nicoqueijo.android.ui.XS
  *
  * @param modifier An optional [Modifier] to customize the Composable's layout and appearance.
  */
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ErrorScreen(
     modifier: Modifier = Modifier,

@@ -1,5 +1,3 @@
-@file:OptIn(ExperimentalMaterial3Api::class)
-
 package com.nicoqueijo.android.currencyconverter.splash
 
 import androidx.compose.foundation.layout.Arrangement
@@ -32,6 +30,7 @@ import com.nicoqueijo.android.ui.XXXS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SplashScreen(
     modifier: Modifier = Modifier,

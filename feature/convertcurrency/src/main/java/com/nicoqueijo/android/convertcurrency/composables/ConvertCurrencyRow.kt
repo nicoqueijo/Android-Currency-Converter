@@ -75,8 +75,8 @@ fun ConvertCurrencyRow(
             Text(
                 text = state.trimmedCurrencyCode,
                 color = MaterialTheme.colorScheme.primary,
-                fontSize = 18.sp,
-                fontWeight = FontWeight.SemiBold,
+                fontSize = 24.sp,
+                fontWeight = FontWeight.Medium,
             )
             Spacer(
                 modifier = Modifier
@@ -97,6 +97,7 @@ fun ConvertCurrencyRow(
                 } else {
                     MaterialTheme.colorScheme.primary
                 },
+                fontSize = 20.sp,
                 textAlign = TextAlign.End,
                 maxLines = 1,
             )
