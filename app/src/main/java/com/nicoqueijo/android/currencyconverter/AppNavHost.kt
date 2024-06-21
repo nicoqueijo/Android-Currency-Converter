@@ -81,10 +81,10 @@ fun AppNavHost(
             composable(Screen.SelectCurrency.route) {
                 SelectCurrencyScreen(
                     onCurrencyClick = {
-                        /*navController.popBackStack()*/
-                        navController.navigate(Screen.ConvertCurrency.route) {
+                        navController.popBackStack()
+                        /*navController.navigate(Screen.ConvertCurrency.route) {
                             popUpTo(Screen.ConvertCurrency.route) { inclusive = true }
-                        }
+                        }*/
                     }
                 )
             }

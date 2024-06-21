@@ -5,6 +5,7 @@ import androidx.room.Query
 import androidx.room.Transaction
 import androidx.room.Upsert
 import com.nicoqueijo.android.core.Currency
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CurrencyDao {
@@ -35,7 +36,7 @@ interface CurrencyDao {
     suspend fun getAllCurrencies(): List<Currency>
 
     @Query("SELECT * FROM Currency WHERE isSelected = 1 ORDER BY position ASC")
-    suspend fun getSelectedCurrencies(): List<Currency>
+    fun getSelectedCurrencies(): Flow<List<Currency>>
 
     @Query("SELECT COUNT(*) FROM Currency WHERE isSelected = 1")
     suspend fun getSelectedCurrencyCount(): Int

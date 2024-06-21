@@ -3,11 +3,14 @@ package com.nicoqueijo.android.convertcurrency
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
+import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -22,24 +25,20 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(context = dispatcher) {
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
-            )
-
             /**
-             * This makes the first currency in the list the focused currency but fails to retain
-             * that info as when we come back from the Selector screen we update the state with the
-             * db currencies which doesn't have info on focus. We can make the db store the focus
-             * but we'll still have the same issue for conversions (they conversions in memory are
-             * erased and we can't store all that info in the db). What we can do is just pop the
-             * backstack but at the time we are not listening for new selected currencies from the db.
+             * TODO: Move logic to a use case
+             * Listens to changes in the selected currencies from the db - like when the user selects
+             * a new currency, the selected currencies in the db changed, and the SelectCurrency screen
+             * is popped off. Will also be called when the app launches and the list is not empty.
              */
-            if (_uiState.value.focusedCurrency == null && _uiState.value.selectedCurrencies.isNotEmpty()) {
+            useCases.retrieveSelectedCurrenciesUseCase.invoke().collectLatest { dbCurrencies ->
+                val memoryCurrencies = _uiState.value.selectedCurrencies
+                val uniques = dbCurrencies.filter { it !in memoryCurrencies }
+                val mergedList = memoryCurrencies + uniques
                 _uiState.value = _uiState.value.copy(
-                    focusedCurrency = _uiState.value.selectedCurrencies.take(1).single().also { firstCurrency ->
-                        firstCurrency.isFocused = true
-                    }
+                    selectedCurrencies = mergedList
                 )
+                setDefaultFocusedCurrency()
             }
         }
     }
@@ -60,12 +59,22 @@ class ConvertCurrencyViewModel @Inject constructor(
             }
 
             is UiEvent.SetCurrencyFocus -> {
-                _uiState.value.selectedCurrencies.first { it.isFocused }.isFocused = false
-                _uiState.value.selectedCurrencies.first { it == event.currency }.isFocused = true
-                _uiState.value = _uiState.value.copy(
-                  focusedCurrency = event.currency
-                )
+                updateFocusedCurrency(currencyToFocus = event.currency)
             }
+        }
+    }
+
+    /**
+     * TODO: Move logic to use case
+     */
+    private fun setDefaultFocusedCurrency() {
+        if (_uiState.value.focusedCurrency == null && _uiState.value.selectedCurrencies.isNotEmpty()) {
+            _uiState.value = _uiState.value.copy(
+                focusedCurrency = _uiState.value.selectedCurrencies.take(1).single()
+                    .also { firstCurrency ->
+                        firstCurrency.isFocused = true
+                    }
+            )
         }
     }
 
@@ -81,8 +90,20 @@ class ConvertCurrencyViewModel @Inject constructor(
         viewModelScope.launch(context = dispatcher) {
             useCases.removeSelectedCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
-                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
+                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
+                focusedCurrency = null,
             )
         }
+    }
+
+    /**
+     * TODO: Move logic to use case
+     */
+    private fun updateFocusedCurrency(currencyToFocus: Currency) {
+        _uiState.value.selectedCurrencies.first { it.isFocused }.isFocused = false
+        _uiState.value.selectedCurrencies.first { it == currencyToFocus }.isFocused = true
+        _uiState.value = _uiState.value.copy(
+            focusedCurrency = currencyToFocus
+        )
     }
 }

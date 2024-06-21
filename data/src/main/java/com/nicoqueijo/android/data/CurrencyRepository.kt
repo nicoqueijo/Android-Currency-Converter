@@ -6,6 +6,7 @@ import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.KtorClient
 import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
@@ -52,7 +53,7 @@ class CurrencyRepository @Inject constructor(
         }
     }
 
-    override suspend fun getSelectedCurrencies(): List<Currency> {
+    override suspend fun getSelectedCurrencies(): Flow<List<Currency>> {
         return withContext(context = dispatcher) {
             currencyDao.getSelectedCurrencies()
         }
