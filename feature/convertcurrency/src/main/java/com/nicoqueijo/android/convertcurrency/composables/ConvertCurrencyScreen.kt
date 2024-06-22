@@ -43,6 +43,7 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import java.math.BigDecimal
+import java.util.Locale
 
 // TODO: Style this nicely
 @Composable
@@ -181,9 +182,10 @@ fun ConvertCurrency(
                     Box {
                         NumberPad(
                             state = NumberPadState(
-                                onDigitButtonClick = null, // TODO: Pass the correct implementation
-                                onDecimalSeparatorButtonClick = null, // TODO: Pass the correct implementation
-                                onBackspaceButtonClick = null, // TODO: Pass the correct implementation
+                                locale = Locale.getDefault(),
+                                onKeyboardButtonClick = { keyboardInput ->
+                                    onEvent?.invoke(UiEvent.ProcessKeyboardInput(keyboardInput = keyboardInput))
+                                },
                             )
                         )
                     }

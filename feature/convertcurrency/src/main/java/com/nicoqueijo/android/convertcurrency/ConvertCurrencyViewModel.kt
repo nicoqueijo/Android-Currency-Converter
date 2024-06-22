@@ -1,8 +1,10 @@
 package com.nicoqueijo.android.convertcurrency
 
+import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
+import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -55,9 +57,14 @@ class ConvertCurrencyViewModel @Inject constructor(
                 updateFocusedCurrency(currencyToFocus = event.currency)
             }
 
-            /*is UiEvent.ProcessKeyboardInput -> {
-
-            }*/
+            is UiEvent.ProcessKeyboardInput -> {
+                val log = when (val input = event.keyboardInput) {
+                    KeyboardInput.Backspace -> "Backspace pressed!"
+                    KeyboardInput.DecimalSeparator -> "Decimal separator pressed!"
+                    is KeyboardInput.Number -> "Digit ${input.digit} pressed!"
+                }
+                Log.d("Nicoo", log)
+            }
         }
     }
 
