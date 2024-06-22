@@ -157,7 +157,7 @@ fun SelectCurrency(
                                     onClick = {
                                         coroutineScope.launch {
                                             onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
-                                            delay(75L) // Small delay so the event can be processed before the screen navigates up.
+                                            delay(100L) // Small delay so the event can be processed before the screen navigates up.
                                             onCurrencyClick?.invoke()
                                         }
                                     },
