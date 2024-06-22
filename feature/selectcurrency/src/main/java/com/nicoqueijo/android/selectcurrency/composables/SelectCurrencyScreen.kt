@@ -21,6 +21,7 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
@@ -38,6 +39,9 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.launch
 
 @Composable
 fun SelectCurrencyScreen(
@@ -67,6 +71,7 @@ fun SelectCurrency(
     onEvent: ((UiEvent) -> Unit)? = null,
 ) {
     val keyboardController = LocalSoftwareKeyboardController.current
+    val coroutineScope = rememberCoroutineScope()
     Surface(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -150,8 +155,11 @@ fun SelectCurrency(
                                     modifier = Modifier.animateItem(),
                                     state = currency,
                                     onClick = {
-                                        onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
-                                        onCurrencyClick?.invoke()
+                                        coroutineScope.launch {
+                                            onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
+                                            delay(75L) // Small delay so the event can be processed before the screen navigates up.
+                                            onCurrencyClick?.invoke()
+                                        }
                                     },
                                 )
                                 HorizontalDivider()

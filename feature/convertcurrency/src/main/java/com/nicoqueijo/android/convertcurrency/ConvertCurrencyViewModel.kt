@@ -7,6 +7,7 @@ import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -68,14 +69,25 @@ class ConvertCurrencyViewModel @Inject constructor(
      * TODO: Move logic to use case
      */
     private fun setDefaultFocusedCurrency() {
-        if (_uiState.value.focusedCurrency == null && _uiState.value.selectedCurrencies.isNotEmpty()) {
+        _uiState.value = _uiState.value.copy(
+            focusedCurrency = useCases.setDefaultFocusedCurrency.invoke(
+                focusedCurrency = uiState.value.focusedCurrency,
+                selectedCurrencies = uiState.value.selectedCurrencies
+            )
+        )
+
+
+
+
+
+        /*if (_uiState.value.focusedCurrency == null && _uiState.value.selectedCurrencies.isNotEmpty()) {
             _uiState.value = _uiState.value.copy(
                 focusedCurrency = _uiState.value.selectedCurrencies.take(1).single()
                     .also { firstCurrency ->
                         firstCurrency.isFocused = true
                     }
             )
-        }
+        }*/
     }
 
     private fun updateDialogDisplay(toggle: Boolean) {
