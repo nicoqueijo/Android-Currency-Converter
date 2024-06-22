@@ -4,6 +4,8 @@ import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.usecases.RemoveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
+import com.nicoqueijo.android.convertcurrency.usecases.UpdateFocusedCurrencyUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.UpdateSelectedCurrenciesUseCase
 import com.nicoqueijo.android.data.Repository
 import dagger.Module
 import dagger.Provides
@@ -26,6 +28,8 @@ object ConvertCurrencyUseCasesModule {
                 repository = repository
             ),
             setDefaultFocusedCurrency = SetDefaultFocusedCurrency(),
+            updateFocusedCurrencyUseCase = UpdateFocusedCurrencyUseCase(),
+            updateSelectedCurrenciesUseCase = UpdateSelectedCurrenciesUseCase(),
         )
     }
 }

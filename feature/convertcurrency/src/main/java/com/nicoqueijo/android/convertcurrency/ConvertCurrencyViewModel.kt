@@ -7,7 +7,6 @@ import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
@@ -26,21 +25,14 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(context = dispatcher) {
-            /**
-             * TODO: Move logic to a use case
-             * Listens to changes in the selected currencies from the db - like when the user selects
-             * a new currency, the selected currencies in the db changed, and the SelectCurrency screen
-             * is popped off. Will also be called when the app launches and the list is not empty.
-             */
-            useCases.retrieveSelectedCurrenciesUseCase.invoke().collectLatest { dbCurrencies ->
-                val memoryCurrencies = _uiState.value.selectedCurrencies
-                val uniques = dbCurrencies.filter { it !in memoryCurrencies }
-                val mergedList = memoryCurrencies + uniques
-                _uiState.value = _uiState.value.copy(
-                    selectedCurrencies = mergedList
-                )
-                setDefaultFocusedCurrency()
-            }
+            useCases.retrieveSelectedCurrenciesUseCase.invoke()
+                .collectLatest { selectedCurrenciesFromDatabase ->
+                    updateSelectedCurrencies(
+                        selectedCurrenciesFromMemory = uiState.value.selectedCurrencies,
+                        selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
+                    )
+                    setDefaultFocusedCurrency()
+                }
         }
     }
 
@@ -65,29 +57,15 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    /**
-     * TODO: Move logic to use case
-     */
     private fun setDefaultFocusedCurrency() {
-        _uiState.value = _uiState.value.copy(
-            focusedCurrency = useCases.setDefaultFocusedCurrency.invoke(
-                focusedCurrency = uiState.value.focusedCurrency,
-                selectedCurrencies = uiState.value.selectedCurrencies
-            )
-        )
-
-
-
-
-
-        /*if (_uiState.value.focusedCurrency == null && _uiState.value.selectedCurrencies.isNotEmpty()) {
+        viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
-                focusedCurrency = _uiState.value.selectedCurrencies.take(1).single()
-                    .also { firstCurrency ->
-                        firstCurrency.isFocused = true
-                    }
+                focusedCurrency = useCases.setDefaultFocusedCurrency.invoke(
+                    focusedCurrency = uiState.value.focusedCurrency,
+                    selectedCurrencies = uiState.value.selectedCurrencies
+                )
             )
-        }*/
+        }
     }
 
     private fun updateDialogDisplay(toggle: Boolean) {
@@ -108,14 +86,28 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    /**
-     * TODO: Move logic to use case
-     */
     private fun updateFocusedCurrency(currencyToFocus: Currency) {
-        _uiState.value.selectedCurrencies.first { it.isFocused }.isFocused = false
-        _uiState.value.selectedCurrencies.first { it == currencyToFocus }.isFocused = true
-        _uiState.value = _uiState.value.copy(
-            focusedCurrency = currencyToFocus
-        )
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                focusedCurrency = useCases.updateFocusedCurrencyUseCase.invoke(
+                    selectedCurrencies = uiState.value.selectedCurrencies,
+                    currencyToFocus = currencyToFocus
+                )
+            )
+        }
+    }
+
+    private fun updateSelectedCurrencies(
+        selectedCurrenciesFromMemory: List<Currency>,
+        selectedCurrenciesFromDatabase: List<Currency>,
+    ) {
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                selectedCurrencies = useCases.updateSelectedCurrenciesUseCase.invoke(
+                    selectedCurrenciesFromMemory = selectedCurrenciesFromMemory,
+                    selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
+                )
+            )
+        }
     }
 }

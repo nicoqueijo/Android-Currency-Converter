@@ -8,19 +8,8 @@ class SetDefaultFocusedCurrency {
         focusedCurrency: Currency?,
         selectedCurrencies: List<Currency>
     ): Currency? {
-        /*if (focusedCurrency == null && selectedCurrencies.isNotEmpty()) {
-            val currencyToFocus = selectedCurrencies.first()
-                .also { firstCurrency ->
-                    firstCurrency.isFocused = true
-                }
-            return currencyToFocus
+        return focusedCurrency ?: selectedCurrencies.firstOrNull()?.apply {
+            isFocused = true
         }
-        return null*/
-
-
-        if (focusedCurrency != null || selectedCurrencies.isEmpty()) return null
-        return selectedCurrencies.first().apply { isFocused = true }
-
     }
-
 }
