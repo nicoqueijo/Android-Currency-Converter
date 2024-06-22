@@ -6,4 +6,5 @@ data class ConvertCurrencyUseCases(
     val setDefaultFocusedCurrency: SetDefaultFocusedCurrency,
     val updateFocusedCurrencyUseCase: UpdateFocusedCurrencyUseCase,
     val updateSelectedCurrenciesUseCase: UpdateSelectedCurrenciesUseCase,
+    val processKeyboardInputUseCase: ProcessKeyboardInputUseCase,
 )

@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.convertcurrency.composables.util
 
-enum class NumPadKey(val value: Char) {
+enum class NumPadKey(var value: Char) {
     ONE(value = '1'),
     TWO(value = '2'),
     THREE(value = '3'),
@@ -10,7 +10,7 @@ enum class NumPadKey(val value: Char) {
     SEVEN(value = '7'),
     EIGHT(value = '8'),
     NINE(value = '9'),
-    DECIMAL_POINT(value = '.'),
+    DECIMAL_SEPARATOR(value = '.'),
     ZERO(value = '0'),
     BACKSPACE(value = '⌫')
 }

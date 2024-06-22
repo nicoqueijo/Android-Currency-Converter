@@ -54,6 +54,10 @@ class ConvertCurrencyViewModel @Inject constructor(
             is UiEvent.SetCurrencyFocus -> {
                 updateFocusedCurrency(currencyToFocus = event.currency)
             }
+
+            /*is UiEvent.ProcessKeyboardInput -> {
+
+            }*/
         }
     }
 

@@ -2,7 +2,6 @@ package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.ButtonDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
@@ -18,6 +17,8 @@ import com.nicoqueijo.android.convertcurrency.composables.util.NumPadKey
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
+import java.text.DecimalFormatSymbols
+import java.util.Locale
 
 // TODO: Style this nice
 /**
@@ -40,6 +41,11 @@ fun NumberPad(
             columns = 3
         ) {
             NumPadKey.entries.forEach { entry ->
+                if (entry == NumPadKey.DECIMAL_SEPARATOR) {
+                    entry.value = DecimalFormatSymbols.getInstance(
+                        Locale.getDefault()
+                    ).decimalSeparator
+                }
                 NumberPadButton(char = entry.value) {
                     with(state) {
                         when (entry) {
@@ -52,7 +58,7 @@ fun NumberPad(
                             NumPadKey.SEVEN -> onDigitButtonClick?.invoke(Digit.Seven)
                             NumPadKey.EIGHT -> onDigitButtonClick?.invoke(Digit.Eight)
                             NumPadKey.NINE -> onDigitButtonClick?.invoke(Digit.Nine)
-                            NumPadKey.DECIMAL_POINT -> onDecimalSeparatorButtonClick?.invoke()
+                            NumPadKey.DECIMAL_SEPARATOR -> onDecimalSeparatorButtonClick?.invoke()
                             NumPadKey.ZERO -> onDigitButtonClick?.invoke(Digit.Zero)
                             NumPadKey.BACKSPACE -> onBackspaceButtonClick?.invoke()
                         }
