@@ -184,7 +184,9 @@ fun ConvertCurrency(
                             state = NumberPadState(
                                 locale = Locale.getDefault(),
                                 onKeyboardButtonClick = { keyboardInput ->
-                                    onEvent?.invoke(UiEvent.ProcessKeyboardInput(keyboardInput = keyboardInput))
+                                    onEvent?.invoke(
+                                        UiEvent.ProcessKeyboardInput(keyboardInput = keyboardInput)
+                                    )
                                 },
                             )
                         )

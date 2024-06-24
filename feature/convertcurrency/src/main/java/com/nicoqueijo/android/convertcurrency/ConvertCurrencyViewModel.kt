@@ -58,12 +58,7 @@ class ConvertCurrencyViewModel @Inject constructor(
             }
 
             is UiEvent.ProcessKeyboardInput -> {
-                val log = when (val input = event.keyboardInput) {
-                    KeyboardInput.Backspace -> "Backspace pressed!"
-                    KeyboardInput.DecimalSeparator -> "Decimal separator pressed!"
-                    is KeyboardInput.Number -> "Digit ${input.digit} pressed!"
-                }
-                Log.d("Nicoo", log)
+                processKeyboardInput(keyboardInput = event.keyboardInput)
             }
         }
     }
@@ -120,5 +115,13 @@ class ConvertCurrencyViewModel @Inject constructor(
                 )
             )
         }
+    }
+
+    private fun processKeyboardInput(keyboardInput: KeyboardInput) {
+        useCases.processKeyboardInputUseCase(
+            keyboardInput = keyboardInput,
+            focusedCurrency = uiState.value.focusedCurrency,
+            selectedCurrencies = uiState.value.selectedCurrencies
+        )
     }
 }
