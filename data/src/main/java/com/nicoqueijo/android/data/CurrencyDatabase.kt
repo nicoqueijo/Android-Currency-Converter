@@ -17,6 +17,7 @@ abstract class CurrencyDatabase : RoomDatabase() {
         @Volatile
         private var instance: CurrencyDatabase? = null
 
+        // TODO: Don't need this logic as the hilt module gives you a singleton anyway.
         fun getInstance(context: Context): CurrencyDatabase {
             return instance ?: synchronized(this) {
                 instance ?: databaseBuilder(

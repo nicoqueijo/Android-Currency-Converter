@@ -14,7 +14,6 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         focusedCurrency: Currency?,
         selectedCurrencies: List<Currency>,
     ): Pair<Currency?, List<Currency>> {
-
         var existingText = focusedCurrency?.conversion?.valueAsString
         var isInputValid = true
         when (keyboardInput) {
@@ -53,8 +52,8 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
             vibrateAndShake()
         }
         return Pair(
-            first = focusedCurrency,
-            second = selectedCurrencies,
+            first = focusedCurrency?.deepCopy(),
+            second = selectedCurrencies.map { it.deepCopy() },
         )
     }
 
@@ -141,8 +140,14 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         focusedCurrency: Currency?,
         selectedCurrencies: List<Currency>,
     ) {
+
+        selectedCurrencies.single { currency ->
+            currency.currencyCode == focusedCurrency?.currencyCode
+        }.conversion.valueAsString = focusedCurrency?.conversion?.valueAsString ?: ""
+
+
         selectedCurrencies.filter { currency ->
-            currency != focusedCurrency
+            currency.currencyCode != focusedCurrency?.currencyCode
         }.forEach {
             val fromRate = focusedCurrency!!.exchangeRate
             val toRate = it.exchangeRate

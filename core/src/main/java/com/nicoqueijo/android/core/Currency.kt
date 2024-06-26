@@ -51,8 +51,13 @@ data class Currency(
     val trimmedCurrencyCode
         get() = currencyCode.substring(CURRENCY_CODE_START_INDEX)
 
+    /**
+     * TODO: Might not need this. This may be copy/paste code from the original project that was
+     * done in Java and did not leverage data classes.
+     */
     override fun equals(other: Any?): Boolean {
-        if (this === other) return true
+        return this === other
+        /*if (this === other) return true*/
         if (javaClass != other?.javaClass) return false
         other as Currency
         return currencyCode == other.currencyCode
@@ -65,6 +70,21 @@ data class Currency(
                 this.position == other.position)
     }
 
+    fun deepCopy(): Currency {
+        return this.copy().also { copy ->
+            copy.isFocused = this.isFocused
+            copy.conversion = Conversion(conversionValue = this.conversion.value).also { conversion ->
+                conversion.value = this.conversion.value
+                conversion.valueAsString = this.conversion.valueAsString
+                /*conversion.hint = this.conversion.hint*/
+            }
+        }
+    }
+
+    /**
+     * TODO: Might not need this. This may be copy/paste code from the original project that was
+     * done in Java and did not leverage data classes.
+     */
     override fun hashCode() = currencyCode.hashCode()
 
     /**
@@ -142,6 +162,7 @@ data class Currency(
                     val decimalPart = splitConversion[Position.SECOND.value]
                     decimalFormatter.format(BigDecimal(wholePart)) + decimalSeparator + decimalPart
                 }
+
                 else -> {
                     decimalFormatter.format(BigDecimal(conversion))
                 }

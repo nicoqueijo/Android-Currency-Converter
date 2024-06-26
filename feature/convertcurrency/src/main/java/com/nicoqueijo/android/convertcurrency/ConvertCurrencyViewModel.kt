@@ -14,6 +14,7 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.random.Random
 
 @HiltViewModel
 class ConvertCurrencyViewModel @Inject constructor(
@@ -119,8 +120,8 @@ class ConvertCurrencyViewModel @Inject constructor(
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
         val (focusedCurrency, selectedCurrencies) = useCases.processKeyboardInputUseCase(
             keyboardInput = keyboardInput,
-            focusedCurrency = uiState.value.focusedCurrency,
-            selectedCurrencies = uiState.value.selectedCurrencies
+            focusedCurrency = uiState.value.focusedCurrency, // Not doing a deep-copy, meaning properties outside the constructor like conversion are not being copied. Try overriding copy() function?
+            selectedCurrencies = uiState.value.selectedCurrencies,
         )
         viewModelScope.launch(context = dispatcher) {
             _uiState.value = _uiState.value.copy(
