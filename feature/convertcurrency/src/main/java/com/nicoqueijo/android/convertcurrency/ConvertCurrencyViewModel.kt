@@ -1,6 +1,5 @@
 package com.nicoqueijo.android.convertcurrency
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
@@ -118,10 +117,16 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
-        useCases.processKeyboardInputUseCase(
+        val (focusedCurrency, selectedCurrencies) = useCases.processKeyboardInputUseCase(
             keyboardInput = keyboardInput,
             focusedCurrency = uiState.value.focusedCurrency,
             selectedCurrencies = uiState.value.selectedCurrencies
         )
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                focusedCurrency = focusedCurrency,
+                selectedCurrencies = selectedCurrencies,
+            )
+        }
     }
 }
