@@ -112,14 +112,12 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
-        viewModelScope.launch(context = dispatcher) {
-            val selectedCurrencies = useCases.processKeyboardInputUseCase(
-                keyboardInput = keyboardInput,
-                selectedCurrencies = _uiState.value.selectedCurrencies,
-            )
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = selectedCurrencies
-            )
-        }
+        val updatedCurrencies = useCases.processKeyboardInputUseCase(
+            keyboardInput = keyboardInput,
+            selectedCurrencies = _uiState.value.selectedCurrencies,
+        )
+        _uiState.value = _uiState.value.copy(
+            selectedCurrencies = updatedCurrencies
+        )
     }
 }

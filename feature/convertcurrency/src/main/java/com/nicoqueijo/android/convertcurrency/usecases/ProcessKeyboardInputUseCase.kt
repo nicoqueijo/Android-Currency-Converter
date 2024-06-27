@@ -4,6 +4,7 @@ import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.CurrencyConverter
 import com.nicoqueijo.android.core.Position
+import com.nicoqueijo.android.core.extensions.deepCopy
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -13,7 +14,8 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         keyboardInput: KeyboardInput,
         selectedCurrencies: List<Currency>,
     ): List<Currency> {
-        val focusedCurrency = selectedCurrencies.single { it.isFocused }
+        val currenciesCopy = selectedCurrencies.deepCopy()
+        val focusedCurrency = currenciesCopy.single { it.isFocused }
         var existingText = focusedCurrency.conversion.valueAsString
         var isInputValid = true
         when (keyboardInput) {
@@ -46,12 +48,12 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         if (isInputValid) {
             runConversions(
                 focusedCurrency = focusedCurrency,
-                selectedCurrencies = selectedCurrencies,
+                selectedCurrencies = currenciesCopy,
             )
         } else {
             vibrateAndShake()
         }
-        return selectedCurrencies.map { it.deepCopy() }
+        return currenciesCopy
 
     }
 
