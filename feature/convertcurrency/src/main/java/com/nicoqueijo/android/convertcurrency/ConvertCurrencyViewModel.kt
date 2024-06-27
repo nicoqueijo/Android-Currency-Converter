@@ -1,13 +1,11 @@
 package com.nicoqueijo.android.convertcurrency
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
-import com.nicoqueijo.android.core.extensions.deepCopy
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -16,7 +14,6 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
-import kotlin.random.Random
 
 @HiltViewModel
 class ConvertCurrencyViewModel @Inject constructor(
@@ -66,16 +63,12 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun setDefaultFocusedCurrency() {
-        /*viewModelScope.launch(context = dispatcher) {*/
-            val updatedCurrencies = useCases.setDefaultFocusedCurrency(
-                selectedCurrencies = _uiState.value.selectedCurrencies
-            )
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = updatedCurrencies.also {
-                    Log.d("Nicoo", "setDefaultFocusedCurrency()")
-                }
-            )
-        /*}*/
+        val updatedCurrencies = useCases.setDefaultFocusedCurrency(
+            selectedCurrencies = _uiState.value.selectedCurrencies
+        )
+        _uiState.value = _uiState.value.copy(
+            selectedCurrencies = updatedCurrencies
+        )
     }
 
     private fun updateDialogDisplay(toggle: Boolean) {
@@ -96,32 +89,26 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun updateFocusedCurrency(currencyToFocus: Currency) {
-        viewModelScope.launch(context = dispatcher) {
-            useCases.updateFocusedCurrencyUseCase(
-                selectedCurrencies = _uiState.value.selectedCurrencies,
-                currencyToFocus = currencyToFocus,
-            )
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = _uiState.value.selectedCurrencies.map { it.deepCopy() }
-            )
-        }
+        val updatedCurrencies = useCases.updateFocusedCurrencyUseCase(
+            selectedCurrencies = _uiState.value.selectedCurrencies,
+            currencyToFocus = currencyToFocus,
+        )
+        _uiState.value = _uiState.value.copy(
+            selectedCurrencies = updatedCurrencies
+        )
     }
 
     private fun updateSelectedCurrencies(
         selectedCurrenciesFromMemory: List<Currency>,
         selectedCurrenciesFromDatabase: List<Currency>,
     ) {
-        /*viewModelScope.launch(context = dispatcher) {*/
-            val updatedSelectedCurrencies = useCases.updateSelectedCurrenciesUseCase.invoke(
-                selectedCurrenciesFromMemory = selectedCurrenciesFromMemory,
-                selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
-            )
-            _uiState.value = _uiState.value.copy(
-                selectedCurrencies = updatedSelectedCurrencies.also {
-                    Log.d("Nicoo", "updateSelectedCurrencies()")
-                }
-            )
-        /*}*/
+        val updatedSelectedCurrencies = useCases.updateSelectedCurrenciesUseCase.invoke(
+            selectedCurrenciesFromMemory = selectedCurrenciesFromMemory,
+            selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
+        )
+        _uiState.value = _uiState.value.copy(
+            selectedCurrencies = updatedSelectedCurrencies
+        )
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
