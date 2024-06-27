@@ -7,9 +7,10 @@ class UpdateFocusedCurrencyUseCase {
     operator fun invoke(
         selectedCurrencies: List<Currency>,
         currencyToFocus: Currency,
-    ): Currency {
-        selectedCurrencies.first { it.isFocused }.isFocused = false
-        selectedCurrencies.first { it == currencyToFocus }.isFocused = true
-        return currencyToFocus
+    ) {
+        selectedCurrencies.apply {
+            first { it.isFocused }.isFocused = false
+            first { it.currencyCode == currencyToFocus.currencyCode }.isFocused = true
+        }
     }
 }

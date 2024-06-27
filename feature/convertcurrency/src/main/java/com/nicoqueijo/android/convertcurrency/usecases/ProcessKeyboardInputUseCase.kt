@@ -11,10 +11,10 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
 
     operator fun invoke(
         keyboardInput: KeyboardInput,
-        focusedCurrency: Currency?,
         selectedCurrencies: List<Currency>,
-    ): Pair<Currency?, List<Currency>> {
-        var existingText = focusedCurrency?.conversion?.valueAsString
+    ): List<Currency> {
+        val focusedCurrency = selectedCurrencies.single { it.isFocused }
+        var existingText = focusedCurrency.conversion.valueAsString
         var isInputValid = true
         when (keyboardInput) {
             is KeyboardInput.Number -> {
@@ -37,8 +37,8 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
             }
 
             KeyboardInput.Backspace -> {
-                existingText = existingText?.dropLast(1)
-                focusedCurrency?.conversion?.valueAsString = existingText!!
+                existingText = existingText.dropLast(1)
+                focusedCurrency.conversion.valueAsString = existingText
             }
 
         }
@@ -51,10 +51,8 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         } else {
             vibrateAndShake()
         }
-        return Pair(
-            first = focusedCurrency?.deepCopy(),
-            second = selectedCurrencies.map { it.deepCopy() },
-        )
+        return selectedCurrencies.map { it.deepCopy() }
+
     }
 
     /**

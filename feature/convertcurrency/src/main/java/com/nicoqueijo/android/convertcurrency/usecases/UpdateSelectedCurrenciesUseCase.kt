@@ -8,6 +8,9 @@ class UpdateSelectedCurrenciesUseCase {
         selectedCurrenciesFromMemory: List<Currency>,
         selectedCurrenciesFromDatabase: List<Currency>,
     ): List<Currency> {
+        if (selectedCurrenciesFromDatabase.isEmpty()) {
+            return emptyList()
+        }
         return (selectedCurrenciesFromMemory + selectedCurrenciesFromDatabase).distinctBy { currency ->
             currency.currencyCode
         }

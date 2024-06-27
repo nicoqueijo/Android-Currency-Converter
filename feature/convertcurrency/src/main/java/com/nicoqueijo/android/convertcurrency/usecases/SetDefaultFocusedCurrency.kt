@@ -4,12 +4,11 @@ import com.nicoqueijo.android.core.Currency
 
 class SetDefaultFocusedCurrency {
 
-    operator fun invoke(
-        focusedCurrency: Currency?,
-        selectedCurrencies: List<Currency>
-    ): Currency? {
-        return focusedCurrency ?: selectedCurrencies.firstOrNull()?.apply {
-            isFocused = true
+    operator fun invoke(selectedCurrencies: List<Currency>) {
+        if (selectedCurrencies.count { it.isFocused } == 0) {
+            selectedCurrencies.firstOrNull()?.apply {
+                isFocused = true
+            }
         }
     }
 }

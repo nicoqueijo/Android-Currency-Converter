@@ -30,7 +30,7 @@ class ConvertCurrencyViewModel @Inject constructor(
             useCases.retrieveSelectedCurrenciesUseCase.invoke()
                 .collectLatest { selectedCurrenciesFromDatabase ->
                     updateSelectedCurrencies(
-                        selectedCurrenciesFromMemory = uiState.value.selectedCurrencies,
+                        selectedCurrenciesFromMemory = _uiState.value.selectedCurrencies.map { it.deepCopy() },
                         selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
                     )
                     setDefaultFocusedCurrency()
@@ -65,11 +65,11 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     private fun setDefaultFocusedCurrency() {
         viewModelScope.launch(context = dispatcher) {
+            useCases.setDefaultFocusedCurrency(
+                selectedCurrencies = _uiState.value.selectedCurrencies
+            )
             _uiState.value = _uiState.value.copy(
-                focusedCurrency = useCases.setDefaultFocusedCurrency.invoke(
-                    focusedCurrency = uiState.value.focusedCurrency,
-                    selectedCurrencies = uiState.value.selectedCurrencies
-                )
+                selectedCurrencies = _uiState.value.selectedCurrencies.map { it.deepCopy() }
             )
         }
     }
@@ -87,18 +87,18 @@ class ConvertCurrencyViewModel @Inject constructor(
             useCases.removeSelectedCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
                 selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
-                focusedCurrency = null,
             )
         }
     }
 
     private fun updateFocusedCurrency(currencyToFocus: Currency) {
         viewModelScope.launch(context = dispatcher) {
+            useCases.updateFocusedCurrencyUseCase(
+                selectedCurrencies = _uiState.value.selectedCurrencies,
+                currencyToFocus = currencyToFocus,
+            )
             _uiState.value = _uiState.value.copy(
-                focusedCurrency = useCases.updateFocusedCurrencyUseCase.invoke(
-                    selectedCurrencies = uiState.value.selectedCurrencies,
-                    currencyToFocus = currencyToFocus
-                )
+                selectedCurrencies = _uiState.value.selectedCurrencies.map { it.deepCopy() }
             )
         }
     }
@@ -118,15 +118,13 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
-        val (focusedCurrency, selectedCurrencies) = useCases.processKeyboardInputUseCase(
-            keyboardInput = keyboardInput,
-            focusedCurrency = uiState.value.focusedCurrency, // Not doing a deep-copy, meaning properties outside the constructor like conversion are not being copied. Try overriding copy() function?
-            selectedCurrencies = uiState.value.selectedCurrencies,
-        )
         viewModelScope.launch(context = dispatcher) {
+            val selectedCurrencies = useCases.processKeyboardInputUseCase(
+                keyboardInput = keyboardInput,
+                selectedCurrencies = _uiState.value.selectedCurrencies,
+            )
             _uiState.value = _uiState.value.copy(
-                focusedCurrency = focusedCurrency,
-                selectedCurrencies = selectedCurrencies,
+                selectedCurrencies = selectedCurrencies
             )
         }
     }
