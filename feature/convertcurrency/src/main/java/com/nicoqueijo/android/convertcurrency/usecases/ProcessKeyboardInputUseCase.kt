@@ -15,6 +15,9 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         selectedCurrencies: List<Currency>,
     ): List<Currency> {
         val currenciesCopy = selectedCurrencies.deepCopy()
+        if (currenciesCopy.isEmpty()) { // No currencies to process
+            return currenciesCopy
+        }
         val focusedCurrency = currenciesCopy.single { it.isFocused }
         var existingText = focusedCurrency.conversion.valueAsString
         var isInputValid = true
@@ -78,11 +81,9 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         input: String,
         focusedCurrency: Currency?,
     ): Boolean {
-        val isLengthValid = validateLength(input = input, focusedCurrency = focusedCurrency)
-        val isDecimalValid = validateDecimalPlaces(input = input, focusedCurrency = focusedCurrency)
-        val isDecimalSeparatorValid =
-            validateDecimalSeparator(input = input, focusedCurrency = focusedCurrency)
-        return isLengthValid && isDecimalValid && isDecimalSeparatorValid
+        return validateLength(input, focusedCurrency) &&
+                validateDecimalPlaces(input, focusedCurrency) &&
+                validateDecimalSeparator(input = input, focusedCurrency)
     }
 
     /**
@@ -168,6 +169,11 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         /**
          * Animation has to be done in compose so maybe I should do the vibration there as well with
          * the haptic feedback.
+         * I might just do vibration here without any shake since shake can only be done in compose
+         * and I would need to somehow pass some state to indicate to the UI that there was an invalid
+         * input - way too complicated.
+         * I could also just add a triggerInvalidFeedback flag to the UiState and the composable can
+         * use this to do haptic feedback + shake animation on the focused row.
          */
     }
 }
