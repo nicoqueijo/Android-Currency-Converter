@@ -3,11 +3,7 @@ package com.nicoqueijo.android.core
 import androidx.room.Entity
 import androidx.room.Ignore
 import androidx.room.PrimaryKey
-import com.nicoqueijo.android.core.extensions.roundToFourDecimalPlaces
 import java.math.BigDecimal
-import java.text.DecimalFormat
-import java.text.NumberFormat
-import java.util.Locale
 
 /**
  * Represents a currency with its code and exchange rate.
@@ -30,44 +26,29 @@ data class Currency(
     @Ignore
     var conversion = Conversion(BigDecimal.ZERO)
 
-    @Ignore
-    private var decimalFormatter: DecimalFormat
-
-    @Ignore
-    private var decimalSeparator: String
-
-    init {
-        val numberFormatter = NumberFormat.getNumberInstance(Locale.getDefault())
-        val conversionPattern = "#,##0.####"
-        decimalFormatter = numberFormatter as DecimalFormat
-        decimalFormatter.applyPattern(conversionPattern)
-        decimalSeparator = decimalFormatter.decimalFormatSymbols.decimalSeparator.toString()
-    }
-
     /**
      * Currency code without the "USD_" prefix.
      * Example: USD_EUR -> EUR
      */
     val trimmedCurrencyCode
-        get() = currencyCode.substring(CURRENCY_CODE_START_INDEX)
+        get() = currencyCode.substring(startIndex = 4)
 
-    /**
-     * TODO: Might not need this. This may be copy/paste code from the original project that was
-     * done in Java and did not leverage data classes.
-     */
     override fun equals(other: Any?): Boolean {
-        return this === other
-        /*if (this === other) return true*/
+        if (this === other) return true
         if (javaClass != other?.javaClass) return false
         other as Currency
-        return currencyCode == other.currencyCode
+        return this.deepEquals(other)
     }
 
-    fun deepEquals(other: Currency): Boolean {
-        return (this.currencyCode == other.currencyCode &&
+    private fun deepEquals(other: Currency): Boolean {
+        return this.currencyCode == other.currencyCode &&
                 this.exchangeRate == other.exchangeRate &&
+                this.position == other.position &&
                 this.isSelected == other.isSelected &&
-                this.position == other.position)
+                this.isFocused == other.isFocused &&
+                this.conversion.value == other.conversion.value &&
+                this.conversion.valueAsString == other.conversion.valueAsString &&
+                this.conversion.hint == other.conversion.hint
     }
 
     fun deepCopy(): Currency {
@@ -76,16 +57,22 @@ data class Currency(
             copy.conversion = Conversion(conversionValue = this.conversion.value).also { conversion ->
                 conversion.value = this.conversion.value
                 conversion.valueAsString = this.conversion.valueAsString
-                /*conversion.hint = this.conversion.hint*/
+                conversion.hint = this.conversion.hint
             }
         }
     }
 
-    /**
-     * TODO: Might not need this. This may be copy/paste code from the original project that was
-     * done in Java and did not leverage data classes.
-     */
-    override fun hashCode() = currencyCode.hashCode()
+    override fun hashCode(): Int {
+        var result = currencyCode.hashCode()
+        result = 31 * result + exchangeRate.hashCode()
+        result = 31 * result + position
+        result = 31 * result + isSelected.hashCode()
+        result = 31 * result + isFocused.hashCode()
+        result = 31 * result + conversion.value.hashCode()
+        result = 31 * result + conversion.valueAsString.hashCode()
+        result = 31 * result + conversion.hint.hashCode()
+        return result
+    }
 
     /**
      * Since the toString() method is really only useful for debugging I've structured it in a way
@@ -111,64 +98,6 @@ data class Currency(
         append(if (isSelected) "S" else " ")
         append("}")
     }
-
-    inner class Conversion(conversionValue: BigDecimal) {
-        /**
-         * The underlying numeric conversion result.
-         * Example: 1234.5678
-         */
-        var value: BigDecimal = conversionValue
-            set(value) {
-                field = value.roundToFourDecimalPlaces()
-                valueAsString = field.toString()
-            }
-
-        /**
-         * The [value] as a String.
-         * Example: "1234.5678"
-         */
-        var valueAsString = ""
-
-        /**
-         * The [valueAsString] formatted according to locale.
-         * Example:    USA: 1,234.5678
-         *          France: 1.234,5678
-         */
-        val valueAsText: String
-            get() {
-                return if (valueAsString.isNotBlank()) {
-                    formatConversion(valueAsString)
-                } else {
-                    ""
-                }
-            }
-
-        /**
-         * The hint displayed when [valueAsText] is empty.
-         */
-        var hint = ""
-            set(value) {
-                field = formatConversion(BigDecimal(value).toString())
-            }
-
-        /**
-         * Formats a numeric String with grouping separators while retaining trailing zeros.
-         */
-        private fun formatConversion(conversion: String): String {
-            return when {
-                conversion.contains(".") -> {
-                    val splitConversion = conversion.split(".")
-                    val wholePart = splitConversion[Position.FIRST.value]
-                    val decimalPart = splitConversion[Position.SECOND.value]
-                    decimalFormatter.format(BigDecimal(wholePart)) + decimalSeparator + decimalPart
-                }
-
-                else -> {
-                    decimalFormatter.format(BigDecimal(conversion))
-                }
-            }
-        }
-    }
 }
 
 enum class Position(val value: Int) {
@@ -178,5 +107,3 @@ enum class Position(val value: Int) {
     THIRD(2),
     FOURTH(3)
 }
-
-const val CURRENCY_CODE_START_INDEX = 4

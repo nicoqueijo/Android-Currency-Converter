@@ -18,6 +18,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -95,7 +96,8 @@ fun ConvertCurrencyRow(
                     state.conversion.hint
                 },
                 color = if (state.conversion.valueAsText.isEmpty()) {
-                    MaterialTheme.colorScheme.inverseOnSurface
+                    /*MaterialTheme.colorScheme.inverseOnSurface*/
+                    Color.Magenta
                 } else {
                     MaterialTheme.colorScheme.primary
                 },
