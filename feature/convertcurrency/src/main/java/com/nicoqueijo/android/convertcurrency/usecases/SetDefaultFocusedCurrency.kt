@@ -5,13 +5,13 @@ import com.nicoqueijo.android.core.extensions.deepCopy
 
 class SetDefaultFocusedCurrency {
 
-    operator fun invoke(selectedCurrencies: List<Currency>): List<Currency> {
-        val copy = selectedCurrencies.deepCopy()
-        if (copy.count { it.isFocused } == 0) {
-            copy.firstOrNull()?.apply {
+    operator fun invoke(currencies: List<Currency>): List<Currency> {
+        val currencyCopy = currencies.deepCopy()
+        if (currencyCopy.count { it.isFocused } == 0) {
+            currencyCopy.firstOrNull()?.apply {
                 isFocused = true
             }
         }
-        return copy
+        return currencyCopy
     }
 }

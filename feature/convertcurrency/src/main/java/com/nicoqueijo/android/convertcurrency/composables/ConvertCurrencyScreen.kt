@@ -92,7 +92,7 @@ fun ConvertCurrency(
                             )
                         },
                         actions = {
-                            if (state?.selectedCurrencies?.isNotEmpty() == true) {
+                            if (state?.currencies?.isNotEmpty() == true) {
                                 IconButton(
                                     onClick = {
                                         onEvent?.invoke(UiEvent.RemoveAllCurrencies)
@@ -133,13 +133,13 @@ fun ConvertCurrency(
                             .weight(1f),
                         contentAlignment = Alignment.BottomCenter
                     ) {
-                        if (state?.selectedCurrencies?.isEmpty() == true) {
+                        if (state?.currencies?.isEmpty() == true) {
                             EmptyListIndicator()
                         } else {
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize()
                             ) {
-                                state?.selectedCurrencies?.forEach { currency ->
+                                state?.currencies?.forEach { currency ->
                                     item {
                                         ConvertCurrencyRow(
                                             modifier = Modifier.animateItem(),
@@ -201,7 +201,7 @@ fun ConvertCurrency(
 @Composable
 fun ConvertCurrencyScreenPreview() {
     val state = UiState(
-        selectedCurrencies = listOf(
+        currencies = listOf(
             Currency(
                 currencyCode = "USD_GBP",
                 exchangeRate = 0.786829,
@@ -255,7 +255,7 @@ fun ConvertCurrencyEmptyScreenPreview() {
 @Composable
 fun ConvertCurrencyScreenWithDialogPreview() {
     val state = UiState(
-        selectedCurrencies = listOf(
+        currencies = listOf(
             Currency(
                 currencyCode = "USD_GBP",
                 exchangeRate = 0.786829,

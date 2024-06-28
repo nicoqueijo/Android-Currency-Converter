@@ -6,11 +6,11 @@ import com.nicoqueijo.android.core.extensions.deepCopy
 class UpdateSelectedCurrenciesUseCase {
 
     operator fun invoke(
-        selectedCurrenciesFromMemory: List<Currency>,
-        selectedCurrenciesFromDatabase: List<Currency>,
+        memoryCurrencies: List<Currency>,
+        databaseCurrencies: List<Currency>,
     ): List<Currency> {
-        val memoryCurrenciesCopy = selectedCurrenciesFromMemory.deepCopy()
-        val databaseCurrenciesCopy = selectedCurrenciesFromDatabase.deepCopy()
+        val memoryCurrenciesCopy = memoryCurrencies.deepCopy()
+        val databaseCurrenciesCopy = databaseCurrencies.deepCopy()
         if (databaseCurrenciesCopy.isEmpty()) {
             return emptyList()
         }

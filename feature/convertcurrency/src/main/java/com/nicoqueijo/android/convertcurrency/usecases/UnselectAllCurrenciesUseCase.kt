@@ -5,16 +5,16 @@ import com.nicoqueijo.android.data.Repository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
-class RemoveSelectedCurrenciesUseCase @Inject constructor(
+class UnselectAllCurrenciesUseCase @Inject constructor(
     private val repository: Repository,
 ) {
 
     suspend operator fun invoke() {
-        val currenciesToRemove = repository.getSelectedCurrencies().first()
-        currenciesToRemove.forEach { currency ->
+        val currenciesToUnselect = repository.getSelectedCurrencies().first()
+        currenciesToUnselect.forEach { currency ->
             currency.isSelected = false
             currency.position = Position.INVALID.value
         }
-        repository.upsertCurrencies(currencies = currenciesToRemove)
+        repository.upsertCurrencies(currencies = currenciesToUnselect)
     }
 }

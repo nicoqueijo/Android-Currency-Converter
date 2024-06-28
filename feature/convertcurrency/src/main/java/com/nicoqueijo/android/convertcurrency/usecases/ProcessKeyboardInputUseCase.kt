@@ -12,9 +12,9 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
 
     operator fun invoke(
         keyboardInput: KeyboardInput,
-        selectedCurrencies: List<Currency>,
+        currencies: List<Currency>,
     ): List<Currency> {
-        val currenciesCopy = selectedCurrencies.deepCopy()
+        val currenciesCopy = currencies.deepCopy()
         if (currenciesCopy.isEmpty()) { // No currencies to process
             return currenciesCopy
         }

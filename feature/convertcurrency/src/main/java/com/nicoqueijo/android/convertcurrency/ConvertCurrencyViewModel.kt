@@ -27,10 +27,10 @@ class ConvertCurrencyViewModel @Inject constructor(
     init {
         viewModelScope.launch(context = dispatcher) {
             useCases.retrieveSelectedCurrenciesUseCase()
-                .collectLatest { selectedCurrenciesFromDatabase ->
+                .collectLatest { databaseCurrencies ->
                     updateSelectedCurrencies(
-                        selectedCurrenciesFromMemory = _uiState.value.selectedCurrencies,
-                        selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
+                        memoryCurrencies = _uiState.value.currencies,
+                        databaseCurrencies = databaseCurrencies,
                     )
                     setDefaultFocusedCurrency()
                 }
@@ -64,10 +64,10 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     private fun setDefaultFocusedCurrency() {
         val updatedCurrencies = useCases.setDefaultFocusedCurrency(
-            selectedCurrencies = _uiState.value.selectedCurrencies
+            currencies = _uiState.value.currencies
         )
         _uiState.value = _uiState.value.copy(
-            selectedCurrencies = updatedCurrencies
+            currencies = updatedCurrencies
         )
     }
 
@@ -81,43 +81,43 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     private fun removeSelectedCurrencies() {
         viewModelScope.launch(context = dispatcher) {
-            useCases.removeSelectedCurrenciesUseCase()
+            useCases.unselectAllCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
-                selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
+                currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
             )
         }
     }
 
     private fun updateFocusedCurrency(currencyToFocus: Currency) {
         val updatedCurrencies = useCases.updateFocusedCurrencyUseCase(
-            selectedCurrencies = _uiState.value.selectedCurrencies,
+            currencies = _uiState.value.currencies,
             currencyToFocus = currencyToFocus,
         )
         _uiState.value = _uiState.value.copy(
-            selectedCurrencies = updatedCurrencies
+            currencies = updatedCurrencies
         )
     }
 
     private fun updateSelectedCurrencies(
-        selectedCurrenciesFromMemory: List<Currency>,
-        selectedCurrenciesFromDatabase: List<Currency>,
+        memoryCurrencies: List<Currency>,
+        databaseCurrencies: List<Currency>,
     ) {
         val updatedSelectedCurrencies = useCases.updateSelectedCurrenciesUseCase.invoke(
-            selectedCurrenciesFromMemory = selectedCurrenciesFromMemory,
-            selectedCurrenciesFromDatabase = selectedCurrenciesFromDatabase,
+            memoryCurrencies = memoryCurrencies,
+            databaseCurrencies = databaseCurrencies,
         )
         _uiState.value = _uiState.value.copy(
-            selectedCurrencies = updatedSelectedCurrencies
+            currencies = updatedSelectedCurrencies
         )
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
         val updatedCurrencies = useCases.processKeyboardInputUseCase(
             keyboardInput = keyboardInput,
-            selectedCurrencies = _uiState.value.selectedCurrencies,
+            currencies = _uiState.value.currencies,
         )
         _uiState.value = _uiState.value.copy(
-            selectedCurrencies = updatedCurrencies
+            currencies = updatedCurrencies
         )
     }
 }
