@@ -1,9 +1,9 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.CurrencyConverter
-import com.nicoqueijo.android.core.Position
+import com.nicoqueijo.android.core.model.Position
 import com.nicoqueijo.android.core.extensions.deepCopy
 import java.math.BigDecimal
 import javax.inject.Inject

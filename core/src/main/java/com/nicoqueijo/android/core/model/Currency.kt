@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.core
+package com.nicoqueijo.android.core.model
 
 import androidx.room.Entity
 import androidx.room.Ignore
@@ -57,7 +57,7 @@ data class Currency(
             copy.conversion = Conversion(conversionValue = this.conversion.value).also { conversion ->
                 conversion.value = this.conversion.value
                 conversion.valueAsString = this.conversion.valueAsString
-                conversion.hint = this.conversion.hint
+                conversion.hint = this.conversion.hint.copy()
             }
         }
     }

@@ -29,7 +29,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.selectcurrency.R
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
 import com.nicoqueijo.android.selectcurrency.UiEvent
@@ -39,7 +39,6 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
-import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.launch
 

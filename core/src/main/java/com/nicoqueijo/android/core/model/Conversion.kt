@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.core
+package com.nicoqueijo.android.core.model
 
 import com.nicoqueijo.android.core.extensions.roundToFourDecimalPlaces
 import java.math.BigDecimal
@@ -33,7 +33,7 @@ class Conversion(conversionValue: BigDecimal) {
      * The [value] as a String.
      * Example: "1234.5678"
      */
-    var valueAsString = ""
+    var valueAsString: String = ""
 
     /**
      * The [valueAsString] formatted according to locale.
@@ -50,20 +50,17 @@ class Conversion(conversionValue: BigDecimal) {
         }
 
     /**
-     * The hint displayed when [valueAsText] is empty.
+     * The hint to be displayed when [valueAsText] is empty.
      */
-    var hint = "1"
+    var hint: Hint = Hint()
         set(value) {
-
-            /*field = formatConversion(
-                number = BigDecimal(value).toString()
+            val formattedNumber = formatConversion(
+                number = BigDecimal(value.number).toString()
             )
-*/
-            var number = unformatConversion(number = value)
-            number = formatConversion(
-                number = BigDecimal(number).toString()
+            field = Hint(
+                number = value.number,
+                formattedNumber = formattedNumber
             )
-            field = number
         }
 
     /**
@@ -82,13 +79,5 @@ class Conversion(conversionValue: BigDecimal) {
                 decimalFormatter.format(BigDecimal(number))
             }
         }
-    }
-
-    private fun unformatConversion(number: String): String {
-        val format = NumberFormat.getNumberInstance(Locale.getDefault())
-        val decimalSymbols = (format as DecimalFormat).decimalFormatSymbols
-        var result = number.replace(decimalSymbols.groupingSeparator.toString(), "")
-        result = result.replace(decimalSymbols.decimalSeparator.toString(), ".")
-        return result
     }
 }

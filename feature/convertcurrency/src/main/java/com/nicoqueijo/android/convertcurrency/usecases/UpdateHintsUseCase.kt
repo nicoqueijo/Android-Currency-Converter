@@ -1,9 +1,10 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.CurrencyConverter
 import com.nicoqueijo.android.core.extensions.deepCopy
 import com.nicoqueijo.android.core.extensions.roundToFourDecimalPlaces
+import com.nicoqueijo.android.core.model.Hint
 import java.math.BigDecimal
 
 class UpdateHintsUseCase {
@@ -16,7 +17,7 @@ class UpdateHintsUseCase {
             return currenciesCopy
         }
         val focusedCurrency = currenciesCopy.single { it.isFocused }
-        focusedCurrency.conversion.hint = "1"
+        focusedCurrency.conversion.hint = Hint(number = "1")
         currenciesCopy.filter { it.currencyCode != focusedCurrency.currencyCode }
             .forEach { currency ->
                 val fromRate = focusedCurrency.exchangeRate
@@ -26,7 +27,7 @@ class UpdateHintsUseCase {
                     fromRate = fromRate,
                     toRate = toRate
                 ).roundToFourDecimalPlaces().toString()
-                currency.conversion.hint = conversionValue
+                currency.conversion.hint = Hint(number = conversionValue)
             }
         return currenciesCopy
     }

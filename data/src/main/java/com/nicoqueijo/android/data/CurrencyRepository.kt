@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.data
 
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.di.IODispatcher
 import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.KtorClient

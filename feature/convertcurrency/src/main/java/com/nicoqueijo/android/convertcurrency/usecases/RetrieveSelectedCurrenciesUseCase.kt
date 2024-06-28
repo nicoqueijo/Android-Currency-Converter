@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.data.Repository
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject

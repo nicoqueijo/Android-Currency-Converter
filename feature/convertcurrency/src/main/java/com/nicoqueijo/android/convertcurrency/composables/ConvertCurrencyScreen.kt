@@ -37,7 +37,7 @@ import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.UiEvent
 import com.nicoqueijo.android.convertcurrency.UiState
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S

@@ -4,7 +4,7 @@ import android.content.Context
 import androidx.room.Database
 import androidx.room.Room.databaseBuilder
 import androidx.room.RoomDatabase
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 
 @Database(entities = [Currency::class], version = 1)
 abstract class CurrencyDatabase : RoomDatabase() {

@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.network
 
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 

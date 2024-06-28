@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.core.extensions
 
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 
 fun List<Currency>.deepEquals(other: List<Currency>): Boolean {
     if (this.size != other.size) {

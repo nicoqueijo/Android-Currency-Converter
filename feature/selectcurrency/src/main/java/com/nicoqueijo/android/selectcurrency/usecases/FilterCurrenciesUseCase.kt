@@ -1,7 +1,7 @@
 package com.nicoqueijo.android.selectcurrency.usecases
 
 import android.content.Context
-import com.nicoqueijo.android.core.Currency
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 import java.util.Locale
 import javax.inject.Inject

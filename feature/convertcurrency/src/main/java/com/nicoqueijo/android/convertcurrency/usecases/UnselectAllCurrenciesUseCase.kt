@@ -1,6 +1,6 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
-import com.nicoqueijo.android.core.Position
+import com.nicoqueijo.android.core.model.Position
 import com.nicoqueijo.android.data.Repository
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
