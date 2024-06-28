@@ -54,26 +54,41 @@ class Conversion(conversionValue: BigDecimal) {
      */
     var hint = "1"
         set(value) {
-            field = formatConversion(
-                conversion = BigDecimal(value).toString()
+
+            /*field = formatConversion(
+                number = BigDecimal(value).toString()
             )
+*/
+            var number = unformatConversion(number = value)
+            number = formatConversion(
+                number = BigDecimal(number).toString()
+            )
+            field = number
         }
 
     /**
      * Formats a numeric String with grouping separators while retaining trailing zeros.
      */
-    private fun formatConversion(conversion: String): String {
+    private fun formatConversion(number: String): String {
         return when {
-            conversion.contains(".") -> {
-                val splitConversion = conversion.split(".")
+            number.contains(".") -> {
+                val splitConversion = number.split(".")
                 val wholePart = splitConversion[Position.FIRST.value]
                 val decimalPart = splitConversion[Position.SECOND.value]
                 decimalFormatter.format(BigDecimal(wholePart)) + decimalSeparator + decimalPart
             }
 
             else -> {
-                decimalFormatter.format(BigDecimal(conversion))
+                decimalFormatter.format(BigDecimal(number))
             }
         }
+    }
+
+    private fun unformatConversion(number: String): String {
+        val format = NumberFormat.getNumberInstance(Locale.getDefault())
+        val decimalSymbols = (format as DecimalFormat).decimalFormatSymbols
+        var result = number.replace(decimalSymbols.groupingSeparator.toString(), "")
+        result = result.replace(decimalSymbols.decimalSeparator.toString(), ".")
+        return result
     }
 }

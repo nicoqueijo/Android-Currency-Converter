@@ -33,18 +33,19 @@ class ConvertCurrencyViewModel @Inject constructor(
                         databaseCurrencies = databaseCurrencies,
                     )
                     setDefaultFocusedCurrency()
+                    updateHints()
                 }
         }
     }
 
     fun onEvent(event: UiEvent) {
         when (event) {
-            UiEvent.RemoveAllCurrencies -> {
+            UiEvent.UnselectAllCurrencies -> {
                 updateDialogDisplay(toggle = true)
             }
 
             UiEvent.ConfirmDialog -> {
-                removeSelectedCurrencies()
+                unselectAllCurrencies()
                 updateDialogDisplay(toggle = false)
             }
 
@@ -54,6 +55,7 @@ class ConvertCurrencyViewModel @Inject constructor(
 
             is UiEvent.SetCurrencyFocus -> {
                 updateFocusedCurrency(currencyToFocus = event.currency)
+                updateHints()
             }
 
             is UiEvent.ProcessKeyboardInput -> {
@@ -79,7 +81,7 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    private fun removeSelectedCurrencies() {
+    private fun unselectAllCurrencies() {
         viewModelScope.launch(context = dispatcher) {
             useCases.unselectAllCurrenciesUseCase()
             _uiState.value = _uiState.value.copy(
@@ -115,6 +117,15 @@ class ConvertCurrencyViewModel @Inject constructor(
         val updatedCurrencies = useCases.processKeyboardInputUseCase(
             keyboardInput = keyboardInput,
             currencies = _uiState.value.currencies,
+        )
+        _uiState.value = _uiState.value.copy(
+            currencies = updatedCurrencies
+        )
+    }
+
+    private fun updateHints() {
+        val updatedCurrencies = useCases.updateHintsUseCase(
+            currencies = _uiState.value.currencies
         )
         _uiState.value = _uiState.value.copy(
             currencies = updatedCurrencies

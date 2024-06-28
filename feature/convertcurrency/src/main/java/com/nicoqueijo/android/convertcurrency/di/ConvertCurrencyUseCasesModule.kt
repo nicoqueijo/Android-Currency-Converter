@@ -6,6 +6,7 @@ import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseC
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateFocusedCurrencyUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.UpdateHintsUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateSelectedCurrenciesUseCase
 import com.nicoqueijo.android.data.Repository
 import dagger.Module
@@ -32,6 +33,7 @@ object ConvertCurrencyUseCasesModule {
             updateFocusedCurrencyUseCase = UpdateFocusedCurrencyUseCase(),
             updateSelectedCurrenciesUseCase = UpdateSelectedCurrenciesUseCase(),
             processKeyboardInputUseCase = ProcessKeyboardInputUseCase(),
+            updateHintsUseCase = UpdateHintsUseCase(),
         )
     }
 }

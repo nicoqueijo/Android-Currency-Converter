@@ -95,7 +95,7 @@ fun ConvertCurrency(
                             if (state?.currencies?.isNotEmpty() == true) {
                                 IconButton(
                                     onClick = {
-                                        onEvent?.invoke(UiEvent.RemoveAllCurrencies)
+                                        onEvent?.invoke(UiEvent.UnselectAllCurrencies)
                                     }
                                 ) {
                                     Icon(
