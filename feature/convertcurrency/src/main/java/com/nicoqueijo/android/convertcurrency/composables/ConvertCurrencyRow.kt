@@ -39,7 +39,7 @@ import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 fun ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
-    isInputInvalid: Boolean = false,
+    isInputInvalid: Boolean = false, // used to shake the conversion
     onClick: (() -> Unit)? = null,
 ) {
     Surface(modifier = modifier) {
