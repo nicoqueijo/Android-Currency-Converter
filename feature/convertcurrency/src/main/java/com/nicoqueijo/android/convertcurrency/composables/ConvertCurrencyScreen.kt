@@ -35,9 +35,9 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.R
+import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
-import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
@@ -152,7 +152,7 @@ fun ConvertCurrency(
                                                 onEvent?.invoke(
                                                     UiEvent.SetCurrencyFocus(currency = currency)
                                                 )
-                                            }
+                                            },
                                         )
                                         HorizontalDivider()
                                     }

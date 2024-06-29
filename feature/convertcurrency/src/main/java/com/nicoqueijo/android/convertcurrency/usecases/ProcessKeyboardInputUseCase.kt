@@ -1,10 +1,10 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
-import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.CurrencyConverter
-import com.nicoqueijo.android.core.model.Position
 import com.nicoqueijo.android.core.extensions.deepCopy
+import com.nicoqueijo.android.core.model.Currency
+import com.nicoqueijo.android.core.model.Position
 import java.math.BigDecimal
 import javax.inject.Inject
 
@@ -13,10 +13,10 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
     operator fun invoke(
         keyboardInput: KeyboardInput,
         currencies: List<Currency>,
-    ): List<Currency> {
+    ): InputResult {
         val currenciesCopy = currencies.deepCopy()
         if (currenciesCopy.isEmpty()) { // No currencies to process
-            return currenciesCopy
+            return InputResult()
         }
         val focusedCurrency = currenciesCopy.single { it.isFocused }
         var existingText = focusedCurrency.conversion.valueAsString
@@ -45,19 +45,12 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
                 existingText = existingText.dropLast(1)
                 focusedCurrency.conversion.valueAsString = existingText
             }
-
         }
 
-        if (isInputValid) {
-            runConversions(
-                focusedCurrency = focusedCurrency,
-                selectedCurrencies = currenciesCopy,
-            )
-        } else {
-            vibrateAndShake()
-        }
-        return currenciesCopy
-
+        return InputResult(
+            currencies = currenciesCopy,
+            isInputValid = isInputValid,
+        )
     }
 
     /**
@@ -137,34 +130,6 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         return true
     }
 
-    private fun runConversions(
-        focusedCurrency: Currency?,
-        selectedCurrencies: List<Currency>,
-    ) {
-
-        selectedCurrencies.single { currency ->
-            currency.currencyCode == focusedCurrency?.currencyCode
-        }.conversion.valueAsString = focusedCurrency?.conversion?.valueAsString ?: ""
-
-
-        selectedCurrencies.filter { currency ->
-            currency.currencyCode != focusedCurrency?.currencyCode
-        }.forEach { currency ->
-            val fromRate = focusedCurrency!!.exchangeRate
-            val toRate = currency.exchangeRate
-            if (focusedCurrency.conversion.valueAsString.isNotEmpty()) {
-                val conversionValue = CurrencyConverter.convertCurrency(
-                    amount = BigDecimal(focusedCurrency.conversion.valueAsString),
-                    fromRate = fromRate,
-                    toRate = toRate
-                )
-                currency.conversion.value = conversionValue
-            } else {
-                currency.conversion.valueAsString = ""
-            }
-        }
-    }
-
     private fun vibrateAndShake() {
         /**
          * Animation has to be done in compose so maybe I should do the vibration there as well with
@@ -177,3 +142,8 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
          */
     }
 }
+
+data class InputResult(
+    val currencies: List<Currency> = emptyList(),
+    val isInputValid: Boolean = true,
+)

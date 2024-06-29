@@ -117,13 +117,16 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun processKeyboardInput(keyboardInput: KeyboardInput) {
-        val updatedCurrencies = useCases.processKeyboardInputUseCase(
+        val inputResult = useCases.processKeyboardInputUseCase(
             keyboardInput = keyboardInput,
             currencies = _uiState.value.currencies,
         )
-        _uiState.value = _uiState.value.copy(
-            currencies = updatedCurrencies
-        )
+        if (inputResult.isInputValid) {
+            _uiState.value = _uiState.value.copy(
+                currencies = inputResult.currencies,
+            )
+            updateConversions()
+        }
     }
 
     private fun updateHints() {
