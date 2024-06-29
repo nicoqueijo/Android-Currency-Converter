@@ -109,7 +109,7 @@ fun ConvertCurrency(
                             }
                         },
                         colors = TopAppBarDefaults.topAppBarColors(
-                            containerColor = MaterialTheme.colorScheme.onSurface // Set the background color here
+                            containerColor = MaterialTheme.colorScheme.onSurface
                         )
                     )
                     HorizontalDivider()

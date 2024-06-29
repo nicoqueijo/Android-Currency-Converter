@@ -17,12 +17,16 @@ import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.SearchBarDefaults
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
+import androidx.compose.material3.TextFieldColors
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
@@ -115,9 +119,18 @@ fun SelectCurrency(
                                         contentDescription = null,
                                         tint = MaterialTheme.colorScheme.primary,
                                     )
-                                }
+                                },
+                                colors = SearchBarDefaults.colors(
+                                    inputFieldColors = SearchBarDefaults.inputFieldColors().copy(
+                                        focusedTextColor = MaterialTheme.colorScheme.primary,
+                                    ),
+                                    containerColor = MaterialTheme.colorScheme.onSurface,
+                                )
                             ) { }
                         },
+                        colors = TopAppBarDefaults.topAppBarColors(
+                            containerColor = MaterialTheme.colorScheme.onSurface,
+                        ),
                     )
                     HorizontalDivider()
                 }
