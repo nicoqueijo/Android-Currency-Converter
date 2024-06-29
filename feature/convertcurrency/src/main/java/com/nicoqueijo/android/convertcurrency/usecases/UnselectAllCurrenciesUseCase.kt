@@ -16,5 +16,16 @@ class UnselectAllCurrenciesUseCase @Inject constructor(
             currency.position = Position.INVALID.value
         }
         repository.upsertCurrencies(currencies = currenciesToUnselect)
+
+        /**
+         * Test code to remove single currencies.
+         * Not working right now and I think it has to do with the logic in UpdateSelectedCurrenciesUseCase
+         */
+        /*val currencyToUnselect = repository.getCurrency("USD_ARS")
+        currencyToUnselect.apply {
+            isSelected = false
+            position = Position.INVALID.value
+        }
+        repository.upsertCurrency(currencyToUnselect)*/
     }
 }

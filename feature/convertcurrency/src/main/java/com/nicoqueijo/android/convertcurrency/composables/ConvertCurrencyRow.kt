@@ -107,9 +107,9 @@ fun ConvertCurrencyRow(
                 maxLines = 1,
             )
             if (state.isFocused) {
-                BlinkingCursor(
-                    modifier = Modifier.padding(start = XXXXS)
-                )
+                BlinkingCursor(modifier = Modifier.padding(start = XXXXS))
+            } else {
+                Spacer(modifier = Modifier.width(width = XXXS))
             }
         }
     }
