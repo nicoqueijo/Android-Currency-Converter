@@ -2,6 +2,7 @@ package com.nicoqueijo.android.ui
 
 import androidx.compose.ui.unit.dp
 
+val XXXXS = 2.dp
 val XXXS = 4.dp
 val XXS = 8.dp
 val XS = 12.dp

@@ -18,7 +18,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -33,12 +32,14 @@ import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XS
 import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
+import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 
 @Composable
 fun ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
+    isInputInvalid: Boolean = false,
     onClick: (() -> Unit)? = null,
 ) {
     Surface(modifier = modifier) {
@@ -97,8 +98,7 @@ fun ConvertCurrencyRow(
                     state.conversion.hint.formattedNumber
                 },
                 color = if (state.conversion.valueAsText.isEmpty()) {
-                    /*MaterialTheme.colorScheme.inverseOnSurface*/
-                    Color.Magenta
+                    MaterialTheme.colorScheme.onTertiary
                 } else {
                     MaterialTheme.colorScheme.primary
                 },
@@ -106,7 +106,11 @@ fun ConvertCurrencyRow(
                 textAlign = TextAlign.End,
                 maxLines = 1,
             )
-            // TODO: Add blinking cursor when focused
+            if (state.isFocused) {
+                BlinkingCursor(
+                    modifier = Modifier.padding(start = XXXXS)
+                )
+            }
         }
     }
 }
