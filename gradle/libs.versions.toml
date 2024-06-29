@@ -13,10 +13,10 @@ junit = "4.13.2"
 junitJupiter = "5.10.2"
 junitVersion = "1.2.1"
 kotestAssertionsCore = "5.8.1"
-kotlinSerialization = "1.9.23"
-kotlinxSerializationJson = "1.6.3"
-kotlin = "1.9.23"
-ksp = "1.9.23-1.0.20"
+kotlinSerialization = "2.0.0"
+kotlinxSerializationJson = "1.7.0"
+kotlin = "2.0.0"
+ksp = "2.0.0-1.0.22"
 ktor = "2.3.10"
 lifecycleRuntimeKtx = "2.8.2"
 material3 = "1.2.1"
@@ -71,5 +71,7 @@ hilt-android = { id = "com.google.dagger.hilt.android", version.ref = "hilt" }
 jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlinSerialization" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
+compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+org-jetbrains-kotlin-android = { id = "org.jetbrains.kotlin.android", version.ref = "kotlin" }
 
 
