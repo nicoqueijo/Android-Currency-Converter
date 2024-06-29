@@ -2,6 +2,8 @@ package com.nicoqueijo.android.convertcurrency
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.nicoqueijo.android.convertcurrency.model.UiEvent
+import com.nicoqueijo.android.convertcurrency.model.UiState
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.model.Currency
@@ -34,6 +36,7 @@ class ConvertCurrencyViewModel @Inject constructor(
                     )
                     setDefaultFocusedCurrency()
                     updateHints()
+                    updateConversions()
                 }
         }
     }
@@ -125,6 +128,15 @@ class ConvertCurrencyViewModel @Inject constructor(
 
     private fun updateHints() {
         val updatedCurrencies = useCases.updateHintsUseCase(
+            currencies = _uiState.value.currencies
+        )
+        _uiState.value = _uiState.value.copy(
+            currencies = updatedCurrencies
+        )
+    }
+
+    private fun updateConversions() {
+        val updatedCurrencies = useCases.updateConversionsUseCase(
             currencies = _uiState.value.currencies
         )
         _uiState.value = _uiState.value.copy(

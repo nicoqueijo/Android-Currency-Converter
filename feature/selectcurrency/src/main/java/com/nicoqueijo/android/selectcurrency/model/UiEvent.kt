@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.selectcurrency
+package com.nicoqueijo.android.selectcurrency.model
 
 import com.nicoqueijo.android.core.model.Currency
 

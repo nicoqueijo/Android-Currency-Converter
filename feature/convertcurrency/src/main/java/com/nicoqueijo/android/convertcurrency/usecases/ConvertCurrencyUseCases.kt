@@ -8,4 +8,5 @@ data class ConvertCurrencyUseCases(
     val updateSelectedCurrenciesUseCase: UpdateSelectedCurrenciesUseCase,
     val processKeyboardInputUseCase: ProcessKeyboardInputUseCase,
     val updateHintsUseCase: UpdateHintsUseCase,
+    val updateConversionsUseCase: UpdateConversionsUseCase,
 )

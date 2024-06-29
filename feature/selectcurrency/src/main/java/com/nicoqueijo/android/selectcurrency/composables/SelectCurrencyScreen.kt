@@ -33,8 +33,8 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.selectcurrency.R
 import com.nicoqueijo.android.selectcurrency.SelectCurrencyViewModel
-import com.nicoqueijo.android.selectcurrency.UiEvent
-import com.nicoqueijo.android.selectcurrency.UiState
+import com.nicoqueijo.android.selectcurrency.model.UiEvent
+import com.nicoqueijo.android.selectcurrency.model.UiState
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L

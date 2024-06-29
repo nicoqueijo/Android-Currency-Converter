@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency
+package com.nicoqueijo.android.convertcurrency.model
 
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.model.Currency

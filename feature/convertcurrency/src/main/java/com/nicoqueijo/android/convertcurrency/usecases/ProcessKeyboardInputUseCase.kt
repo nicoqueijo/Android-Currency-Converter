@@ -149,18 +149,18 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
 
         selectedCurrencies.filter { currency ->
             currency.currencyCode != focusedCurrency?.currencyCode
-        }.forEach {
+        }.forEach { currency ->
             val fromRate = focusedCurrency!!.exchangeRate
-            val toRate = it.exchangeRate
+            val toRate = currency.exchangeRate
             if (focusedCurrency.conversion.valueAsString.isNotEmpty()) {
                 val conversionValue = CurrencyConverter.convertCurrency(
                     amount = BigDecimal(focusedCurrency.conversion.valueAsString),
                     fromRate = fromRate,
                     toRate = toRate
                 )
-                it.conversion.value = conversionValue
+                currency.conversion.value = conversionValue
             } else {
-                it.conversion.valueAsString = ""
+                currency.conversion.valueAsString = ""
             }
         }
     }
