@@ -192,6 +192,9 @@ fun ConvertCurrency(
                                         UiEvent.ProcessKeyboardInput(keyboardInput = keyboardInput)
                                     )
                                 },
+                                onKeyboardButtonLongClick = { keyboardInput ->
+                                    UiEvent.ProcessKeyboardInput(keyboardInput = keyboardInput)
+                                }
                             )
                         )
                     }

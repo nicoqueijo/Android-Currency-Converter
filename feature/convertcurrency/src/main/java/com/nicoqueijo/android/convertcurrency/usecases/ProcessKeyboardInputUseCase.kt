@@ -38,8 +38,8 @@ class ProcessKeyboardInputUseCase {
                 )
             }
 
-            KeyboardInput.Backspace -> {
-                existingText = existingText.dropLast(1)
+            is KeyboardInput.Backspace -> {
+                existingText = if (keyboardInput.isLongClick) "" else existingText.dropLast(1)
                 focusedCurrency.conversion.valueAsString = existingText
             }
         }

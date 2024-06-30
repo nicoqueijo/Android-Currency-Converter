@@ -6,4 +6,5 @@ import java.util.Locale
 data class NumberPadState(
     val locale: Locale,
     val onKeyboardButtonClick: ((KeyboardInput) -> Unit)? = null,
+    val onKeyboardButtonLongClick: ((KeyboardInput) -> Unit)? = null,
 )
