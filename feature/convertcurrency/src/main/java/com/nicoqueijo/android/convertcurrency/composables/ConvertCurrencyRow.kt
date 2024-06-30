@@ -8,6 +8,7 @@ import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
@@ -25,6 +26,8 @@ import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
@@ -105,25 +108,43 @@ fun ConvertCurrencyRow(
                 ), label = ""
             )
             state.isInputValid = true
-            Text(
-                modifier = Modifier
-                    .offset(x = offsetX)
-                    .weight(weight = 1f)
-                    .clickable {
-                        onClick?.invoke()
+            Box(
+                modifier = Modifier.weight(weight = 1f),
+            ) {
+                Text(
+                    modifier = Modifier
+                        .offset(x = offsetX)
+                        .align(alignment = Alignment.CenterEnd)
+                        .clickable {
+                            onClick?.invoke()
+                        },
+                    text = state.conversion.valueAsText.ifEmpty {
+                        state.conversion.hint.formattedNumber
                     },
-                text = state.conversion.valueAsText.ifEmpty {
-                    state.conversion.hint.formattedNumber
-                },
-                color = if (state.conversion.valueAsText.isEmpty()) {
-                    MaterialTheme.colorScheme.onTertiary
-                } else {
-                    MaterialTheme.colorScheme.primary
-                },
-                fontSize = 20.sp,
-                textAlign = TextAlign.End,
-                maxLines = 1,
-            )
+                    color = if (state.conversion.valueAsText.isEmpty()) {
+                        MaterialTheme.colorScheme.onTertiary
+                    } else {
+                        MaterialTheme.colorScheme.primary
+                    },
+                    fontSize = 20.sp,
+                    textAlign = TextAlign.End,
+                    maxLines = 1,
+                )
+                Box(
+                    modifier = Modifier
+                        .width(40.dp)
+                        .fillMaxHeight()
+                        .background(
+                            brush = Brush.horizontalGradient(
+                                colors = if (state.isFocused) {
+                                    listOf(MaterialTheme.colorScheme.tertiary, Color.Transparent)
+                                } else {
+                                    listOf(MaterialTheme.colorScheme.surface, Color.Transparent)
+                                }
+                            )
+                        )
+                )
+            }
             if (state.isFocused) {
                 BlinkingCursor(modifier = Modifier.padding(start = XXXXS))
             } else {
@@ -185,6 +206,35 @@ fun ConvertCurrencyRowFocusedHintPreview() {
     ).apply {
         isFocused = true
         conversion.hint = Hint(number = "1")
+    }
+    AndroidCurrencyConverterTheme {
+        ConvertCurrencyRow(state = currency)
+    }
+}
+
+@DarkLightPreviews
+@Composable
+fun ConvertCurrencyRowLongPreview() {
+    val currency = Currency(
+        currencyCode = "USD_CAD",
+        exchangeRate = 1.36175,
+    ).apply {
+        conversion.valueAsString = "9876543219876543.678"
+    }
+    AndroidCurrencyConverterTheme {
+        ConvertCurrencyRow(state = currency)
+    }
+}
+
+@DarkLightPreviews
+@Composable
+fun ConvertCurrencyRowLongFocusedPreview() {
+    val currency = Currency(
+        currencyCode = "USD_CAD",
+        exchangeRate = 1.36175,
+    ).apply {
+        conversion.valueAsString = "9876543219876543.678"
+        isFocused = true
     }
     AndroidCurrencyConverterTheme {
         ConvertCurrencyRow(state = currency)
