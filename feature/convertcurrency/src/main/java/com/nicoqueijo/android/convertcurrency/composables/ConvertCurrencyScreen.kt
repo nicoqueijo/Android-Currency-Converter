@@ -28,6 +28,8 @@ import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Brush
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -162,12 +164,26 @@ fun ConvertCurrency(
                                     Spacer(
                                         modifier = Modifier
                                             .fillMaxWidth()
-                                            .height(76.dp)
+                                            .height(88.dp)
                                     )
                                 }
                             }
                         }
+                        Box(
+                            modifier = Modifier
+                                .height(72.dp)
+                                .fillMaxWidth()
+                                .background(
+                                    brush = Brush.verticalGradient(
+                                        colors = listOf(
+                                            Color.Transparent,
+                                            MaterialTheme.colorScheme.surface,
+                                        )
+                                    )
+                                )
+                        )
                         FloatingActionButton(
+                            modifier = Modifier.padding(bottom = S),
                             containerColor = MaterialTheme.colorScheme.primary,
                             contentColor = MaterialTheme.colorScheme.secondary,
                             onClick = { onFabClick?.invoke() },
@@ -178,11 +194,6 @@ fun ConvertCurrency(
                             )
                         }
                     }
-                    Spacer(
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .height(height = S)
-                    )
                     Box {
                         NumberPad(
                             state = NumberPadState(
@@ -298,6 +309,99 @@ fun ConvertCurrencyScreenWithDialogPreview() {
             },
         ),
         showDialog = true,
+    )
+    AndroidCurrencyConverterTheme {
+        ConvertCurrency(state = state)
+    }
+}
+
+@DarkLightPreviews
+@Composable
+fun ConvertCurrencyScreenManyCurrenciesPreview() {
+    val state = UiState(
+        currencies = listOf(
+            Currency(
+                currencyCode = "USD_GBP",
+                exchangeRate = 0.786829,
+                position = 0,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("22.4246265")
+            },
+            Currency(
+                currencyCode = "USD_USD",
+                exchangeRate = 1.0,
+                position = 1,
+                isSelected = true,
+            ).apply {
+                isFocused = true
+                conversion.value = BigDecimal("28.5")
+            },
+            Currency(
+                currencyCode = "USD_EUR",
+                exchangeRate = 0.931032,
+                position = 2,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("26.534412")
+            },
+            Currency(
+                currencyCode = "USD_JPY",
+                exchangeRate = 157.837,
+                position = 3,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("4498.3545")
+            },
+            Currency(
+                currencyCode = "USD_CHF",
+                exchangeRate = 0.898383,
+                position = 4,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("25.1547")
+            },
+            Currency(
+                currencyCode = "USD_CNY",
+                exchangeRate = 7.2673,
+                position = 5,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("203.4844")
+            },
+            Currency(
+                currencyCode = "USD_KRW",
+                exchangeRate = 1381.270188,
+                position = 6,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("38675.5653")
+            },
+            Currency(
+                currencyCode = "USD_CAD",
+                exchangeRate = 1.36734,
+                position = 7,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("38.2855")
+            },
+            Currency(
+                currencyCode = "USD_RUB",
+                exchangeRate = 85.500917,
+                position = 8,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("2394.0257")
+            },
+            Currency(
+                currencyCode = "USD_HKD",
+                exchangeRate = 7.808621,
+                position = 9,
+                isSelected = true,
+            ).apply {
+                conversion.value = BigDecimal("218.6414")
+            },
+        )
     )
     AndroidCurrencyConverterTheme {
         ConvertCurrency(state = state)
