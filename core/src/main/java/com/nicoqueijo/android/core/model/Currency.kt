@@ -26,6 +26,9 @@ data class Currency(
     @Ignore
     var conversion = Conversion(BigDecimal.ZERO)
 
+    @Ignore
+    var isInputValid = true
+
     /**
      * Currency code without the "USD_" prefix.
      * Example: USD_EUR -> EUR
@@ -46,6 +49,7 @@ data class Currency(
                 this.position == other.position &&
                 this.isSelected == other.isSelected &&
                 this.isFocused == other.isFocused &&
+                this.isFocused == other.isInputValid &&
                 this.conversion.value == other.conversion.value &&
                 this.conversion.valueAsString == other.conversion.valueAsString &&
                 this.conversion.hint == other.conversion.hint
@@ -54,6 +58,7 @@ data class Currency(
     fun deepCopy(): Currency {
         return this.copy().also { copy ->
             copy.isFocused = this.isFocused
+            copy.isInputValid = this.isInputValid
             copy.conversion = Conversion(conversionValue = this.conversion.value).also { conversion ->
                 conversion.value = this.conversion.value
                 conversion.valueAsString = this.conversion.valueAsString
@@ -68,6 +73,7 @@ data class Currency(
         result = 31 * result + position
         result = 31 * result + isSelected.hashCode()
         result = 31 * result + isFocused.hashCode()
+        result = 31 * result + isInputValid.hashCode()
         result = 31 * result + conversion.value.hashCode()
         result = 31 * result + conversion.valueAsString.hashCode()
         result = 31 * result + conversion.hint.hashCode()

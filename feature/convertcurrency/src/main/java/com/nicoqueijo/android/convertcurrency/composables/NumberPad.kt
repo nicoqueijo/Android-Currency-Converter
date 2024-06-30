@@ -9,6 +9,8 @@ import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.RectangleShape
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
+import androidx.compose.ui.platform.LocalHapticFeedback
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -101,9 +103,15 @@ fun NumberPadButton(
     char: Char,
     onClick: () -> Unit,
 ) {
+    val hapticFeedback = LocalHapticFeedback.current
     TextButton(
         modifier = modifier.size(75.dp),
-        onClick = { onClick.invoke() },
+        onClick = {
+            hapticFeedback.performHapticFeedback(
+                hapticFeedbackType = HapticFeedbackType.LongPress
+            )
+            onClick.invoke()
+        },
         shape = RectangleShape,
     ) {
         Text(

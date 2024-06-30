@@ -121,10 +121,10 @@ class ConvertCurrencyViewModel @Inject constructor(
             keyboardInput = keyboardInput,
             currencies = _uiState.value.currencies,
         )
+        _uiState.value = _uiState.value.copy(
+            currencies = inputResult.currencies,
+        )
         if (inputResult.isInputValid) {
-            _uiState.value = _uiState.value.copy(
-                currencies = inputResult.currencies,
-            )
             updateConversions()
         }
     }

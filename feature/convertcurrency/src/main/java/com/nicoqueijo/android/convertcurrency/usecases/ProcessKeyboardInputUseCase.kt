@@ -1,14 +1,11 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
-import com.nicoqueijo.android.core.CurrencyConverter
 import com.nicoqueijo.android.core.extensions.deepCopy
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.model.Position
-import java.math.BigDecimal
-import javax.inject.Inject
 
-class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) {
+class ProcessKeyboardInputUseCase {
 
     operator fun invoke(
         keyboardInput: KeyboardInput,
@@ -46,6 +43,7 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
                 focusedCurrency.conversion.valueAsString = existingText
             }
         }
+        focusedCurrency.isInputValid = isInputValid
 
         return InputResult(
             currencies = currenciesCopy,
@@ -128,18 +126,6 @@ class ProcessKeyboardInputUseCase @Inject constructor(/*val context: Context*/) 
         }
         focusedCurrency?.conversion?.valueAsString = input
         return true
-    }
-
-    private fun vibrateAndShake() {
-        /**
-         * Animation has to be done in compose so maybe I should do the vibration there as well with
-         * the haptic feedback.
-         * I might just do vibration here without any shake since shake can only be done in compose
-         * and I would need to somehow pass some state to indicate to the UI that there was an invalid
-         * input - way too complicated.
-         * I could also just add a triggerInvalidFeedback flag to the UiState and the composable can
-         * use this to do haptic feedback + shake animation on the focused row.
-         */
     }
 }
 
