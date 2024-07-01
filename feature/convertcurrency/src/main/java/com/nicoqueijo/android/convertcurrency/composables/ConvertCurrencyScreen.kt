@@ -51,7 +51,6 @@ import com.nicoqueijo.android.ui.XXXS
 import java.math.BigDecimal
 import java.util.Locale
 
-// TODO: Style this nicely
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
