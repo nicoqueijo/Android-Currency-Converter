@@ -4,12 +4,14 @@ import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -45,6 +47,7 @@ import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
+import com.nicoqueijo.android.ui.XXXS
 import java.math.BigDecimal
 import java.util.Locale
 
@@ -82,14 +85,18 @@ fun ConvertCurrency(
                 Column {
                     TopAppBar(
                         navigationIcon = {
-                            Image(
-                                modifier = Modifier.size(size = XL),
-                                painter = painterResource(id = R.drawable.app_icon),
-                                contentDescription = null
-                            )
+                            Row {
+                                Spacer(modifier = Modifier.width(XXXS))
+                                Image(
+                                    modifier = Modifier.size(size = XL),
+                                    painter = painterResource(id = R.drawable.app_icon),
+                                    contentDescription = null
+                                )
+                            }
                         },
                         title = {
                             Text(
+                                modifier = Modifier.padding(start = XXXS),
                                 text = stringResource(id = R.string.app_name),
                                 color = MaterialTheme.colorScheme.primary,
                             )
