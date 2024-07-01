@@ -40,6 +40,8 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.runBlocking
 
 @Composable
 fun SelectCurrencyScreen(
@@ -56,7 +58,7 @@ fun SelectCurrencyScreen(
         },
         onEvent = { event ->
             viewModel?.onEvent(event = event)
-        }
+        },
     )
 }
 
@@ -152,6 +154,7 @@ fun SelectCurrency(
                         fontSize = 18.sp,
                     )
                 } else {
+                    LoadingScreen()
                     LazyColumn(
                         modifier = Modifier.fillMaxSize()
                     ) {
@@ -212,7 +215,7 @@ fun SelectCurrencyScreenPreview() {
                 exchangeRate = 39.312329,
             ),
         ),
-        searchTerm = "peso"
+        searchTerm = "peso",
     )
     AndroidCurrencyConverterTheme {
         SelectCurrency(state = state)
