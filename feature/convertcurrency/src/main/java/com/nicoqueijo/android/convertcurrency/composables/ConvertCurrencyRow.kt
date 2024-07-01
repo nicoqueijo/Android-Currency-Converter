@@ -45,6 +45,7 @@ import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XS
+import com.nicoqueijo.android.ui.XXL
 import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
 import com.nicoqueijo.android.ui.XXXXS
@@ -70,7 +71,7 @@ fun ConvertCurrencyRow(
                     }
                 )
                 .fillMaxWidth()
-                .height(height = 56.dp)
+                .height(height = XXL)
                 .padding(
                     horizontal = XS,
                     vertical = XXS,
@@ -90,7 +91,7 @@ fun ConvertCurrencyRow(
             )
             Spacer(
                 modifier = Modifier
-                    .width(width = S)
+                    .width(width = XS)
                     .fillMaxHeight()
             )
             Text(

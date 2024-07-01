@@ -10,3 +10,4 @@ val S = 16.dp
 val M = 24.dp
 val L = 32.dp
 val XL = 48.dp
+val XXL = 64.dp

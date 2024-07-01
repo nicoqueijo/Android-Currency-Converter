@@ -25,12 +25,18 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.Green
+import com.nicoqueijo.android.ui.XS
+import com.nicoqueijo.android.ui.XXL
+import com.nicoqueijo.android.ui.XXS
+import com.nicoqueijo.android.ui.XXXS
+import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 
@@ -51,31 +57,35 @@ fun SelectCurrencyRow(
             modifier = Modifier
                 .background(color = MaterialTheme.colorScheme.surface)
                 .fillMaxWidth()
-                .height(height = 64.dp)
+                .height(height = XXL)
                 .padding(
-                    horizontal = 12.dp,
-                    vertical = 8.dp,
+                    horizontal = XS,
+                    vertical = XXS,
                 ),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Image(
                 modifier = Modifier
-                    .padding(vertical = 4.dp)
-                    .clip(shape = RoundedCornerShape(2.dp)),
+                    .padding(vertical = XXXS)
+                    .clip(shape = RoundedCornerShape(size = XXXXS)),
                 contentDescription = null,
                 painter = painterResource(
                     id = LocalContext.current.getDrawableResourceByName(name = state.currencyCode.lowercase())
                 )
             )
-            Spacer(modifier = Modifier.width(16.dp))
-            Column(modifier = Modifier.weight(1f)) {
+            Spacer(modifier = Modifier.width(XS))
+            Column(
+                modifier = Modifier.weight(1f)
+            ) {
                 Text(
+                    modifier = Modifier.weight(1f),
                     text = state.trimmedCurrencyCode,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                 )
                 Text(
+                    modifier = Modifier.weight(1f),
                     text = LocalContext.current.getStringResourceByName(name = state.currencyCode),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
