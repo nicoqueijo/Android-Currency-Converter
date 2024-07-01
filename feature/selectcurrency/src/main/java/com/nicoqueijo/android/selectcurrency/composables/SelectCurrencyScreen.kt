@@ -135,6 +135,7 @@ fun SelectCurrency(
             Box(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.surface)
+                    .fillMaxSize()
                     .padding(paddingValues = innerPadding),
             ) {
                 if (state?.isSearchResultEmpty == true) {
@@ -154,7 +155,6 @@ fun SelectCurrency(
                         fontSize = 18.sp,
                     )
                 } else {
-                    LoadingScreen()
                     LazyColumn(
                         modifier = Modifier.fillMaxSize()
                     ) {
