@@ -1,6 +1,7 @@
 package com.nicoqueijo.android.data.di
 
 import android.content.Context
+import androidx.room.Room
 import com.nicoqueijo.android.data.CurrencyDao
 import com.nicoqueijo.android.data.CurrencyDatabase
 import dagger.Module
@@ -17,7 +18,11 @@ object DatabaseModule {
     @Singleton
     @Provides
     fun provideCurrencyDatabase(@ApplicationContext context: Context): CurrencyDatabase {
-        return CurrencyDatabase.getInstance(context)
+        return Room.databaseBuilder(
+            context = context,
+            klass = CurrencyDatabase::class.java,
+            name = "currency.db"
+        ).fallbackToDestructiveMigration().build()
     }
 
     @Singleton
