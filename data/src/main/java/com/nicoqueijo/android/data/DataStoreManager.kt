@@ -63,7 +63,6 @@ class DataStoreManager(context: Context) {
     }
 }
 
-// TODO: Possibly move these to core module
-fun Long.toSeconds() = this / 1_000L
+private fun Long.toSeconds() = this / 1_000L
 
-fun Long.toMillis() = this * 1_000L
+private fun Long.toMillis() = this * 1_000L
