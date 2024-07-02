@@ -8,5 +8,5 @@ sealed interface UiEvent {
     data object ConfirmDialog : UiEvent
     data object CancelDialog : UiEvent
     data class SetCurrencyFocus(val currency: Currency) : UiEvent
-    data class ProcessKeyboardInput(val keyboardInput: KeyboardInput): UiEvent
+    data class ProcessKeyboardInput(val keyboardInput: KeyboardInput) : UiEvent
 }

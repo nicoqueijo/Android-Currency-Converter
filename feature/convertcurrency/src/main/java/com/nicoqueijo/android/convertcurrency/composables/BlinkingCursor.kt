@@ -29,11 +29,13 @@ fun BlinkingCursor(modifier: Modifier = Modifier) {
     )
 
     Box(
-        modifier = modifier.size(
-            width = XXXXS,
-            height = 20.dp
-        ).background(
-            color = MaterialTheme.colorScheme.primary.copy(alpha = alpha)
-        )
+        modifier = modifier
+            .size(
+                width = XXXXS,
+                height = 20.dp
+            )
+            .background(
+                color = MaterialTheme.colorScheme.primary.copy(alpha = alpha)
+            )
     )
 }

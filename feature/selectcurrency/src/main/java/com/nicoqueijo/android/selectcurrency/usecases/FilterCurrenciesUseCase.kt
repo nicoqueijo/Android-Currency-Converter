@@ -22,7 +22,10 @@ class FilterCurrenciesUseCase @Inject constructor(
                 val currencyName = context.getStringResourceByName(
                     name = currency.currencyCode
                 ).lowercase(Locale.ROOT)
-                if (currencyCode.contains(trimmedSearchTerm) || currencyName.contains(trimmedSearchTerm)) {
+                if (currencyCode.contains(trimmedSearchTerm) || currencyName.contains(
+                        trimmedSearchTerm
+                    )
+                ) {
                     filteredCurrencies.add(currency)
                 }
             }

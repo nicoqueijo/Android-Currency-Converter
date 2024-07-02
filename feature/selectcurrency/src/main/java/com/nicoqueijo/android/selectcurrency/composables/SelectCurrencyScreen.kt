@@ -40,8 +40,6 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.runBlocking
 
 @Composable
 fun SelectCurrencyScreen(

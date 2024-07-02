@@ -59,11 +59,12 @@ data class Currency(
         return this.copy().also { copy ->
             copy.isFocused = this.isFocused
             copy.isInputValid = this.isInputValid
-            copy.conversion = Conversion(conversionValue = this.conversion.value).also { conversion ->
-                conversion.value = this.conversion.value
-                conversion.valueAsString = this.conversion.valueAsString
-                conversion.hint = this.conversion.hint.copy()
-            }
+            copy.conversion =
+                Conversion(conversionValue = this.conversion.value).also { conversion ->
+                    conversion.value = this.conversion.value
+                    conversion.valueAsString = this.conversion.valueAsString
+                    conversion.hint = this.conversion.hint.copy()
+                }
         }
     }
 

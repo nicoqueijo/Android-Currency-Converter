@@ -2,8 +2,8 @@ package com.nicoqueijo.android.selectcurrency
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.di.DefaultDispatcher
+import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.selectcurrency.model.UiEvent
 import com.nicoqueijo.android.selectcurrency.model.UiState
 import com.nicoqueijo.android.selectcurrency.usecases.SelectCurrencyUseCases

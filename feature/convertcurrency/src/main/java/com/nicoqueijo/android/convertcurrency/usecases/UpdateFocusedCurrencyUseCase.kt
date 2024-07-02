@@ -1,7 +1,7 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
-import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.extensions.deepCopy
+import com.nicoqueijo.android.core.model.Currency
 
 class UpdateFocusedCurrencyUseCase {
 

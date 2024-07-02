@@ -2,9 +2,9 @@ package com.nicoqueijo.android.convertcurrency.di
 
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.usecases.ProcessKeyboardInputUseCase
-import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
+import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateConversionsUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateFocusedCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateHintsUseCase
