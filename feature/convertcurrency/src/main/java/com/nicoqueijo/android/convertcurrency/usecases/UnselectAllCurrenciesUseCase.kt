@@ -10,22 +10,25 @@ class UnselectAllCurrenciesUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke() {
+//        removeAll()
+        reorderFirstTwo()
+    }
+
+    private suspend fun removeAll() {
         val currenciesToUnselect = repository.getSelectedCurrencies().first()
         currenciesToUnselect.forEach { currency ->
             currency.isSelected = false
             currency.position = Position.INVALID.value
         }
         repository.upsertCurrencies(currencies = currenciesToUnselect)
-
-        /**
-         * Test code to remove single currencies.
-         * Not working right now and I think it has to do with the logic in UpdateSelectedCurrenciesUseCase
-         */
-        /*val currencyToUnselect = repository.getCurrency("USD_ARS")
-        currencyToUnselect.apply {
-            isSelected = false
-            position = Position.INVALID.value
-        }
-        repository.upsertCurrency(currencyToUnselect)*/
     }
+
+    private suspend fun reorderFirstTwo() {
+        val currenciesToReorder = repository.getSelectedCurrencies().first()
+        currenciesToReorder[0].position = 1
+        currenciesToReorder[1].position = 0
+        repository.upsertCurrencies(currencies = currenciesToReorder)
+    }
+
+
 }
