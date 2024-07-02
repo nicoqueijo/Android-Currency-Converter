@@ -43,7 +43,6 @@ import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.model.Hint
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
-import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XS
 import com.nicoqueijo.android.ui.XXL
 import com.nicoqueijo.android.ui.XXS
@@ -102,7 +101,7 @@ fun ConvertCurrencyRow(
             )
             Spacer(
                 modifier = Modifier
-                    .width(width = S)
+                    .width(width = XS)
                     .fillMaxHeight()
             )
             val offsetX by animateDpAsState(
