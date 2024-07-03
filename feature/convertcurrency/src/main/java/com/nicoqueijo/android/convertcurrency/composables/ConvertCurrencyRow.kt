@@ -115,7 +115,7 @@ fun ConvertCurrencyRow(
                 Image(
                     modifier = Modifier
                         .padding(vertical = XXXS)
-                        .clip(shape = RoundedCornerShape(size = 2.dp)),
+                        .clip(shape = RoundedCornerShape(size = XXXXS)),
                     contentDescription = null,
                     painter = painterResource(
                         id = LocalContext.current.getDrawableResourceByName(
@@ -140,7 +140,7 @@ fun ConvertCurrencyRow(
                         .fillMaxHeight()
                 )
                 val offsetX by animateDpAsState(
-                    targetValue = if (!state.isInputValid) 12.dp else 0.dp,
+                    targetValue = if (!state.isInputValid) XS else 0.dp,
                     animationSpec = repeatable(
                         iterations = 4,
                         animation = tween(
