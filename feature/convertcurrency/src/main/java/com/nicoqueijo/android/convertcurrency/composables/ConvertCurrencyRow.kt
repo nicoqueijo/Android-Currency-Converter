@@ -19,9 +19,13 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
+import androidx.compose.material3.SwipeToDismissBox
+import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
+import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -50,123 +54,142 @@ import com.nicoqueijo.android.ui.XXXS
 import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 
-@OptIn(ExperimentalFoundationApi::class)
+@OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
-    onClick: (() -> Unit)? = null,
+    onConversionClick: (() -> Unit)? = null,
+    onRowSwipe: (() -> Unit)? = null,
 ) {
-    val hapticFeedback = LocalHapticFeedback.current
-    val clipboardManager = LocalClipboardManager.current
-    Surface(modifier = modifier) {
-        Row(
-            modifier = Modifier
-                .background(
-                    color = if (state.isFocused) {
-                        MaterialTheme.colorScheme.tertiary
-                    } else {
-                        MaterialTheme.colorScheme.surface
-                    }
-                )
-                .fillMaxWidth()
-                .height(height = XXL)
-                .padding(
-                    horizontal = XS,
-                    vertical = XXS,
-                ),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Image(
+    val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
+        confirmValueChange = { swipeToDismissValue ->
+            if (swipeToDismissValue != SwipeToDismissBoxValue.Settled) {
+                onRowSwipe?.invoke()
+            }
+            false
+        }
+    )
+    SwipeToDismissBox(
+        state = swipeToDismissBoxState,
+        backgroundContent = {
+            DeleteRow(dismissDirection = swipeToDismissBoxState.dismissDirection)
+        },
+    ) {
+        val hapticFeedback = LocalHapticFeedback.current
+        val clipboardManager = LocalClipboardManager.current
+        Surface(modifier = modifier) {
+            Row(
                 modifier = Modifier
-                    .padding(vertical = XXXS)
-                    .clip(shape = RoundedCornerShape(size = 2.dp)),
-                contentDescription = null,
-                painter = painterResource(
-                    id = LocalContext.current.getDrawableResourceByName(
-                        name = state.currencyCode.lowercase()
+                    .background(
+                        color = if (state.isFocused) {
+                            MaterialTheme.colorScheme.tertiary
+                        } else {
+                            MaterialTheme.colorScheme.surface
+                        }
+                    )
+                    .fillMaxWidth()
+                    .height(height = XXL)
+                    .padding(
+                        horizontal = XS,
+                        vertical = XXS,
+                    ),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Image(
+                    modifier = Modifier
+                        .padding(vertical = XXXS)
+                        .clip(shape = RoundedCornerShape(size = 2.dp)),
+                    contentDescription = null,
+                    painter = painterResource(
+                        id = LocalContext.current.getDrawableResourceByName(
+                            name = state.currencyCode.lowercase()
+                        )
                     )
                 )
-            )
-            Spacer(
-                modifier = Modifier
-                    .width(width = XS)
-                    .fillMaxHeight()
-            )
-            Text(
-                text = state.trimmedCurrencyCode,
-                color = MaterialTheme.colorScheme.primary,
-                fontSize = 24.sp,
-                fontWeight = FontWeight.Medium,
-            )
-            Spacer(
-                modifier = Modifier
-                    .width(width = XS)
-                    .fillMaxHeight()
-            )
-            val offsetX by animateDpAsState(
-                targetValue = if (!state.isInputValid) 12.dp else 0.dp,
-                animationSpec = repeatable(
-                    iterations = 4,
-                    animation = tween(
-                        durationMillis = 25,
-                        easing = LinearEasing
-                    ),
-                    repeatMode = RepeatMode.Reverse
-                ), label = ""
-            )
-            state.isInputValid = true
-            Box(
-                modifier = Modifier.weight(weight = 1f),
-            ) {
-                Text(
+                Spacer(
                     modifier = Modifier
-                        .offset(x = offsetX)
-                        .align(alignment = Alignment.CenterEnd)
-                        .combinedClickable(
-                            onClick = {
-                                onClick?.invoke()
-                            },
-                            onLongClick = {
-                                clipboardManager.setText(
-                                    annotatedString = AnnotatedString(text = state.conversion.valueAsString)
-                                )
-                                hapticFeedback.performHapticFeedback(
-                                    hapticFeedbackType = HapticFeedbackType.LongPress
-                                )
-                            },
-                        ),
-                    text = state.conversion.valueAsText.ifEmpty {
-                        state.conversion.hint.formattedNumber
-                    },
-                    color = if (state.conversion.valueAsText.isEmpty()) {
-                        MaterialTheme.colorScheme.onTertiary
-                    } else {
-                        MaterialTheme.colorScheme.primary
-                    },
-                    fontSize = 20.sp,
-                    textAlign = TextAlign.End,
-                    maxLines = 1,
-                )
-                Box(
-                    modifier = Modifier
-                        .width(40.dp)
+                        .width(width = XS)
                         .fillMaxHeight()
-                        .background(
-                            brush = Brush.horizontalGradient(
-                                colors = if (state.isFocused) {
-                                    listOf(MaterialTheme.colorScheme.tertiary, Color.Transparent)
-                                } else {
-                                    listOf(MaterialTheme.colorScheme.surface, Color.Transparent)
-                                }
-                            )
-                        )
                 )
-            }
-            if (state.isFocused) {
-                BlinkingCursor(modifier = Modifier.padding(start = XXXXS))
-            } else {
-                Spacer(modifier = Modifier.width(width = XXXS))
+                Text(
+                    text = state.trimmedCurrencyCode,
+                    color = MaterialTheme.colorScheme.primary,
+                    fontSize = 24.sp,
+                    fontWeight = FontWeight.Medium,
+                )
+                Spacer(
+                    modifier = Modifier
+                        .width(width = XS)
+                        .fillMaxHeight()
+                )
+                val offsetX by animateDpAsState(
+                    targetValue = if (!state.isInputValid) 12.dp else 0.dp,
+                    animationSpec = repeatable(
+                        iterations = 4,
+                        animation = tween(
+                            durationMillis = 25,
+                            easing = LinearEasing
+                        ),
+                        repeatMode = RepeatMode.Reverse
+                    ), label = ""
+                )
+                state.isInputValid = true
+                Box(
+                    modifier = Modifier.weight(weight = 1f),
+                ) {
+                    Text(
+                        modifier = Modifier
+                            .offset(x = offsetX)
+                            .align(alignment = Alignment.CenterEnd)
+                            .combinedClickable(
+                                onClick = {
+                                    onConversionClick?.invoke()
+                                },
+                                onLongClick = {
+                                    clipboardManager.setText(
+                                        annotatedString = AnnotatedString(text = state.conversion.valueAsString)
+                                    )
+                                    hapticFeedback.performHapticFeedback(
+                                        hapticFeedbackType = HapticFeedbackType.LongPress
+                                    )
+                                },
+                            ),
+                        text = state.conversion.valueAsText.ifEmpty {
+                            state.conversion.hint.formattedNumber
+                        },
+                        color = if (state.conversion.valueAsText.isEmpty()) {
+                            MaterialTheme.colorScheme.onTertiary
+                        } else {
+                            MaterialTheme.colorScheme.primary
+                        },
+                        fontSize = 20.sp,
+                        textAlign = TextAlign.End,
+                        maxLines = 1,
+                    )
+                    Box(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .fillMaxHeight()
+                            .background(
+                                brush = Brush.horizontalGradient(
+                                    colors = if (state.isFocused) {
+                                        listOf(
+                                            MaterialTheme.colorScheme.tertiary,
+                                            Color.Transparent
+                                        )
+                                    } else {
+                                        listOf(MaterialTheme.colorScheme.surface, Color.Transparent)
+                                    }
+                                )
+                            )
+                    )
+                }
+                if (state.isFocused) {
+                    BlinkingCursor(modifier = Modifier.padding(start = XXXXS))
+                } else {
+                    Spacer(modifier = Modifier.width(width = XXXS))
+                }
             }
         }
     }

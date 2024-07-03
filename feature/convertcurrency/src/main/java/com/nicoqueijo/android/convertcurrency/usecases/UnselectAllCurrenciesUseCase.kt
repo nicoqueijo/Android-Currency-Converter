@@ -10,11 +10,6 @@ class UnselectAllCurrenciesUseCase @Inject constructor(
 ) {
 
     suspend operator fun invoke() {
-//        removeAll()
-        reorderFirstTwo()
-    }
-
-    private suspend fun removeAll() {
         val currenciesToUnselect = repository.getSelectedCurrencies().first()
         currenciesToUnselect.forEach { currency ->
             currency.isSelected = false
@@ -22,13 +17,4 @@ class UnselectAllCurrenciesUseCase @Inject constructor(
         }
         repository.upsertCurrencies(currencies = currenciesToUnselect)
     }
-
-    private suspend fun reorderFirstTwo() {
-        val currenciesToReorder = repository.getSelectedCurrencies().first()
-        currenciesToReorder[0].position = 1
-        currenciesToReorder[1].position = 0
-        repository.upsertCurrencies(currencies = currenciesToReorder)
-    }
-
-
 }

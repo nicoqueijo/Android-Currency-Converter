@@ -5,6 +5,7 @@ import com.nicoqueijo.android.convertcurrency.usecases.ProcessKeyboardInputUseCa
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.UnselectCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateConversionsUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateFocusedCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateHintsUseCase
@@ -28,6 +29,9 @@ object ConvertCurrencyUseCasesModule {
                 repository = repository
             ),
             unselectAllCurrenciesUseCase = UnselectAllCurrenciesUseCase(
+                repository = repository
+            ),
+            unselectCurrencyUseCase = UnselectCurrencyUseCase(
                 repository = repository
             ),
             setDefaultFocusedCurrency = SetDefaultFocusedCurrency(),
