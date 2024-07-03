@@ -6,4 +6,6 @@
     <string name="remove_currencies_dialog_title">Remove all currencies?</string>
     <string name="remove_currencies_dialog_confirm_label">OK</string>
     <string name="remove_currencies_dialog_dismiss_label">Cancel</string>
+    <string name="undo_label">UNDO</string>
+    <string name="item_removed_label">Item removed</string>
 </resources>

@@ -23,15 +23,23 @@ import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Snackbar
+import androidx.compose.material3.SnackbarDuration
+import androidx.compose.material3.SnackbarHost
+import androidx.compose.material3.SnackbarHostState
+import androidx.compose.material3.SnackbarResult
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
@@ -48,6 +56,7 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
+import kotlinx.coroutines.launch
 import java.math.BigDecimal
 import java.util.Locale
 
@@ -76,6 +85,9 @@ fun ConvertCurrency(
     onFabClick: (() -> Unit)? = null,
     onEvent: ((UiEvent) -> Unit)? = null,
 ) {
+    val context = LocalContext.current
+    val snackbarHostState = remember { SnackbarHostState() }
+    val coroutineScope = rememberCoroutineScope()
     Surface(
         modifier = modifier.fillMaxSize(),
     ) {
@@ -165,7 +177,23 @@ fun ConvertCurrency(
                                                 onEvent?.invoke(
                                                     UiEvent.UnselectCurrency(currency = currency)
                                                 )
-                                            }
+                                                coroutineScope.launch {
+                                                    val result = snackbarHostState.showSnackbar(
+                                                        message = context.getString(R.string.item_removed_label),
+                                                        actionLabel = context.getString(R.string.undo_label),
+                                                        duration = SnackbarDuration.Short,
+                                                    )
+                                                    when (result) {
+                                                        SnackbarResult.ActionPerformed -> {
+                                                            // TODO: handle event
+                                                        }
+
+                                                        else -> {
+                                                            // Do nothing
+                                                        }
+                                                    }
+                                                }
+                                            },
                                         )
                                         HorizontalDivider()
                                     }
@@ -192,6 +220,18 @@ fun ConvertCurrency(
                                         )
                                     )
                                 )
+                        )
+                        SnackbarHost(
+                            modifier = Modifier.padding(bottom = 72.dp),
+                            hostState = snackbarHostState,
+                            snackbar = { data ->
+                                Snackbar(
+                                    snackbarData = data,
+                                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                    contentColor = MaterialTheme.colorScheme.secondary,
+                                    actionColor = MaterialTheme.colorScheme.tertiary,
+                                )
+                            }
                         )
                         FloatingActionButton(
                             modifier = Modifier.padding(bottom = S),

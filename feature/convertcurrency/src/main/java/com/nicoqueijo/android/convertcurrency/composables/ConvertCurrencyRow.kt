@@ -78,7 +78,6 @@ fun ConvertCurrencyRow(
             }
         }
     )
-
     LaunchedEffect(key1 = swipeHandled) {
         if (swipeHandled) {
             delay(timeMillis = 250L)
