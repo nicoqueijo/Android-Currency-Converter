@@ -14,44 +14,56 @@ class UpdateSelectedCurrenciesUseCase {
         if (databaseCurrenciesCopy.isEmpty()) {
             return emptyList()
         } else if (databaseCurrenciesCopy.size > memoryCurrenciesCopy.size) {
-            // Addition of currency
-            val newList = (memoryCurrenciesCopy + databaseCurrenciesCopy).distinctBy { currency ->
-                currency.currencyCode
-            }
-            return newList
+            return addCurrency(
+                currenciesA = memoryCurrenciesCopy,
+                currenciesB = databaseCurrenciesCopy,
+            )
         } else if (databaseCurrenciesCopy.size < memoryCurrenciesCopy.size) {
-            // Subtraction of currency
-            // Fix bug: New position is not being copied into memoryCurrenciesCopy
-            val newsList = memoryCurrenciesCopy.filter { memoryCurrency ->
-                databaseCurrenciesCopy.any { databaseCurrency ->
-                    memoryCurrency.currencyCode == databaseCurrency.currencyCode
-                }
-            }
-            newsList.forEach { currency ->
-                currency.position = databaseCurrenciesCopy.first { it.currencyCode == currency.currencyCode }.position
-            }
-            return newsList
+            return removeCurrency(
+                currenciesA = memoryCurrenciesCopy,
+                currenciesB = databaseCurrenciesCopy,
+            )
         } else {
-            // Reordering of currencies
-            memoryCurrenciesCopy.forEach { memoryCurrency ->
-                val correspondingDatabaseCurrency = databaseCurrenciesCopy.first { databaseCurrency ->
-                        databaseCurrency.currencyCode == memoryCurrency.currencyCode
-                    }
-                memoryCurrency.position = correspondingDatabaseCurrency.position
-            }
-            return memoryCurrenciesCopy.sortedBy { it.position }
+            return reorderCurrencies(
+                currenciesA = memoryCurrenciesCopy,
+                currenciesB = databaseCurrenciesCopy,
+            )
         }
+    }
 
-        /**
-         * if databaseCurrencies == 0 we remove all of them (already solved)
-         *
-         * if databaseCurrencies > memoryCurrencies we're adding a new currency. We can combine both.
-         *
-         * if databaseCurrencies < memoryCurrencies we're removing a currency. We can figure
-         * out which databaseCurrency is not in memoryCurrencies and remove that one from memoryCurrencies
-         *
-         * if databaseCurrencies == memoryCurrencies we're reordering the positions. databaseCurrencies
-         * and memoryCurrencies have the same currencies but it different order.
-         */
+    private fun addCurrency(
+        currenciesA: List<Currency>,
+        currenciesB: List<Currency>,
+    ): List<Currency> {
+        return (currenciesA + currenciesB).distinctBy { currency ->
+            currency.currencyCode
+        }
+    }
+
+    private fun removeCurrency(
+        currenciesA: List<Currency>,
+        currenciesB: List<Currency>,
+    ): List<Currency> {
+        return currenciesA.filter { currencyA ->
+            currenciesB.any { currencyB ->
+                currencyA.currencyCode == currencyB.currencyCode
+            }
+        }.onEach { currencyA ->
+            currencyA.position = currenciesB.first { currencyB ->
+                currencyB.currencyCode == currencyA.currencyCode
+            }.position
+        }
+    }
+
+    private fun reorderCurrencies(
+        currenciesA: List<Currency>,
+        currenciesB: List<Currency>,
+    ): List<Currency> {
+        return currenciesA.onEach { currencyA ->
+            val correspondingCurrencyB = currenciesB.first { currencyB ->
+                currencyB.currencyCode == currencyA.currencyCode
+            }
+            currencyA.position = correspondingCurrencyB.position
+        }.sortedBy { it.position }
     }
 }

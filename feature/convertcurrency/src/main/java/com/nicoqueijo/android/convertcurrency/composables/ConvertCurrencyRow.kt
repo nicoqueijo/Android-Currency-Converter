@@ -74,7 +74,6 @@ fun ConvertCurrencyRow(
                 swipeHandled = true
                 true
             } else {
-//                swipeHandled = false
                 false
             }
         }
@@ -82,7 +81,7 @@ fun ConvertCurrencyRow(
 
     LaunchedEffect(key1 = swipeHandled) {
         if (swipeHandled) {
-            delay(timeMillis = 500L)
+            delay(timeMillis = 250L)
             onRowSwipe?.invoke()
         }
     }
