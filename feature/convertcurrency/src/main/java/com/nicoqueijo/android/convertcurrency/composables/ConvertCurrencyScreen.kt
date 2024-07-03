@@ -178,6 +178,7 @@ fun ConvertCurrency(
                                                     UiEvent.UnselectCurrency(currency = currency)
                                                 )
                                                 coroutineScope.launch {
+                                                    snackbarHostState.currentSnackbarData?.dismiss()
                                                     val result = snackbarHostState.showSnackbar(
                                                         message = context.getString(R.string.item_removed_label),
                                                         actionLabel = context.getString(R.string.undo_label),
@@ -185,7 +186,9 @@ fun ConvertCurrency(
                                                     )
                                                     when (result) {
                                                         SnackbarResult.ActionPerformed -> {
-                                                            // TODO: handle event
+                                                            onEvent?.invoke(
+                                                                UiEvent.UndoUnselectCurrency(currency = currency)
+                                                            )
                                                         }
 
                                                         else -> {

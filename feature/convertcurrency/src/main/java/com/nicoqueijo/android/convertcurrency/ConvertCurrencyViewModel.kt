@@ -52,6 +52,10 @@ class ConvertCurrencyViewModel @Inject constructor(
                 unselectCurrency(currency = event.currency)
             }
 
+            is UiEvent.UndoUnselectCurrency -> {
+                undoUnselectCurrency(currency = event.currency)
+            }
+
             UiEvent.ConfirmDialog -> {
                 unselectAllCurrencies()
                 updateDialogDisplay(toggle = false)
@@ -105,6 +109,9 @@ class ConvertCurrencyViewModel @Inject constructor(
                 currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
             )
         }
+    }
+
+    private fun undoUnselectCurrency(currency: Currency) {
 
     }
 
