@@ -21,10 +21,14 @@ class UpdateSelectedCurrenciesUseCase {
             return newList
         } else if (databaseCurrenciesCopy.size < memoryCurrenciesCopy.size) {
             // Subtraction of currency
+            // Fix bug: New position is not being copied into memoryCurrenciesCopy
             val newsList = memoryCurrenciesCopy.filter { memoryCurrency ->
                 databaseCurrenciesCopy.any { databaseCurrency ->
                     memoryCurrency.currencyCode == databaseCurrency.currencyCode
                 }
+            }
+            newsList.forEach { currency ->
+                currency.position = databaseCurrenciesCopy.first { it.currencyCode == currency.currencyCode }.position
             }
             return newsList
         } else {

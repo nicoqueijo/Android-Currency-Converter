@@ -152,7 +152,7 @@ fun ConvertCurrency(
                                 modifier = Modifier.fillMaxSize()
                             ) {
                                 state?.currencies?.forEach { currency ->
-                                    item {
+                                    item(key = currency.currencyCode) {
                                         ConvertCurrencyRow(
                                             modifier = Modifier.animateItem(),
                                             state = currency,

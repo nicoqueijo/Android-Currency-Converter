@@ -27,7 +27,11 @@ import androidx.compose.material3.SwipeToDismissBoxValue
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberSwipeToDismissBoxState
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -53,6 +57,7 @@ import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
 import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
+import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -62,14 +67,26 @@ fun ConvertCurrencyRow(
     onConversionClick: (() -> Unit)? = null,
     onRowSwipe: (() -> Unit)? = null,
 ) {
+    var swipeHandled by remember { mutableStateOf(false) }
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
         confirmValueChange = { swipeToDismissValue ->
             if (swipeToDismissValue != SwipeToDismissBoxValue.Settled) {
-                onRowSwipe?.invoke()
+                swipeHandled = true
+                true
+            } else {
+//                swipeHandled = false
+                false
             }
-            false
         }
     )
+
+    LaunchedEffect(key1 = swipeHandled) {
+        if (swipeHandled) {
+            delay(timeMillis = 500L)
+            onRowSwipe?.invoke()
+        }
+    }
+
     SwipeToDismissBox(
         state = swipeToDismissBoxState,
         backgroundContent = {

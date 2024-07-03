@@ -11,8 +11,12 @@ class UnselectCurrencyUseCase(
 
     suspend operator fun invoke(currency: Currency) {
         val selectedCurrencies = repository.getSelectedCurrencies().first()
-        val currencyToUnselect = selectedCurrencies.first { it.currencyCode == currency.currencyCode }
 
+        val currencyToUnselect = try {
+            selectedCurrencies.first { it.currencyCode == currency.currencyCode }
+        } catch (e: NoSuchElementException) {
+            return
+        }
 
         for (i in selectedCurrencies.count() - 1 downTo  currencyToUnselect.position + 1) {
             selectedCurrencies[i].position = --selectedCurrencies[i].position
