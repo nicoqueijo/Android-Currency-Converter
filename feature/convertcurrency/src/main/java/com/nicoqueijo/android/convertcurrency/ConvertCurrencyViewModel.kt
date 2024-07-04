@@ -7,7 +7,6 @@ import com.nicoqueijo.android.convertcurrency.model.UiState
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.di.DefaultDispatcher
-import com.nicoqueijo.android.core.log
 import com.nicoqueijo.android.core.model.Currency
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
@@ -52,8 +51,8 @@ class ConvertCurrencyViewModel @Inject constructor(
                 unselectCurrency(currency = event.currency)
             }
 
-            is UiEvent.UndoUnselectCurrency -> {
-                undoUnselectCurrency(currency = event.currency)
+            is UiEvent.RestoreCurrency -> {
+                restoreCurrency(currency = event.currency)
             }
 
             UiEvent.ConfirmDialog -> {
@@ -111,8 +110,13 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
-    private fun undoUnselectCurrency(currency: Currency) {
-
+    private fun restoreCurrency(currency: Currency) {
+        viewModelScope.launch(context = dispatcher) {
+            useCases.restoreCurrencyUseCase(currency = currency)
+            _uiState.value = _uiState.value.copy(
+                currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
+            )
+        }
     }
 
     private fun updateFocusedCurrency(currencyToFocus: Currency) {

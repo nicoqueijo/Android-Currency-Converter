@@ -21,6 +21,6 @@ class UnselectCurrencyUseCase(
             isSelected = false
             position = Position.INVALID.value
         }
-        repository.upsertCurrencies(selectedCurrencies)
+        repository.upsertCurrencies(currencies = selectedCurrencies)
     }
 }

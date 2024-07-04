@@ -187,7 +187,7 @@ fun ConvertCurrency(
                                                     when (result) {
                                                         SnackbarResult.ActionPerformed -> {
                                                             onEvent?.invoke(
-                                                                UiEvent.UndoUnselectCurrency(currency = currency)
+                                                                UiEvent.RestoreCurrency(currency = currency)
                                                             )
                                                         }
 

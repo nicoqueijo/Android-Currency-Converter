@@ -35,9 +35,15 @@ class UpdateSelectedCurrenciesUseCase {
         currenciesA: List<Currency>,
         currenciesB: List<Currency>,
     ): List<Currency> {
-        return (currenciesA + currenciesB).distinctBy { currency ->
+        val currencies = (currenciesA + currenciesB).distinctBy { currency ->
             currency.currencyCode
         }
+        currencies.onEach { currency ->
+            currency.position = currenciesB.single { currencyB ->
+                currencyB.currencyCode == currency.currencyCode
+            }.position
+        }
+        return currencies.sortedBy { it.position }
     }
 
     private fun removeCurrency(

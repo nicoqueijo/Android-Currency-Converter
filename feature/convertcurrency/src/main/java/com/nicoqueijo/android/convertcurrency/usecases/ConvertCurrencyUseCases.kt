@@ -4,6 +4,7 @@ data class ConvertCurrencyUseCases(
     val retrieveSelectedCurrenciesUseCase: RetrieveSelectedCurrenciesUseCase,
     val unselectAllCurrenciesUseCase: UnselectAllCurrenciesUseCase,
     val unselectCurrencyUseCase: UnselectCurrencyUseCase,
+    val restoreCurrencyUseCase: RestoreCurrencyUseCase,
     val setDefaultFocusedCurrency: SetDefaultFocusedCurrency,
     val updateFocusedCurrencyUseCase: UpdateFocusedCurrencyUseCase,
     val updateSelectedCurrenciesUseCase: UpdateSelectedCurrenciesUseCase,
