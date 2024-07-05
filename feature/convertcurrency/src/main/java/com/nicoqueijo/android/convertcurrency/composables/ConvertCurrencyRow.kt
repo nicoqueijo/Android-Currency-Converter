@@ -57,7 +57,6 @@ import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
 import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
-import kotlinx.coroutines.delay
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
@@ -80,11 +79,9 @@ fun ConvertCurrencyRow(
     )
     LaunchedEffect(key1 = swipeHandled) {
         if (swipeHandled) {
-            delay(timeMillis = 250L)
             onRowSwipe?.invoke()
         }
     }
-
     SwipeToDismissBox(
         state = swipeToDismissBoxState,
         backgroundContent = {
