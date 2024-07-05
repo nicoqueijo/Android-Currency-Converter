@@ -26,7 +26,7 @@ navigationCompose = "2.8.0-beta04"
 room = "2.6.1"
 roomCommon = "2.6.1"
 uiToolingPreviewAndroid = "1.6.8"
-lifecycleRuntimeComposeAndroid = "2.8.2"
+lifecycleRuntimeComposeAndroid = "2.8.3"
 
 [libraries]
 androidx-activity-compose = { group = "androidx.activity", name = "activity-compose", version.ref = "activityCompose" }
