@@ -50,6 +50,7 @@ import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
+import com.nicoqueijo.android.core.log
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
@@ -166,12 +167,17 @@ fun ConvertCurrency(
                         } else {
                             val reorderableState = rememberReorderableLazyListState(
                                 onMove = { from, to ->
-                                    onEvent?.invoke(
-                                        UiEvent.SwapCurrencies(
-                                            currencyFromCode = from.key as String,
-                                            currencyToCode = to.key as String
+                                    if (from.key is String && to.key is String) {
+                                        onEvent?.invoke(
+                                            UiEvent.SwapCurrencies(
+                                                currencyFromCode = from.key as String,
+                                                currencyToCode = to.key as String
+                                            )
                                         )
-                                    )
+                                    }
+                                },
+                                onDragEnd = { from, to ->
+                                    log("From: $from To: $to")
                                 }
                             )
                             LazyColumn(
