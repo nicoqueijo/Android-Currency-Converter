@@ -50,7 +50,6 @@ import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
-import com.nicoqueijo.android.core.log
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
@@ -58,10 +57,6 @@ import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
 import kotlinx.coroutines.launch
-import org.burnoutcrew.reorderable.ReorderableItem
-import org.burnoutcrew.reorderable.detectReorderAfterLongPress
-import org.burnoutcrew.reorderable.rememberReorderableLazyListState
-import org.burnoutcrew.reorderable.reorderable
 import java.math.BigDecimal
 import java.util.Locale
 
@@ -165,69 +160,45 @@ fun ConvertCurrency(
                         if (state?.currencies?.isEmpty() == true) {
                             EmptyListIndicator()
                         } else {
-                            val reorderableState = rememberReorderableLazyListState(
-                                onMove = { from, to ->
-                                    if (from.key is String && to.key is String) {
-                                        onEvent?.invoke(
-                                            UiEvent.SwapCurrencies(
-                                                currencyFromCode = from.key as String,
-                                                currencyToCode = to.key as String
-                                            )
-                                        )
-                                    }
-                                },
-                                onDragEnd = { from, to ->
-                                    log("From: $from To: $to")
-                                }
-                            )
                             LazyColumn(
-                                state = reorderableState.listState,
-                                modifier = Modifier
-                                    .fillMaxSize()
-                                    .reorderable(state = reorderableState)
-                                    .detectReorderAfterLongPress(state = reorderableState)
+                                modifier = Modifier.fillMaxSize()
                             ) {
                                 state?.currencies?.forEach { currency ->
                                     item(key = currency.currencyCode) {
-                                        ReorderableItem(
-                                            reorderableState = reorderableState,
-                                            key = currency.currencyCode,
-                                        ) {
-                                            ConvertCurrencyRow(
-                                                modifier = Modifier.animateItem(),
-                                                state = currency,
-                                                onConversionClick = {
-                                                    onEvent?.invoke(
-                                                        UiEvent.SetCurrencyFocus(currency = currency)
+                                        ConvertCurrencyRow(
+                                            modifier = Modifier.animateItem(),
+                                            state = currency,
+                                            onConversionClick = {
+                                                onEvent?.invoke(
+                                                    UiEvent.SetCurrencyFocus(currency = currency)
+                                                )
+                                            },
+                                            onRowSwipe = {
+                                                onEvent?.invoke(
+                                                    UiEvent.UnselectCurrency(currency = currency)
+                                                )
+                                                coroutineScope.launch {
+                                                    snackbarHostState.currentSnackbarData?.dismiss()
+                                                    val result = snackbarHostState.showSnackbar(
+                                                        message = context.getString(R.string.item_removed_label),
+                                                        actionLabel = context.getString(R.string.undo_label),
+                                                        duration = SnackbarDuration.Short,
                                                     )
-                                                },
-                                                onRowSwipe = {
-                                                    onEvent?.invoke(
-                                                        UiEvent.UnselectCurrency(currency = currency)
-                                                    )
-                                                    coroutineScope.launch {
-                                                        snackbarHostState.currentSnackbarData?.dismiss()
-                                                        val result = snackbarHostState.showSnackbar(
-                                                            message = context.getString(R.string.item_removed_label),
-                                                            actionLabel = context.getString(R.string.undo_label),
-                                                            duration = SnackbarDuration.Short,
-                                                        )
-                                                        when (result) {
-                                                            SnackbarResult.ActionPerformed -> {
-                                                                onEvent?.invoke(
-                                                                    UiEvent.RestoreCurrency(currency = currency)
-                                                                )
-                                                            }
+                                                    when (result) {
+                                                        SnackbarResult.ActionPerformed -> {
+                                                            onEvent?.invoke(
+                                                                UiEvent.RestoreCurrency(currency = currency)
+                                                            )
+                                                        }
 
-                                                            else -> {
-                                                                // Do nothing
-                                                            }
+                                                        else -> {
+                                                            // Do nothing
                                                         }
                                                     }
-                                                },
-                                            )
-                                            HorizontalDivider()
-                                        }
+                                                }
+                                            },
+                                        )
+                                        HorizontalDivider()
                                     }
                                 }
                                 item {

@@ -4,7 +4,6 @@ agp = "8.4.2"
 appcompat = "1.7.0"
 composeBom = "2024.06.00"
 composeFoundation = "1.7.0-beta04"
-composeReorderable = "0.9.6"
 composeShimmer = "1.3.0"
 coreKtx = "1.13.1"
 dataStore = "1.1.1"
@@ -48,7 +47,6 @@ androidx-ui-tooling = { group = "androidx.compose.ui", name = "ui-tooling" }
 androidx-ui-tooling-preview = { group = "androidx.compose.ui", name = "ui-tooling-preview" }
 androidx-ui-tooling-preview-android = { group = "androidx.compose.ui", name = "ui-tooling-preview-android", version.ref = "uiToolingPreviewAndroid" }
 compose-shimmer = { group = "com.valentinilk.shimmer", name = "compose-shimmer", version.ref = "composeShimmer" }
-compose-reorderable = { group = "org.burnoutcrew.composereorderable", name = "reorderable", version.ref = "composeReorderable" }
 dataStore = { group = "androidx.datastore", name = "datastore-preferences", version.ref = "dataStore" }
 hilt-android = { group = "com.google.dagger", name = "hilt-android", version.ref = "hilt" }
 hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-compiler", version.ref = "hilt" }
