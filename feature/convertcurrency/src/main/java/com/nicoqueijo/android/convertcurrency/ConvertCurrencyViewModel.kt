@@ -72,6 +72,13 @@ class ConvertCurrencyViewModel @Inject constructor(
             is UiEvent.ProcessKeyboardInput -> {
                 processKeyboardInput(keyboardInput = event.keyboardInput)
             }
+
+            is UiEvent.SwapCurrencies -> {
+                swapCurrencies(
+                    currencyFromCode = event.currencyFromCode,
+                    currencyToCode = event.currencyToCode
+                )
+            }
         }
     }
 
@@ -95,27 +102,18 @@ class ConvertCurrencyViewModel @Inject constructor(
     private fun unselectAllCurrencies() {
         viewModelScope.launch(context = dispatcher) {
             useCases.unselectAllCurrenciesUseCase()
-            _uiState.value = _uiState.value.copy(
-                currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
-            )
         }
     }
 
     private fun unselectCurrency(currency: Currency) {
         viewModelScope.launch(context = dispatcher) {
             useCases.unselectCurrencyUseCase(currency = currency)
-            _uiState.value = _uiState.value.copy(
-                currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
-            )
         }
     }
 
     private fun restoreCurrency(currency: Currency) {
         viewModelScope.launch(context = dispatcher) {
             useCases.restoreCurrencyUseCase(currency = currency)
-            _uiState.value = _uiState.value.copy(
-                currencies = useCases.retrieveSelectedCurrenciesUseCase().first(),
-            )
         }
     }
 
@@ -171,5 +169,15 @@ class ConvertCurrencyViewModel @Inject constructor(
         _uiState.value = _uiState.value.copy(
             currencies = updatedCurrencies
         )
+    }
+
+    private fun swapCurrencies(currencyFromCode: String, currencyToCode: String) {
+        viewModelScope.launch(context = dispatcher) {
+            useCases.swapCurrenciesUseCase(
+                currencies = _uiState.value.currencies,
+                currencyFromCode = currencyFromCode,
+                currencyToCode = currencyToCode,
+            )
+        }
     }
 }
