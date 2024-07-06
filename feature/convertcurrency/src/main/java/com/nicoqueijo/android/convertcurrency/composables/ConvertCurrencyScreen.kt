@@ -171,7 +171,7 @@ fun ConvertCurrency(
                             .weight(1f),
                         contentAlignment = Alignment.BottomCenter
                     ) {
-                        if (state?.currencies?.isEmpty() == true) {
+                        if (rememberedCurrencies?.isEmpty() == true) {
                             EmptyListIndicator()
                         } else {
                             val lazyListState = rememberLazyListState()
