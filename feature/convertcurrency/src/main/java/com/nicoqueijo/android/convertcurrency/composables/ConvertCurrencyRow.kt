@@ -45,6 +45,7 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.model.Currency
@@ -152,7 +153,7 @@ fun ConvertCurrencyRow(
                 ) {
                     Text(
                         modifier = Modifier
-                            .offset(x = offsetX)
+                            .offset { IntOffset(offsetX.roundToPx(), 0) }
                             .align(alignment = Alignment.CenterEnd)
                             .combinedClickable(
                                 onClick = {

@@ -186,10 +186,10 @@ fun ConvertCurrency(
                                 state = lazyListState,
                             ) {
                                 rememberedCurrencies?.forEach { currency ->
-                                    item(key = currency.currencyCode) {
+                                    item(key = currency.hashCode()) {
                                         ReorderableItem(
                                             state = reorderableLazyColumnState,
-                                            key = currency.currencyCode,
+                                            key = currency.hashCode(),
                                         ) {
                                             ConvertCurrencyRow(
                                                 modifier = Modifier
