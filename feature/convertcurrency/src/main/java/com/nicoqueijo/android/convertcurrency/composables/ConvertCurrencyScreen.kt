@@ -1,9 +1,12 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
+import android.annotation.SuppressLint
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
@@ -13,6 +16,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
@@ -33,8 +37,13 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.toMutableStateList
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Brush
@@ -50,6 +59,7 @@ import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
+import com.nicoqueijo.android.core.log
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
@@ -57,6 +67,8 @@ import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
 import kotlinx.coroutines.launch
+import sh.calvin.reorderable.ReorderableItem
+import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.math.BigDecimal
 import java.util.Locale
 
@@ -77,7 +89,7 @@ fun ConvertCurrencyScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ConvertCurrency(
     modifier: Modifier = Modifier,
@@ -135,6 +147,8 @@ fun ConvertCurrency(
                 }
             }
         ) { innerPadding ->
+            var rememberedCurrencies by remember {  mutableStateOf(state?.currencies?.toMutableStateList()) } // Required to wrap the state currencies in a remember to enable reordering.
+            rememberedCurrencies = state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
             Box(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.surface)
@@ -160,13 +174,33 @@ fun ConvertCurrency(
                         if (state?.currencies?.isEmpty() == true) {
                             EmptyListIndicator()
                         } else {
+                            val lazyListState = rememberLazyListState()
+                            val reorderableLazyColumnState =
+                                rememberReorderableLazyListState(lazyListState) { from, to ->
+                                    log("From: ${from.key} To: ${to.key}")
+                                    rememberedCurrencies = rememberedCurrencies?.apply {
+                                        add(to.index, removeAt(from.index))
+                                    }
+                                }
                             LazyColumn(
-                                modifier = Modifier.fillMaxSize()
+                                modifier = Modifier.fillMaxSize(),
+                                contentPadding = PaddingValues(vertical = (0.3).dp), // See notes at the bottom.
+                                state = lazyListState,
                             ) {
-                                state?.currencies?.forEach { currency ->
-                                    item(key = currency.currencyCode) {
+                                rememberedCurrencies?.forEach { currency ->
+                                item(key = currency.currencyCode) {
+                                    ReorderableItem(
+                                        state = reorderableLazyColumnState,
+                                        key = currency.currencyCode,
+                                    ) {
                                         ConvertCurrencyRow(
-                                            modifier = Modifier.animateItem(),
+                                            modifier = Modifier
+                                                .animateItem()
+                                                .longPressDraggableHandle {
+                                                    onEvent?.invoke(
+                                                        UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
+                                                    )
+                                                },
                                             state = currency,
                                             onConversionClick = {
                                                 onEvent?.invoke(
@@ -198,9 +232,10 @@ fun ConvertCurrency(
                                                 }
                                             },
                                         )
-                                        HorizontalDivider()
                                     }
+                                    HorizontalDivider()
                                 }
+                            }
                                 item {
                                     // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
                                     Spacer(
@@ -461,3 +496,11 @@ fun ConvertCurrencyScreenManyCurrenciesPreview() {
         ConvertCurrency(state = state)
     }
 }
+
+/**
+ * Known issue: First items stops when being dragged and the current solution is to add some small padding
+ * to the lazy list until Compose Foundation 1.7.0 is released. As of this writing, Compose Foundation
+ * is at version 1.7.0-beta04.
+ *
+ *  https://github.com/Calvin-LL/Reorderable/issues/32#issuecomment-2099453540
+ */

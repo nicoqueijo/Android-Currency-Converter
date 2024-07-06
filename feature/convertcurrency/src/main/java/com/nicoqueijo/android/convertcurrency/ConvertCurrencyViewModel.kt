@@ -72,11 +72,8 @@ class ConvertCurrencyViewModel @Inject constructor(
                 processKeyboardInput(keyboardInput = event.keyboardInput)
             }
 
-            is UiEvent.SwapCurrencies -> {
-                swapCurrencies(
-                    currencyFromCode = event.currencyFromCode,
-                    currencyToCode = event.currencyToCode
-                )
+            is UiEvent.ReorderCurrencies -> {
+                reorderCurrencies(currencies = event.currencies)
             }
         }
     }
@@ -170,13 +167,9 @@ class ConvertCurrencyViewModel @Inject constructor(
         )
     }
 
-    private fun swapCurrencies(currencyFromCode: String, currencyToCode: String) {
+    private fun reorderCurrencies(currencies: List<Currency>) {
         viewModelScope.launch(context = dispatcher) {
-            useCases.swapCurrenciesUseCase(
-                currencies = _uiState.value.currencies,
-                currencyFromCode = currencyFromCode,
-                currencyToCode = currencyToCode,
-            )
+            useCases.reorderCurrenciesUseCase(currencies = currencies)
         }
     }
 }

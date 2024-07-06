@@ -22,6 +22,7 @@ ktor = "2.3.10"
 lifecycleRuntimeKtx = "2.8.3"
 material3 = "1.2.1"
 navigationCompose = "2.8.0-beta04"
+reorderable = "2.1.1"
 room = "2.6.1"
 roomCommon = "2.6.1"
 uiToolingPreviewAndroid = "1.6.8"
@@ -53,13 +54,14 @@ hilt-android-compiler = { group = "com.google.dagger", name = "hilt-android-comp
 junit = { group = "junit", name = "junit", version.ref = "junit" }
 junit-jupiter = { group = "org.junit.jupiter", name = "junit-jupiter", version.ref = "junitJupiter" }
 kotlinx-serialization-json = { group = "org.jetbrains.kotlinx", name = "kotlinx-serialization-json", version.ref = "kotlinxSerializationJson" }
-kotest-assertions-core = { group = "io.kotest", name ="kotest-assertions-core", version.ref = "kotestAssertionsCore" }
+kotest-assertions-core = { group = "io.kotest", name = "kotest-assertions-core", version.ref = "kotestAssertionsCore" }
 ktor-core = { group = "io.ktor", name = "ktor-client-core", version.ref = "ktor" }
 ktor-http = { group = "io.ktor", name = "ktor-client-okhttp", version.ref = "ktor" }
 ktor-android = { group = "io.ktor", name = "ktor-client-android", version.ref = "ktor" }
 ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-negotiation", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
-ktor-logging = { group = "io.ktor", name ="ktor-client-logging", version.ref = "ktor" }
+ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+reorderable = { group = "sh.calvin.reorderable", name = "reorderable", version.ref = "reorderable" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "roomCommon" }
 room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 room-ktx = { group = "androidx.room", name = "room-ktx", version.ref = "room" }
