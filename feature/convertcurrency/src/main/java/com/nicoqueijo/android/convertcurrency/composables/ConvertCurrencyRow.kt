@@ -1,10 +1,5 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
-import androidx.compose.animation.core.LinearEasing
-import androidx.compose.animation.core.RepeatMode
-import androidx.compose.animation.core.animateDpAsState
-import androidx.compose.animation.core.repeatable
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -15,7 +10,6 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -45,7 +39,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.AnnotatedString
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.model.Currency
@@ -136,24 +129,11 @@ fun ConvertCurrencyRow(
                         .width(width = XS)
                         .fillMaxHeight()
                 )
-                val offsetX by animateDpAsState(
-                    targetValue = if (!state.isInputValid) XS else 0.dp,
-                    animationSpec = repeatable(
-                        iterations = 4,
-                        animation = tween(
-                            durationMillis = 25,
-                            easing = LinearEasing
-                        ),
-                        repeatMode = RepeatMode.Reverse
-                    ), label = ""
-                )
-                state.isInputValid = true
                 Box(
                     modifier = Modifier.weight(weight = 1f),
                 ) {
                     Text(
                         modifier = Modifier
-                            .offset { IntOffset(offsetX.roundToPx(), 0) }
                             .align(alignment = Alignment.CenterEnd)
                             .combinedClickable(
                                 onClick = {
