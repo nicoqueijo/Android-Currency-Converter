@@ -49,7 +49,7 @@ data class Currency(
                 this.position == other.position &&
                 this.isSelected == other.isSelected &&
                 this.isFocused == other.isFocused &&
-                this.isFocused == other.isInputValid &&
+                this.isInputValid == other.isInputValid &&
                 this.conversion.value == other.conversion.value &&
                 this.conversion.valueAsString == other.conversion.valueAsString &&
                 this.conversion.hint == other.conversion.hint
