@@ -170,13 +170,12 @@ fun ConvertCurrency(
                             .weight(1f),
                         contentAlignment = Alignment.BottomCenter
                     ) {
-                        if (rememberedCurrencies?.isEmpty() == true) {
+                        if (state?.currencies?.isEmpty() == true) {
                             EmptyListIndicator()
                         } else {
                             val lazyListState = rememberLazyListState()
                             val reorderableLazyColumnState =
                                 rememberReorderableLazyListState(lazyListState) { from, to ->
-                                    log("From: ${from.key} To: ${to.key}")
                                     rememberedCurrencies = rememberedCurrencies?.apply {
                                         add(to.index, removeAt(from.index))
                                     }
