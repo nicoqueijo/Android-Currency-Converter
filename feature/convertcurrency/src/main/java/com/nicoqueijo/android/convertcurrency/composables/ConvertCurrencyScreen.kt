@@ -1,6 +1,5 @@
 package com.nicoqueijo.android.convertcurrency.composables
 
-import android.annotation.SuppressLint
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
@@ -37,7 +36,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -147,8 +145,9 @@ fun ConvertCurrency(
                 }
             }
         ) { innerPadding ->
-            var rememberedCurrencies by remember {  mutableStateOf(state?.currencies?.toMutableStateList()) } // Required to wrap the state currencies in a remember to enable reordering.
-            rememberedCurrencies = state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
+            var rememberedCurrencies by remember { mutableStateOf(state?.currencies?.toMutableStateList()) } // Required to wrap the state currencies in a remember to enable reordering.
+            rememberedCurrencies =
+                state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
             Box(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.surface)
@@ -188,54 +187,54 @@ fun ConvertCurrency(
                                 state = lazyListState,
                             ) {
                                 rememberedCurrencies?.forEach { currency ->
-                                item(key = currency.currencyCode) {
-                                    ReorderableItem(
-                                        state = reorderableLazyColumnState,
-                                        key = currency.currencyCode,
-                                    ) {
-                                        ConvertCurrencyRow(
-                                            modifier = Modifier
-                                                .animateItem()
-                                                .longPressDraggableHandle {
+                                    item(key = currency.currencyCode) {
+                                        ReorderableItem(
+                                            state = reorderableLazyColumnState,
+                                            key = currency.currencyCode,
+                                        ) {
+                                            ConvertCurrencyRow(
+                                                modifier = Modifier
+                                                    .animateItem()
+                                                    .longPressDraggableHandle {
+                                                        onEvent?.invoke(
+                                                            UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
+                                                        )
+                                                    },
+                                                state = currency,
+                                                onConversionClick = {
                                                     onEvent?.invoke(
-                                                        UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
+                                                        UiEvent.SetCurrencyFocus(currency = currency)
                                                     )
                                                 },
-                                            state = currency,
-                                            onConversionClick = {
-                                                onEvent?.invoke(
-                                                    UiEvent.SetCurrencyFocus(currency = currency)
-                                                )
-                                            },
-                                            onRowSwipe = {
-                                                onEvent?.invoke(
-                                                    UiEvent.UnselectCurrency(currency = currency)
-                                                )
-                                                coroutineScope.launch {
-                                                    snackbarHostState.currentSnackbarData?.dismiss()
-                                                    val result = snackbarHostState.showSnackbar(
-                                                        message = context.getString(R.string.item_removed_label),
-                                                        actionLabel = context.getString(R.string.undo_label),
-                                                        duration = SnackbarDuration.Short,
+                                                onRowSwipe = {
+                                                    onEvent?.invoke(
+                                                        UiEvent.UnselectCurrency(currency = currency)
                                                     )
-                                                    when (result) {
-                                                        SnackbarResult.ActionPerformed -> {
-                                                            onEvent?.invoke(
-                                                                UiEvent.RestoreCurrency(currency = currency)
-                                                            )
-                                                        }
+                                                    coroutineScope.launch {
+                                                        snackbarHostState.currentSnackbarData?.dismiss()
+                                                        val result = snackbarHostState.showSnackbar(
+                                                            message = context.getString(R.string.item_removed_label),
+                                                            actionLabel = context.getString(R.string.undo_label),
+                                                            duration = SnackbarDuration.Short,
+                                                        )
+                                                        when (result) {
+                                                            SnackbarResult.ActionPerformed -> {
+                                                                onEvent?.invoke(
+                                                                    UiEvent.RestoreCurrency(currency = currency)
+                                                                )
+                                                            }
 
-                                                        else -> {
-                                                            // Do nothing
+                                                            else -> {
+                                                                // Do nothing
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            },
-                                        )
+                                                },
+                                            )
+                                        }
+                                        HorizontalDivider()
                                     }
-                                    HorizontalDivider()
                                 }
-                            }
                                 item {
                                     // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
                                     Spacer(
