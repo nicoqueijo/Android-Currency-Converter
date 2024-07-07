@@ -69,7 +69,8 @@ fun ConvertCurrencyRow(
             } else {
                 false
             }
-        }
+        },
+        positionalThreshold = { totalDistance -> totalDistance * 0.5f },
     )
     LaunchedEffect(key1 = swipeHandled) {
         if (swipeHandled) {
