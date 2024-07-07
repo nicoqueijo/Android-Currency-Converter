@@ -7,6 +7,7 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -184,54 +185,55 @@ fun ConvertCurrency(
                                 contentPadding = PaddingValues(vertical = (0.15).dp), // See notes at the bottom.
                                 state = lazyListState,
                             ) {
-                                rememberedCurrencies?.forEach { currency ->
-                                    item(key = currency.hashCode()) {
-                                        ReorderableItem(
-                                            state = reorderableLazyColumnState,
-                                            key = currency.hashCode(),
-                                        ) {
-                                            ConvertCurrencyRow(
-                                                modifier = Modifier
-                                                    .animateItem()
-                                                    .longPressDraggableHandle {
-                                                        onEvent?.invoke(
-                                                            UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
-                                                        )
-                                                    },
-                                                state = currency,
-                                                onConversionClick = {
+                                items(
+                                    items = rememberedCurrencies?.toList() ?: emptyList(),
+                                    key = { currency -> currency.hashCode() }
+                                ) { currency ->
+                                    ReorderableItem(
+                                        state = reorderableLazyColumnState,
+                                        key = currency.hashCode(),
+                                    ) {
+                                        ConvertCurrencyRow(
+                                            modifier = Modifier
+                                                .animateItem()
+                                                .longPressDraggableHandle {
                                                     onEvent?.invoke(
-                                                        UiEvent.SetCurrencyFocus(currency = currency)
+                                                        UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
                                                     )
                                                 },
-                                                onRowSwipe = {
-                                                    onEvent?.invoke(
-                                                        UiEvent.UnselectCurrency(currency = currency)
+                                            state = currency,
+                                            onConversionClick = {
+                                                onEvent?.invoke(
+                                                    UiEvent.SetCurrencyFocus(currency = currency)
+                                                )
+                                            },
+                                            onRowSwipe = {
+                                                onEvent?.invoke(
+                                                    UiEvent.UnselectCurrency(currency = currency)
+                                                )
+                                                coroutineScope.launch {
+                                                    snackbarHostState.currentSnackbarData?.dismiss()
+                                                    val result = snackbarHostState.showSnackbar(
+                                                        message = context.getString(R.string.item_removed_label),
+                                                        actionLabel = context.getString(R.string.undo_label),
+                                                        duration = SnackbarDuration.Short,
                                                     )
-                                                    coroutineScope.launch {
-                                                        snackbarHostState.currentSnackbarData?.dismiss()
-                                                        val result = snackbarHostState.showSnackbar(
-                                                            message = context.getString(R.string.item_removed_label),
-                                                            actionLabel = context.getString(R.string.undo_label),
-                                                            duration = SnackbarDuration.Short,
-                                                        )
-                                                        when (result) {
-                                                            SnackbarResult.ActionPerformed -> {
-                                                                onEvent?.invoke(
-                                                                    UiEvent.RestoreCurrency(currency = currency)
-                                                                )
-                                                            }
+                                                    when (result) {
+                                                        SnackbarResult.ActionPerformed -> {
+                                                            onEvent?.invoke(
+                                                                UiEvent.RestoreCurrency(currency = currency)
+                                                            )
+                                                        }
 
-                                                            else -> {
-                                                                // Do nothing
-                                                            }
+                                                        else -> {
+                                                            // Do nothing
                                                         }
                                                     }
-                                                },
-                                            )
-                                        }
-                                        HorizontalDivider()
+                                                }
+                                            },
+                                        )
                                     }
+                                    HorizontalDivider()
                                 }
                                 item {
                                     // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
