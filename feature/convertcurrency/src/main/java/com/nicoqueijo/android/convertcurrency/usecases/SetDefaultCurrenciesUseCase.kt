@@ -13,13 +13,14 @@ class SetDefaultCurrenciesUseCase(
         if (repository.isFirstLaunch()) {
             val defaultCurrencies = mutableListOf<Currency>()
             val localCurrencyCode = "USD_${java.util.Currency.getInstance(Locale.getDefault()).currencyCode}"
+            val localCurrency = repository.getCurrency(localCurrencyCode)
             defaultCurrencies.add(
                 element = setDefaultCurrency(
                     currency = repository.getCurrency(currencyCode = "USD_USD"),
                     position = Position.FIRST
                 )
             )
-            if (localCurrencyCode == "USD_USD") {
+            if (localCurrencyCode == "USD_USD" || localCurrency == null) { // localCurrency can be null if no matching currency in the db
                 addDefaultCurrencies(
                     defaultCurrencies = defaultCurrencies,
                     currencyCodes = listOf("USD_EUR", "USD_JPY", "USD_GBP"),
@@ -28,7 +29,7 @@ class SetDefaultCurrenciesUseCase(
             } else {
                 defaultCurrencies.add(
                     element = setDefaultCurrency(
-                        currency = repository.getCurrency(localCurrencyCode),
+                        currency = localCurrency,
                         position = Position.SECOND
                     )
                 )
