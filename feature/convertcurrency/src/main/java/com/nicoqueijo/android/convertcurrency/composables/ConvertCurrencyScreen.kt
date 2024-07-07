@@ -182,7 +182,7 @@ fun ConvertCurrency(
                                 }
                             LazyColumn(
                                 modifier = Modifier.fillMaxSize(),
-                                contentPadding = PaddingValues(vertical = (0.3).dp), // See notes at the bottom.
+                                contentPadding = PaddingValues(vertical = (0.15).dp), // See notes at the bottom.
                                 state = lazyListState,
                             ) {
                                 rememberedCurrencies?.forEach { currency ->
