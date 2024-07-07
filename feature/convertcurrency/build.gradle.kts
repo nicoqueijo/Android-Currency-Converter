@@ -47,7 +47,6 @@ dependencies {
     implementation(libs.androidx.hilt.navigation.compose)
     implementation(libs.androidx.lifecycle.runtime.compose.android)
     implementation(libs.hilt.android)
-    implementation(libs.intro.showcase)
     implementation(libs.reorderable)
     kapt(libs.hilt.android.compiler)
     testImplementation(libs.junit)
