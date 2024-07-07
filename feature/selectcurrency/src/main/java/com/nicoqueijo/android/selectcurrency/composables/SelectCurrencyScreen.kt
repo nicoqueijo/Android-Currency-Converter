@@ -1,5 +1,6 @@
 package com.nicoqueijo.android.selectcurrency.composables
 
+import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -8,6 +9,7 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Search
@@ -60,7 +62,7 @@ fun SelectCurrencyScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class)
+@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
 @Composable
 fun SelectCurrency(
     modifier: Modifier = Modifier,
@@ -156,18 +158,19 @@ fun SelectCurrency(
                     LazyColumn(
                         modifier = Modifier.fillMaxSize()
                     ) {
-                        state?.filteredCurrencies?.forEach { currency ->
-                            item {
-                                SelectCurrencyRow(
-                                    modifier = Modifier.animateItem(),
-                                    state = currency,
-                                    onClick = {
-                                        onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
-                                        onCurrencyClick?.invoke()
-                                    },
-                                )
-                                HorizontalDivider()
-                            }
+                        items(
+                            items = state?.filteredCurrencies ?: emptyList(),
+                            key = { currency -> currency.hashCode() }
+                        ) { currency ->
+                            SelectCurrencyRow(
+                                modifier = Modifier.animateItem(),
+                                state = currency,
+                                onClick = {
+                                    onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
+                                    onCurrencyClick?.invoke()
+                                },
+                            )
+                            HorizontalDivider()
                         }
                     }
                 }
