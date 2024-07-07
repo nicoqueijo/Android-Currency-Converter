@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="empty_list_title">Lista vacía</string>
+    <string name="add_currency_instruction">Presione el botón + para agregar</string>
+    <string name="app_name">Convertidor de Moneda</string>
+    <string name="remove_currencies_dialog_title">¿Eliminar todas las monedas?</string>
+    <string name="remove_currencies_dialog_confirm_label">OK</string>
+    <string name="remove_currencies_dialog_dismiss_label">Cancelar</string>
+    <string name="undo_label">Deshacer</string>
+    <string name="item_removed_label">Elemento eliminado</string>
+</resources>

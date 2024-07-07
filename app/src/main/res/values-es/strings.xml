@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Convertidor de Moneda</string>
+    <string name="error_title">Error Producido</string>
+    <string name="error_description">Se ha producido un error al intentar recuperar los datos desde del internet.</string>
+    <string name="splash_title">Obteniendo datos…</string>
+</resources>
