@@ -6,6 +6,7 @@ import com.nicoqueijo.android.convertcurrency.usecases.RestoreCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
 import com.nicoqueijo.android.convertcurrency.usecases.ReorderCurrenciesUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateConversionsUseCase
@@ -27,6 +28,9 @@ object ConvertCurrencyUseCasesModule {
         repository: Repository,
     ): ConvertCurrencyUseCases {
         return ConvertCurrencyUseCases(
+            setDefaultCurrenciesUseCase = SetDefaultCurrenciesUseCase(
+                repository = repository
+            ),
             retrieveSelectedCurrenciesUseCase = RetrieveSelectedCurrenciesUseCase(
                 repository = repository,
             ),

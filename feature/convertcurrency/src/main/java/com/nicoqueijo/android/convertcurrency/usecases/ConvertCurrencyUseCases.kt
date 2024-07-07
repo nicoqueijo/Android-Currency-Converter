@@ -1,6 +1,7 @@
 package com.nicoqueijo.android.convertcurrency.usecases
 
 data class ConvertCurrencyUseCases(
+    val setDefaultCurrenciesUseCase: SetDefaultCurrenciesUseCase,
     val retrieveSelectedCurrenciesUseCase: RetrieveSelectedCurrenciesUseCase,
     val unselectAllCurrenciesUseCase: UnselectAllCurrenciesUseCase,
     val unselectCurrencyUseCase: UnselectCurrencyUseCase,

@@ -26,6 +26,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
+        setDefaultCurrencies()
         viewModelScope.launch(context = dispatcher) {
             useCases.retrieveSelectedCurrenciesUseCase()
                 .collectLatest { databaseCurrencies ->
@@ -75,6 +76,12 @@ class ConvertCurrencyViewModel @Inject constructor(
             is UiEvent.ReorderCurrencies -> {
                 reorderCurrencies(currencies = event.currencies)
             }
+        }
+    }
+
+    private fun setDefaultCurrencies() {
+        viewModelScope.launch(context = dispatcher) {
+            useCases.setDefaultCurrenciesUseCase()
         }
     }
 
