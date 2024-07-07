@@ -25,7 +25,7 @@ material3 = "1.2.1"
 navigationCompose = "2.8.0-beta04"
 reorderable = "2.1.1"
 room = "2.6.1"
-tapTargetCompose = "1.2.2"
+tapTargetCompose = "1.1.2"
 uiToolingPreviewAndroid = "1.6.8"
 
 [libraries]
