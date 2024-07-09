@@ -6,6 +6,22 @@ import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
 
+@Composable
+fun AndroidCurrencyConverterTheme(
+    darkTheme: Boolean = isSystemInDarkTheme(),
+    content: @Composable () -> Unit
+) {
+    val colorScheme = when {
+        darkTheme -> DarkColorScheme
+        else -> LightColorScheme
+    }
+    MaterialTheme(
+        colorScheme = colorScheme,
+        typography = Typography,
+        content = content
+    )
+}
+
 private val DarkColorScheme = darkColorScheme(
     surface = Black,
     primary = White,
@@ -29,19 +45,3 @@ private val LightColorScheme = lightColorScheme(
     inverseOnSurface = AlmostBlack,
     surfaceVariant = SlightlyDarkerAlmostWhite,
 )
-
-@Composable
-fun AndroidCurrencyConverterTheme(
-    darkTheme: Boolean = isSystemInDarkTheme(),
-    content: @Composable () -> Unit
-) {
-    val colorScheme = when {
-        darkTheme -> DarkColorScheme
-        else -> LightColorScheme
-    }
-    MaterialTheme(
-        colorScheme = colorScheme,
-        typography = Typography,
-        content = content
-    )
-}
