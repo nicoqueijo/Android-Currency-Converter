@@ -70,6 +70,7 @@ data class Currency(
         result = 31 * result + conversion.hint.hashCode()
         return result
     }
+
     override fun toString() = buildString {
         append("{")
         append(position)

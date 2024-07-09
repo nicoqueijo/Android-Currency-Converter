@@ -12,5 +12,5 @@ sealed interface UiEvent {
     data class SetCurrencyFocus(val currency: Currency) : UiEvent
     data class ProcessKeyboardInput(val keyboardInput: KeyboardInput) : UiEvent
     data class ReorderCurrencies(val currencies: List<Currency>) : UiEvent
-    data object ToggleOffIsFirstLaunch: UiEvent
+    data object ToggleOffIsFirstLaunch : UiEvent
 }

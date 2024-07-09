@@ -14,7 +14,7 @@ class UnselectCurrencyUseCase(
         val currencyToUnselect = selectedCurrencies.first { selectedCurrency ->
             selectedCurrency.currencyCode == currency.currencyCode
         }
-        for (i in selectedCurrencies.count() - 1 downTo  currencyToUnselect.position + 1) {
+        for (i in selectedCurrencies.count() - 1 downTo currencyToUnselect.position + 1) {
             selectedCurrencies[i].position = --selectedCurrencies[i].position
         }
         currencyToUnselect.apply {
