@@ -56,8 +56,6 @@ import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 import com.psoffritti.taptargetcompose.TapTargetCoordinator
 import com.psoffritti.taptargetcompose.TapTargetScope
-import com.psoffritti.taptargetcompose.TapTargetStyle
-import com.psoffritti.taptargetcompose.TextDefinition
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable

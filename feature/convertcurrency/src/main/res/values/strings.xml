@@ -8,4 +8,5 @@
     <string name="remove_currencies_dialog_dismiss_label">Cancel</string>
     <string name="undo_label">Undo</string>
     <string name="item_removed_label">Item removed</string>
+    <string name="tap_button_to_add">Tap button to add</string>
 </resources>
