@@ -26,7 +26,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
-        setIsFirstLaunch()
+//        setIsFirstLaunch()
         setDefaultCurrencies()
         viewModelScope.launch(context = dispatcher) {
             val selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()

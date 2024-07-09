@@ -41,6 +41,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.nicoqueijo.android.convertcurrency.composables.util.copyConversionTapTargetDefinition
+import com.nicoqueijo.android.convertcurrency.composables.util.removeCurrencyTapTargetDefinition
+import com.nicoqueijo.android.convertcurrency.composables.util.reorderCurrencyTapTargetDefinition
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.model.Hint
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
@@ -116,23 +119,7 @@ fun TapTargetScope.ConvertCurrencyRow(
                         .then(
                             if (showTapTargets) {
                                 Modifier.tapTarget(
-                                    precedence = 2,
-                                    title = TextDefinition(
-                                        text = "Long-press & drag any part of the row currency to reorder",
-                                        textStyle = MaterialTheme.typography.titleLarge,
-                                        fontWeight = FontWeight.Bold,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                                    ),
-                                    description = TextDefinition(
-                                        text = "Long-press & drag any part of the row currency to reorder",
-                                        textStyle = MaterialTheme.typography.bodyMedium,
-                                        color = MaterialTheme.colorScheme.onSecondaryContainer
-                                    ),
-                                    tapTargetStyle = TapTargetStyle(
-                                        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-                                        tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                        backgroundAlpha = 1f,
-                                    )
+                                    tapTargetDefinition = reorderCurrencyTapTargetDefinition(),
                                 )
                             } else {
                                 Modifier
@@ -154,23 +141,7 @@ fun TapTargetScope.ConvertCurrencyRow(
                     modifier = Modifier.then(
                         if (showTapTargets) {
                             Modifier.tapTarget(
-                                precedence = 3,
-                                title = TextDefinition(
-                                    text = "Swipe any part of the row to remove",
-                                    textStyle = MaterialTheme.typography.titleLarge,
-                                    fontWeight = FontWeight.Bold,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                                ),
-                                description = TextDefinition(
-                                    text = "Swipe any part of the row to remove",
-                                    textStyle = MaterialTheme.typography.bodyMedium,
-                                    color = MaterialTheme.colorScheme.onSecondaryContainer
-                                ),
-                                tapTargetStyle = TapTargetStyle(
-                                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-                                    tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                    backgroundAlpha = 1f,
-                                )
+                                tapTargetDefinition = removeCurrencyTapTargetDefinition(),
                             )
                         } else {
                             Modifier
@@ -208,23 +179,7 @@ fun TapTargetScope.ConvertCurrencyRow(
                             .then(
                                 if (showTapTargets) {
                                     Modifier.tapTarget(
-                                        precedence = 1,
-                                        title = TextDefinition(
-                                            text = "Long-press conversion to copy",
-                                            textStyle = MaterialTheme.typography.titleLarge,
-                                            fontWeight = FontWeight.Bold,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                                        ),
-                                        description = TextDefinition(
-                                            text = "Long-press conversion to copy",
-                                            textStyle = MaterialTheme.typography.bodyMedium,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                                        ),
-                                        tapTargetStyle = TapTargetStyle(
-                                            backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-                                            tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                            backgroundAlpha = 1f,
-                                        )
+                                        tapTargetDefinition = copyConversionTapTargetDefinition(),
                                     )
                                 } else {
                                     Modifier

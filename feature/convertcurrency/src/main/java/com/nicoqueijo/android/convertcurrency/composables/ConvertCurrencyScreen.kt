@@ -50,13 +50,13 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
+import com.nicoqueijo.android.convertcurrency.composables.util.addCurrencyTapTargetDefinition
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
 import com.nicoqueijo.android.core.model.Currency
@@ -67,8 +67,6 @@ import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
 import com.psoffritti.taptargetcompose.TapTargetCoordinator
-import com.psoffritti.taptargetcompose.TapTargetStyle
-import com.psoffritti.taptargetcompose.TextDefinition
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -150,7 +148,7 @@ fun ConvertCurrency(
                 }
             }
         ) { innerPadding ->
-            var rememberedCurrencies by remember { mutableStateOf(state?.currencies?.toMutableStateList()) } // Required to wrap the state currencies in a remember to enable reordering.
+            var rememberedCurrencies by remember { mutableStateOf(state?.currencies?.toMutableStateList()) } // Wrapping in a remember is required to enable reordering.
             rememberedCurrencies =
                 state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
             Box(
@@ -195,7 +193,7 @@ fun ConvertCurrency(
                                     }
                                 LazyColumn(
                                     modifier = Modifier.fillMaxSize(),
-                                    contentPadding = PaddingValues(vertical = (0.15).dp), // See notes at the bottom.
+                                    contentPadding = PaddingValues(vertical = (0.15).dp), // https://github.com/Calvin-LL/Reorderable/issues/32#issuecomment-2099453540
                                     state = lazyListState,
                                 ) {
                                     items(
@@ -288,23 +286,7 @@ fun ConvertCurrency(
                                 modifier = Modifier
                                     .padding(bottom = S)
                                     .tapTarget(
-                                        precedence = 0,
-                                        title = TextDefinition(
-                                            text = "Tap button to add",
-                                            textStyle = MaterialTheme.typography.titleLarge,
-                                            fontWeight = FontWeight.Bold,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                                        ),
-                                        description = TextDefinition(
-                                            text = "Tap button to add",
-                                            textStyle = MaterialTheme.typography.bodyMedium,
-                                            color = MaterialTheme.colorScheme.onSecondaryContainer
-                                        ),
-                                        tapTargetStyle = TapTargetStyle(
-                                            backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
-                                            tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
-                                            backgroundAlpha = 1f,
-                                        )
+                                        tapTargetDefinition = addCurrencyTapTargetDefinition()
                                     ),
                                 containerColor = MaterialTheme.colorScheme.primary,
                                 contentColor = MaterialTheme.colorScheme.secondary,
@@ -530,11 +512,3 @@ fun ConvertCurrencyScreenManyCurrenciesPreview() {
         ConvertCurrency(state = state)
     }
 }
-
-/**
- * Known issue: First items stops when being dragged and the current solution is to add some small padding
- * to the lazy list until Compose Foundation 1.7.0 is released. As of this writing, Compose Foundation
- * is at version 1.7.0-beta04.
- *
- *  https://github.com/Calvin-LL/Reorderable/issues/32#issuecomment-2099453540
- */
