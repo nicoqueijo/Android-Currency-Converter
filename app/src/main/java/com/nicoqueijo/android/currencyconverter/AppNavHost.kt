@@ -44,46 +44,46 @@ fun AppNavHost(
     navController: NavHostController,
 ) {
     NavHost(
+        modifier = modifier,
         navController = navController,
         startDestination = Screen.Splash.route,
-        modifier = modifier,
     ) {
         composable(Screen.Splash.route) {
             SplashScreen(
                 onSuccess = {
-                    navController.navigate(Screen.FeatureFlow.route) {
-                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    navController.navigate(route = Screen.FeatureFlow.route) {
+                        popUpTo(route = Screen.Splash.route) { inclusive = true }
                     }
                 },
                 onFailure = {
-                    navController.navigate(Screen.Error.route) {
-                        popUpTo(Screen.Splash.route) { inclusive = true }
+                    navController.navigate(route = Screen.Error.route) {
+                        popUpTo(route = Screen.Splash.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
         composable(Screen.Error.route) {
             ErrorScreen(
                 onRefreshClick = {
-                    navController.navigate(Screen.Splash.route) {
-                        popUpTo(Screen.Error.route) { inclusive = true }
+                    navController.navigate(route = Screen.Splash.route) {
+                        popUpTo(route = Screen.Error.route) { inclusive = true }
                     }
-                }
+                },
             )
         }
         navigation(
             startDestination = Screen.ConvertCurrency.route,
             route = Screen.FeatureFlow.route,
         ) {
-            composable(Screen.ConvertCurrency.route) {
+            composable(route = Screen.ConvertCurrency.route) {
                 ConvertCurrencyScreen(
                     onFabClick = {
-                        navController.navigate(Screen.SelectCurrency.route)
-                    }
+                        navController.navigate(route = Screen.SelectCurrency.route)
+                    },
                 )
             }
             composable(
-                Screen.SelectCurrency.route,
+                route = Screen.SelectCurrency.route,
                 enterTransition = {
                     slideInHorizontally(initialOffsetX = { 1000 }) + fadeIn()
                 },
@@ -94,7 +94,7 @@ fun AppNavHost(
                 SelectCurrencyScreen(
                     onCurrencyClick = {
                         navController.navigateUp()
-                    }
+                    },
                 )
             }
         }

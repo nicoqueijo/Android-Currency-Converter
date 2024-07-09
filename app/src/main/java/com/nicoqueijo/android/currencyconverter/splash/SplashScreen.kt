@@ -27,6 +27,7 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
+import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
@@ -40,6 +41,7 @@ fun SplashScreen(
     onFailure: (() -> Unit)? = null,
 ) {
     Scaffold(
+        modifier = modifier,
         topBar = {
             TopAppBar(
                 title = {
@@ -48,7 +50,7 @@ fun SplashScreen(
                         color = MaterialTheme.colorScheme.primary,
                     )
                 },
-                actions = {},
+                actions = { },
                 colors = TopAppBarDefaults.topAppBarColors(
                     containerColor = MaterialTheme.colorScheme.onSurface
                 ),
@@ -56,12 +58,15 @@ fun SplashScreen(
         }
     ) { innerPadding ->
         Surface(
-            modifier = modifier
+            modifier = Modifier
                 .fillMaxSize()
                 .padding(paddingValues = innerPadding),
         ) {
             Column(
-                modifier = Modifier.padding(horizontal = L, vertical = XL),
+                modifier = Modifier.padding(
+                    horizontal = L,
+                    vertical = XL
+                ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(space = S)
             ) {
@@ -70,7 +75,7 @@ fun SplashScreen(
                         .size(size = 125.dp)
                         .padding(all = XXXS),
                     color = MaterialTheme.colorScheme.primary,
-                    strokeWidth = 8.dp
+                    strokeWidth = XXS
                 )
                 Text(
                     text = stringResource(id = R.string.splash_title),

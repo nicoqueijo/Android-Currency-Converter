@@ -70,7 +70,10 @@ fun ErrorScreen(
                 .padding(paddingValues = innerPadding),
         ) {
             Column(
-                modifier = Modifier.padding(horizontal = L, vertical = XL),
+                modifier = Modifier.padding(
+                    horizontal = L,
+                    vertical = XL
+                ),
                 horizontalAlignment = Alignment.CenterHorizontally,
                 verticalArrangement = Arrangement.spacedBy(space = XS)
             ) {
