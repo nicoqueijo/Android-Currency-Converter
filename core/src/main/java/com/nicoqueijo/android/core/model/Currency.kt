@@ -18,7 +18,7 @@ data class Currency(
     var isFocused = false
 
     @Ignore
-    var conversion = Conversion(BigDecimal.ZERO)
+    var conversion = Conversion(conversionValue = BigDecimal.ZERO)
 
     @Ignore
     var isInputValid = true

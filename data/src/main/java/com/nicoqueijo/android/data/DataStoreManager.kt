@@ -7,6 +7,7 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.preferencesDataStore
+import com.nicoqueijo.android.core.extensions.toSeconds
 import kotlinx.coroutines.flow.first
 
 class DataStoreManager(context: Context) {
@@ -62,7 +63,3 @@ class DataStoreManager(context: Context) {
         const val NO_DATA = 0L
     }
 }
-
-private fun Long.toSeconds() = this / 1_000L
-
-private fun Long.toMillis() = this * 1_000L
