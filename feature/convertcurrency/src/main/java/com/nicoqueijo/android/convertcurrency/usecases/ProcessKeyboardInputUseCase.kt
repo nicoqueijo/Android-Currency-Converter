@@ -15,7 +15,9 @@ class ProcessKeyboardInputUseCase {
         if (currenciesCopy.isEmpty()) { // No currencies to process
             return InputResult()
         }
-        val focusedCurrency = currenciesCopy.single { it.isFocused }
+        val focusedCurrency = currenciesCopy.single { currency ->
+            currency.isFocused
+        }
         var existingText = focusedCurrency.conversion.valueAsString
         var isInputValid = true
         when (keyboardInput) {
@@ -24,8 +26,8 @@ class ProcessKeyboardInputUseCase {
                 var input = existingText + digitPressed
                 input = cleanInput(input)
                 isInputValid = isInputValid(
-                    input,
-                    focusedCurrency
+                    input = input,
+                    focusedCurrency = focusedCurrency
                 )
             }
 
@@ -33,8 +35,8 @@ class ProcessKeyboardInputUseCase {
                 var input = "$existingText."
                 input = cleanInput(input)
                 isInputValid = isInputValid(
-                    input,
-                    focusedCurrency
+                    input = input,
+                    focusedCurrency = focusedCurrency
                 )
             }
 
@@ -44,7 +46,6 @@ class ProcessKeyboardInputUseCase {
             }
         }
         focusedCurrency.isInputValid = isInputValid
-
         return InputResult(
             currencies = currenciesCopy,
             isInputValid = isInputValid,

@@ -165,7 +165,9 @@ fun SelectCurrency(
                                 modifier = Modifier.animateItem(),
                                 state = currency,
                                 onClick = {
-                                    onEvent?.invoke(UiEvent.SelectCurrency(currency = currency))
+                                    onEvent?.invoke(
+                                        UiEvent.SelectCurrency(currency = currency)
+                                    )
                                     onCurrencyClick?.invoke()
                                 },
                             )

@@ -50,10 +50,10 @@ class SelectCurrencyViewModel @Inject constructor(
     }
 
     private fun filterCurrencies(searchTerm: String) {
+        _uiState.value = _uiState.value.copy(
+            searchTerm = searchTerm,
+        )
         viewModelScope.launch(context = dispatcher) {
-            _uiState.value = _uiState.value.copy(
-                searchTerm = searchTerm,
-            )
             val filteredCurrencies = useCases.filterCurrenciesUseCase.invoke(
                 searchTerm = searchTerm
             )

@@ -6,12 +6,13 @@ import com.nicoqueijo.android.core.model.Currency
 class SetDefaultFocusedCurrency {
 
     operator fun invoke(currencies: List<Currency>): List<Currency> {
-        val currencyCopy = currencies.deepCopy()
-        if (currencyCopy.count { it.isFocused } == 0) {
-            currencyCopy.firstOrNull()?.apply {
+        val currenciesCopy = currencies.deepCopy()
+        val hasNoFocusedCurrency = currenciesCopy.none { currency -> currency.isFocused }
+        if (hasNoFocusedCurrency) {
+            currenciesCopy.firstOrNull()?.apply {
                 isFocused = true
             }
         }
-        return currencyCopy
+        return currenciesCopy
     }
 }

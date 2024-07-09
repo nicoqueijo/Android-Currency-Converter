@@ -11,8 +11,12 @@ class UpdateFocusedCurrencyUseCase {
     ): List<Currency> {
         val currenciesCopy = currencies.deepCopy()
         currenciesCopy.apply {
-            first { it.isFocused }.isFocused = false
-            first { it.currencyCode == currencyToFocus.currencyCode }.isFocused = true
+            first { currency ->
+                currency.isFocused
+            }.isFocused = false
+            first { currency ->
+                currency.currencyCode == currencyToFocus.currencyCode
+            }.isFocused = true
         }
         return currenciesCopy
     }

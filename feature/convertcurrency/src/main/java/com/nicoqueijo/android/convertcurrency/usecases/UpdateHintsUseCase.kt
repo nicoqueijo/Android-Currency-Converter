@@ -16,19 +16,22 @@ class UpdateHintsUseCase {
         if (currenciesCopy.isEmpty()) { // No currencies to process
             return currenciesCopy
         }
-        val focusedCurrency = currenciesCopy.single { it.isFocused }
+        val focusedCurrency = currenciesCopy.single { currency ->
+            currency.isFocused
+        }
         focusedCurrency.conversion.hint = Hint(number = "1")
-        currenciesCopy.filter { it.currencyCode != focusedCurrency.currencyCode }
-            .forEach { currency ->
-                val fromRate = focusedCurrency.exchangeRate
-                val toRate = currency.exchangeRate
-                val conversionValue = CurrencyConverter.convertCurrency(
-                    amount = BigDecimal("1"),
-                    fromRate = fromRate,
-                    toRate = toRate
-                ).roundToFourDecimalPlaces().toString()
-                currency.conversion.hint = Hint(number = conversionValue)
-            }
+        currenciesCopy.filter { currency ->
+            currency.currencyCode != focusedCurrency.currencyCode
+        }.forEach { currency ->
+            val fromRate = focusedCurrency.exchangeRate
+            val toRate = currency.exchangeRate
+            val conversionValue = CurrencyConverter.convertCurrency(
+                amount = BigDecimal("1"),
+                fromRate = fromRate,
+                toRate = toRate
+            ).roundToFourDecimalPlaces().toString()
+            currency.conversion.hint = Hint(number = conversionValue)
+        }
         return currenciesCopy
     }
 }

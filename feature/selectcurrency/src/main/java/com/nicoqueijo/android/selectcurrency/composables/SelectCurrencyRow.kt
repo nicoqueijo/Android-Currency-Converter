@@ -25,12 +25,12 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.Green
+import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.XS
 import com.nicoqueijo.android.ui.XXL
 import com.nicoqueijo.android.ui.XXS
@@ -66,25 +66,31 @@ fun SelectCurrencyRow(
             Image(
                 modifier = Modifier
                     .padding(vertical = XXXS)
-                    .clip(shape = RoundedCornerShape(size = XXXXS)),
+                    .clip(
+                        shape = RoundedCornerShape(size = XXXXS)
+                    ),
                 contentDescription = null,
                 painter = painterResource(
-                    id = LocalContext.current.getDrawableResourceByName(name = state.currencyCode.lowercase())
+                    id = LocalContext.current.getDrawableResourceByName(
+                        name = state.currencyCode.lowercase()
+                    )
                 )
             )
-            Spacer(modifier = Modifier.width(XS))
+            Spacer(
+                modifier = Modifier.width(width = XS)
+            )
             Column(
-                modifier = Modifier.weight(1f)
+                modifier = Modifier.weight(weight = 1f)
             ) {
                 Text(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(weight = 1f),
                     text = state.trimmedCurrencyCode,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
                     fontWeight = FontWeight.Medium,
                 )
                 Text(
-                    modifier = Modifier.weight(1f),
+                    modifier = Modifier.weight(weight = 1f),
                     text = LocalContext.current.getStringResourceByName(name = state.currencyCode),
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
@@ -93,7 +99,7 @@ fun SelectCurrencyRow(
             }
             if (state.isSelected) {
                 Icon(
-                    modifier = Modifier.size(32.dp),
+                    modifier = Modifier.size(size = L),
                     imageVector = Icons.Outlined.Check,
                     contentDescription = null,
                     tint = Green,
@@ -110,6 +116,19 @@ fun SelectCurrencyRowPreview() {
         currencyCode = "USD_USD",
         exchangeRate = 1.0,
         isSelected = true,
+    )
+    AndroidCurrencyConverterTheme {
+        SelectCurrencyRow(state = currency)
+    }
+}
+
+@DarkLightPreviews
+@Composable
+fun SelectCurrencyRowUnselectedPreview() {
+    val currency = Currency(
+        currencyCode = "USD_USD",
+        exchangeRate = 1.0,
+        isSelected = false,
     )
     AndroidCurrencyConverterTheme {
         SelectCurrencyRow(state = currency)

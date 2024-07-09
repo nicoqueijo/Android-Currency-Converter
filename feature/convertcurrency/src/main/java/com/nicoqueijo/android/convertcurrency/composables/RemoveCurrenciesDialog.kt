@@ -42,7 +42,9 @@ fun RemoveCurrenciesDialog(
         },
         dismissButton = {
             TextButton(
-                onClick = { onDismissClick?.invoke() },
+                onClick = {
+                    onDismissClick?.invoke()
+                },
             ) {
                 Text(
                     text = stringResource(id = R.string.remove_currencies_dialog_dismiss_label),

@@ -13,18 +13,21 @@ class FilterCurrenciesUseCase @Inject constructor(
     suspend operator fun invoke(searchTerm: String): List<Currency> {
         val filteredCurrencies = mutableListOf<Currency>()
         if (searchTerm.isEmpty()) {
-            filteredCurrencies.addAll(retrieveCurrenciesUseCase.invoke())
+            filteredCurrencies.addAll(
+                elements = retrieveCurrenciesUseCase.invoke()
+            )
         } else {
-            val trimmedSearchTerm = searchTerm.lowercase(Locale.ROOT).trim { it <= ' ' }
+            val trimmedSearchTerm = searchTerm.lowercase(Locale.ROOT)
+                .trim { char -> char <= ' ' }
             val allCurrencies = retrieveCurrenciesUseCase.invoke()
             allCurrencies.forEach { currency ->
                 val currencyCode = currency.trimmedCurrencyCode.lowercase(Locale.ROOT)
                 val currencyName = context.getStringResourceByName(
                     name = currency.currencyCode
                 ).lowercase(Locale.ROOT)
-                if (currencyCode.contains(trimmedSearchTerm) || currencyName.contains(
-                        trimmedSearchTerm
-                    )
+                if (
+                    currencyCode.contains(trimmedSearchTerm) ||
+                    currencyName.contains(trimmedSearchTerm)
                 ) {
                     filteredCurrencies.add(currency)
                 }

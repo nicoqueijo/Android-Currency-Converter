@@ -11,7 +11,7 @@ class UpdateSelectedCurrenciesUseCase {
     ): List<Currency> {
         val memoryCurrenciesCopy = memoryCurrencies.deepCopy()
         val databaseCurrenciesCopy = databaseCurrencies.deepCopy()
-        if (databaseCurrenciesCopy.isEmpty()) {
+        if (databaseCurrenciesCopy.isEmpty()) {  // No currencies to process
             return emptyList()
         } else if (databaseCurrenciesCopy.size > memoryCurrenciesCopy.size) {
             return addCurrency(
@@ -43,7 +43,9 @@ class UpdateSelectedCurrenciesUseCase {
                 currencyB.currencyCode == currency.currencyCode
             }.position
         }
-        return currencies.sortedBy { it.position }
+        return currencies.sortedBy { currency ->
+            currency.position
+        }
     }
 
     private fun removeCurrency(
@@ -70,6 +72,8 @@ class UpdateSelectedCurrenciesUseCase {
                 currencyB.currencyCode == currencyA.currencyCode
             }
             currencyA.position = correspondingCurrencyB.position
-        }.sortedBy { it.position }
+        }.sortedBy { currency ->
+            currency.position
+        }
     }
 }

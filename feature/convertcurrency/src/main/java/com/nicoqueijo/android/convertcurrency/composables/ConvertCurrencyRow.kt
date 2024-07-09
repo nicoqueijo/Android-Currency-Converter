@@ -110,7 +110,9 @@ fun TapTargetScope.ConvertCurrencyRow(
                 Image(
                     modifier = Modifier
                         .padding(vertical = XXXS)
-                        .clip(shape = RoundedCornerShape(size = XXXXS))
+                        .clip(
+                            shape = RoundedCornerShape(size = XXXXS)
+                        )
                         .then(
                             if (showTapTargets) {
                                 Modifier.tapTarget(
@@ -204,7 +206,10 @@ fun TapTargetScope.ConvertCurrencyRow(
                                             Color.Transparent
                                         )
                                     } else {
-                                        listOf(MaterialTheme.colorScheme.surface, Color.Transparent)
+                                        listOf(
+                                            MaterialTheme.colorScheme.surface,
+                                            Color.Transparent
+                                        )
                                     }
                                 )
                             )

@@ -109,7 +109,9 @@ fun ConvertCurrency(
                     TopAppBar(
                         navigationIcon = {
                             Row {
-                                Spacer(modifier = Modifier.width(XXXS))
+                                Spacer(
+                                    modifier = Modifier.width(XXXS)
+                                )
                                 Image(
                                     modifier = Modifier.size(size = XL),
                                     painter = painterResource(id = R.drawable.app_icon),
@@ -148,8 +150,7 @@ fun ConvertCurrency(
             }
         ) { innerPadding ->
             var rememberedCurrencies by remember { mutableStateOf(state?.currencies?.toMutableStateList()) } // Wrapping in a remember is required to enable reordering.
-            rememberedCurrencies =
-                state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
+            rememberedCurrencies = state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
             Box(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.surface)
@@ -169,7 +170,7 @@ fun ConvertCurrency(
                     TapTargetCoordinator(
                         modifier = Modifier
                             .fillMaxSize()
-                            .weight(1f),
+                            .weight(weight = 1f),
                         showTapTargets = state?.isFirstLaunch == true,
                         onComplete = {
                             onEvent?.invoke(

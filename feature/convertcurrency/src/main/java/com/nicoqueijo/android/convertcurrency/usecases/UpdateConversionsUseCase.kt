@@ -14,22 +14,25 @@ class UpdateConversionsUseCase {
         if (currenciesCopy.isEmpty()) { // No currencies to process
             return currenciesCopy
         }
-        val focusedCurrency = currenciesCopy.single { it.isFocused }
-        currenciesCopy.filter { it.currencyCode != focusedCurrency.currencyCode }
-            .forEach { currency ->
-                val fromRate = focusedCurrency.exchangeRate
-                val toRate = currency.exchangeRate
-                if (focusedCurrency.conversion.valueAsString.isNotEmpty()) {
-                    val conversionValue = CurrencyConverter.convertCurrency(
-                        amount = BigDecimal(focusedCurrency.conversion.valueAsString),
-                        fromRate = fromRate,
-                        toRate = toRate
-                    )
-                    currency.conversion.value = conversionValue
-                } else {
-                    currency.conversion.valueAsString = ""
-                }
+        val focusedCurrency = currenciesCopy.single { currency ->
+            currency.isFocused
+        }
+        currenciesCopy.filter { currency ->
+            currency.currencyCode != focusedCurrency.currencyCode
+        }.forEach { currency ->
+            val fromRate = focusedCurrency.exchangeRate
+            val toRate = currency.exchangeRate
+            if (focusedCurrency.conversion.valueAsString.isNotEmpty()) {
+                val conversionValue = CurrencyConverter.convertCurrency(
+                    amount = BigDecimal(focusedCurrency.conversion.valueAsString),
+                    fromRate = fromRate,
+                    toRate = toRate
+                )
+                currency.conversion.value = conversionValue
+            } else {
+                currency.conversion.valueAsString = ""
             }
+        }
         return currenciesCopy
     }
 }

@@ -12,8 +12,7 @@ class SetDefaultCurrenciesUseCase(
     suspend operator fun invoke() {
         if (repository.isFirstLaunch()) {
             val defaultCurrencies = mutableListOf<Currency>()
-            val localCurrencyCode =
-                "USD_${java.util.Currency.getInstance(Locale.getDefault()).currencyCode}"
+            val localCurrencyCode = "USD_${java.util.Currency.getInstance(Locale.getDefault()).currencyCode}"
             val localCurrency = repository.getCurrency(localCurrencyCode)
             defaultCurrencies.add(
                 element = setDefaultCurrency(
