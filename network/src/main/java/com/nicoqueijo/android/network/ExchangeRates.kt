@@ -4,6 +4,14 @@ import com.nicoqueijo.android.core.model.Currency
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
+/**
+ * Data class representing exchange rates for various currencies against the USD.
+ *
+ * This class is designed to reflect the `rates` object from the JSON response of the Open Exchange Rates API.
+ * Each property in this class corresponds to a specific currency and its exchange rate against the USD.
+ * The properties are annotated with @SerialName to specify the JSON key names during serialization and
+ * deserialization.
+ */
 @Serializable
 data class ExchangeRates(
 
