@@ -5,6 +5,9 @@ import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
 import kotlinx.coroutines.flow.Flow
 
+/**
+ * Interface representing a repository for managing currency-related data and operations.
+ */
 interface Repository {
     suspend fun getExchangeRates(): ApiOperation<OpenExchangeRatesEndPoint>
     suspend fun upsertCurrency(currency: Currency)

@@ -10,6 +10,17 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import javax.inject.Inject
 
+/**
+ * Repository class for managing currency-related data and operations.
+ *
+ * This class is responsible for fetching exchange rates, performing database operations on
+ * [Currency] entities, and managing preferences related to the first launch and data timestamps.
+ *
+ * @property ktorClient The client for making network requests.
+ * @property currencyDao The DAO for accessing and manipulating currency data.
+ * @property dataStoreManager The manager for handling preferences using DataStore.
+ * @property dispatcher The coroutine dispatcher for executing background tasks.
+ */
 class CurrencyRepository @Inject constructor(
     private val ktorClient: KtorClient,
     private val currencyDao: CurrencyDao,

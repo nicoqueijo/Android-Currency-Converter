@@ -13,10 +13,22 @@ import dagger.hilt.components.SingletonComponent
 import kotlinx.coroutines.CoroutineDispatcher
 import javax.inject.Singleton
 
+/**
+ * Hilt module that provides dependencies related to repositories.
+ */
 @Module
 @InstallIn(SingletonComponent::class)
 object RepositoryModule {
 
+    /**
+     * Provides a singleton instance of [Repository].
+     *
+     * @param ktorClient The client for making network requests.
+     * @param currencyDao The DAO for accessing and manipulating currency data.
+     * @param dataStoreManager The manager for handling preferences using DataStore.
+     * @param dispatcher The coroutine dispatcher for executing background tasks.
+     * @return A singleton [Repository] instance.
+     */
     @Singleton
     @Provides
     fun provideRepository(
