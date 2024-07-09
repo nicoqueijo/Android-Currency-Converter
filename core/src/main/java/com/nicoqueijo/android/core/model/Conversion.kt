@@ -6,6 +6,18 @@ import java.text.DecimalFormat
 import java.text.NumberFormat
 import java.util.Locale
 
+/**
+ * Class representing a currency conversion with formatting capabilities.
+ *
+ * @param conversionValue The initial conversion value as a [BigDecimal].
+ * @property value The conversion value, rounded to four decimal places.
+ * Example: 1234.5678
+ * @property valueAsString The [value] as a string.
+ * Example: "1234.5678"
+ * @property valueAsText The [valueAsString] formatted according to locale.
+ * Example: USA: 1,234.5678, France: 1.234,5678
+ * @property hint The hint displayed when [valueAsText] is empty.
+ */
 class Conversion(conversionValue: BigDecimal) {
 
     private var decimalFormatter: DecimalFormat
@@ -47,6 +59,12 @@ class Conversion(conversionValue: BigDecimal) {
             )
         }
 
+    /**
+     * Formats a numeric String with grouping separators while retaining trailing zeros.
+     *
+     * @param number The number to be formatted as a string.
+     * @return The formatted number as a string.
+     */
     private fun formatConversion(number: String): String {
         return when {
             number.contains(".") -> {
