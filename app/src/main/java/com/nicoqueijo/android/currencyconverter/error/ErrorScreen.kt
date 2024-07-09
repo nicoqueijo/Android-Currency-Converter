@@ -30,11 +30,6 @@ import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XS
 
-/**
- * Represents a composable UI for displaying an error state screen.
- *
- * @param modifier An optional [Modifier] to customize the Composable's layout and appearance.
- */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ErrorScreen(

@@ -8,7 +8,7 @@ import kotlinx.coroutines.Dispatchers
 import javax.inject.Qualifier
 
 /**
- * Dagger module for providing coroutine dispatchers.
+ * Hilt module for providing coroutine dispatchers.
  */
 @Module
 @InstallIn(SingletonComponent::class)

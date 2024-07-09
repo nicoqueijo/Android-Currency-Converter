@@ -51,13 +51,6 @@ class ProcessKeyboardInputUseCase {
         )
     }
 
-    /**
-     * If input has a leading decimal separator it prefixes it with a zero.
-     * If input has a leading 0 it removes it.
-     * Examples:   "." -> "0."
-     *            "00" -> "0"
-     *            "07" -> "0"
-     */
     private fun cleanInput(input: String): String {
         var cleanInput = input
         when {
@@ -77,9 +70,6 @@ class ProcessKeyboardInputUseCase {
                 validateDecimalSeparator(input = input, focusedCurrency)
     }
 
-    /**
-     * Assures the whole part of the input is not above 20 digits long.
-     */
     private fun validateLength(
         input: String,
         focusedCurrency: Currency?,
@@ -93,9 +83,6 @@ class ProcessKeyboardInputUseCase {
         return true
     }
 
-    /**
-     * Assures the decimal part of the input is at most 4 digits.
-     */
     private fun validateDecimalPlaces(
         input: String,
         focusedCurrency: Currency?,
@@ -111,9 +98,6 @@ class ProcessKeyboardInputUseCase {
         return true
     }
 
-    /**
-     * Assures the input contains at most 1 decimal separator.
-     */
     private fun validateDecimalSeparator(
         input: String,
         focusedCurrency: Currency?,

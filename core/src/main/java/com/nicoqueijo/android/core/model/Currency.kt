@@ -5,12 +5,6 @@ import androidx.room.Ignore
 import androidx.room.PrimaryKey
 import java.math.BigDecimal
 
-/**
- * Represents a currency with its code and exchange rate.
- *
- * @property currencyCode The three-letter ISO 4217 currency code.
- * @property exchangeRate The exchange rate of this currency to one US Dollar (USD).
- */
 @Entity
 data class Currency(
     @PrimaryKey
@@ -29,10 +23,6 @@ data class Currency(
     @Ignore
     var isInputValid = true
 
-    /**
-     * Currency code without the "USD_" prefix.
-     * Example: USD_EUR -> EUR
-     */
     val trimmedCurrencyCode
         get() = currencyCode.substring(startIndex = 4)
 
@@ -80,20 +70,6 @@ data class Currency(
         result = 31 * result + conversion.hint.hashCode()
         return result
     }
-
-    /**
-     * Since the toString() method is really only useful for debugging I've structured it in a way
-     * which concisely displays the object's state.
-     *
-     * Example: 4 S* F* EUR
-     *          | |  |   |
-     *      Order |  |   |
-     *     Selected? |   |
-     *         Focused?  |
-     *            Currency code
-     *
-     *    *blank if not selected/focused
-     */
     override fun toString() = buildString {
         append("{")
         append(position)

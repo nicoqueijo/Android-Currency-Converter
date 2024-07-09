@@ -19,27 +19,14 @@ class Conversion(conversionValue: BigDecimal) {
         decimalSeparator = decimalFormatter.decimalFormatSymbols.decimalSeparator.toString()
     }
 
-    /**
-     * The underlying numeric conversion result.
-     * Example: 1234.5678
-     */
     var value: BigDecimal = conversionValue
         set(value) {
             field = value.roundToFourDecimalPlaces()
             valueAsString = field.toString()
         }
 
-    /**
-     * The [value] as a String.
-     * Example: "1234.5678"
-     */
     var valueAsString: String = ""
 
-    /**
-     * The [valueAsString] formatted according to locale.
-     * Example:    USA: 1,234.5678
-     *          France: 1.234,5678
-     */
     val valueAsText: String
         get() {
             return if (valueAsString.isNotBlank()) {
@@ -49,9 +36,6 @@ class Conversion(conversionValue: BigDecimal) {
             }
         }
 
-    /**
-     * The hint to be displayed when [valueAsText] is empty.
-     */
     var hint: Hint = Hint()
         set(value) {
             val formattedNumber = formatConversion(
@@ -63,9 +47,6 @@ class Conversion(conversionValue: BigDecimal) {
             )
         }
 
-    /**
-     * Formats a numeric String with grouping separators while retaining trailing zeros.
-     */
     private fun formatConversion(number: String): String {
         return when {
             number.contains(".") -> {

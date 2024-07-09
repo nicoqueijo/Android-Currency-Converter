@@ -1,6 +1,5 @@
 package com.nicoqueijo.android.selectcurrency.composables
 
-import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
@@ -62,7 +61,7 @@ fun SelectCurrencyScreen(
     )
 }
 
-@OptIn(ExperimentalMaterial3Api::class, ExperimentalAnimationApi::class)
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectCurrency(
     modifier: Modifier = Modifier,
