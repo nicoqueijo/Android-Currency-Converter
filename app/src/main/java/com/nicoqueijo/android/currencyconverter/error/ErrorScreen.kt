@@ -30,6 +30,12 @@ import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XS
 
+/**
+ * A Composable function that displays an error screen with an optional refresh button.
+ *
+ * @param modifier A [Modifier] to be applied to the [Scaffold] layout.
+ * @param onRefreshClick A lambda function that will be invoked when the refresh button is clicked.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun ErrorScreen(

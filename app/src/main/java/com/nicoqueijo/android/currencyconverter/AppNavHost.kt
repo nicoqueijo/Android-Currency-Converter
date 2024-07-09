@@ -17,27 +17,11 @@ import com.nicoqueijo.android.selectcurrency.composables.SelectCurrencyScreen
 import kotlinx.serialization.Serializable
 
 /**
- * Sealed class representing the screens within the application.
+ * A composable function that sets up the navigation host for the app.
+ *
+ * @param modifier A [Modifier] to be applied to the [NavHost] layout.
+ * @param navController The [NavHostController] that manages app navigation.
  */
-@Serializable
-sealed class Screen(val route: String) {
-
-    @Serializable
-    data object Splash : Screen(route = "splash")
-
-    @Serializable
-    data object Error : Screen(route = "error")
-
-    @Serializable
-    data object FeatureFlow : Screen(route = "feature_flow")
-
-    @Serializable
-    data object ConvertCurrency : Screen(route = "convert_currency")
-
-    @Serializable
-    data object SelectCurrency : Screen(route = "select_currency")
-}
-
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
@@ -99,4 +83,28 @@ fun AppNavHost(
             }
         }
     }
+}
+
+/**
+ * A sealed class representing the different screens/routes in the app.
+ *
+ * @property route The route associated with the screen.
+ */
+@Serializable
+sealed class Screen(val route: String) {
+
+    @Serializable
+    data object Splash : Screen(route = "splash")
+
+    @Serializable
+    data object Error : Screen(route = "error")
+
+    @Serializable
+    data object FeatureFlow : Screen(route = "feature_flow")
+
+    @Serializable
+    data object ConvertCurrency : Screen(route = "convert_currency")
+
+    @Serializable
+    data object SelectCurrency : Screen(route = "select_currency")
 }

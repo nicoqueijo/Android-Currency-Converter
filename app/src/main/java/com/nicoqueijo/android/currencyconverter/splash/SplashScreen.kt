@@ -32,6 +32,16 @@ import com.nicoqueijo.android.ui.XXXS
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 
+/**
+ * A composable function that displays a splash screen with a top bar, a circular progress indicator,
+ * and a title. The splash screen attempts to fetch data on launch and invokes the appropriate callback
+ * based on the success or failure of the data retrieval.
+ *
+ * @param modifier A [Modifier] to be applied to the [Scaffold] layout.
+ * @param viewModel An optional [SplashViewModel] for fetching data.
+ * @param onSuccess A lambda function to be invoked when data retrieval is successful.
+ * @param onFailure A lambda function to be invoked when data retrieval fails.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SplashScreen(
