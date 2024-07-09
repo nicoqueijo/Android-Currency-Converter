@@ -41,9 +41,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.nicoqueijo.android.convertcurrency.composables.util.copyConversionTapTargetDefinition
-import com.nicoqueijo.android.convertcurrency.composables.util.removeCurrencyTapTargetDefinition
-import com.nicoqueijo.android.convertcurrency.composables.util.reorderCurrencyTapTargetDefinition
 import com.nicoqueijo.android.core.model.Currency
 import com.nicoqueijo.android.core.model.Hint
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme

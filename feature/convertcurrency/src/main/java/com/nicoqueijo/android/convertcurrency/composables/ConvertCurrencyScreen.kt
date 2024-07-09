@@ -56,7 +56,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import com.nicoqueijo.android.convertcurrency.ConvertCurrencyViewModel
 import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
-import com.nicoqueijo.android.convertcurrency.composables.util.addCurrencyTapTargetDefinition
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
 import com.nicoqueijo.android.core.model.Currency

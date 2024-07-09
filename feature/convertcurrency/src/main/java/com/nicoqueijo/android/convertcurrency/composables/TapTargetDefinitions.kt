@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.convertcurrency.composables.util
+package com.nicoqueijo.android.convertcurrency.composables
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
