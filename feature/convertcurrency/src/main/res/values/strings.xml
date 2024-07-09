@@ -8,5 +8,12 @@
     <string name="remove_currencies_dialog_dismiss_label">Cancel</string>
     <string name="undo_label">Undo</string>
     <string name="item_removed_label">Item removed</string>
-    <string name="tap_button_to_add">Tap button to add</string>
+    <string name="tap_target_add_title">Tap button to add</string>
+    <string name="tap_target_add_description">Tap this button to add more currencies to your list.</string>
+    <string name="tap_target_copy_title">Long-press to copy</string>
+    <string name="tap_target_copy_description">Long-press the conversion value to copy it to your clipboard.</string>
+    <string name="tap_target_reorder_title">Long-press &amp; drag to reorder</string>
+    <string name="tap_target_reorder_description">Long-press and drag the currency to change its order in your list.</string>
+    <string name="tap_target_remove_title">Swipe to remove</string>
+    <string name="tap_target_remove_description">Swipe the currency to remove it from your list.</string>
 </resources>

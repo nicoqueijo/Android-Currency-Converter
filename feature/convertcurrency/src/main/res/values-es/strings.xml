@@ -8,5 +8,12 @@
     <string name="remove_currencies_dialog_dismiss_label">Cancelar</string>
     <string name="undo_label">Deshacer</string>
     <string name="item_removed_label">Elemento eliminado</string>
-    <string name="tap_button_to_add">Tap button to add</string>
+    <string name="tap_target_add_title">Toca el botón para agregar</string>
+    <string name="tap_target_add_description">Toca este botón para agregar más monedas a tu lista.</string>
+    <string name="tap_target_copy_title">Mantén presionado para copiar</string>
+    <string name="tap_target_copy_description">Mantén presionado el valor de conversión para copiarlo al portapapeles.</string>
+    <string name="tap_target_reorder_title">Mantén presionado y arrastra para reordenar</string>
+    <string name="tap_target_reorder_description">Mantén presionado y arrastra la moneda para cambiar su orden en tu lista.</string>
+    <string name="tap_target_remove_title">Desliza para eliminar</string>
+    <string name="tap_target_remove_description">Desliza la moneda para eliminarla de tu lista.</string>
 </resources>

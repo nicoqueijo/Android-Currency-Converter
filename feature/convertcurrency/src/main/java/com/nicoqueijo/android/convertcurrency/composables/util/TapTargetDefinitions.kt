@@ -2,7 +2,6 @@ package com.nicoqueijo.android.convertcurrency.composables.util
 
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import com.nicoqueijo.android.convertcurrency.R
@@ -14,8 +13,8 @@ import com.psoffritti.taptargetcompose.TextDefinition
 fun addCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
         precedence = 0,
-        title = stringResource(R.string.tap_button_to_add),
-        description = "Tap this button to add more currencies to your list.",
+        title = stringResource(R.string.tap_target_add_title),
+        description = stringResource(R.string.tap_target_add_description),
     )
 }
 
@@ -23,8 +22,8 @@ fun addCurrencyTapTargetDefinition(): TapTargetDefinition {
 fun copyConversionTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
         precedence = 1,
-        title = "Long-press to copy",
-        description = "Long-press the conversion value to copy it to your clipboard.",
+        title = stringResource(R.string.tap_target_copy_title),
+        description = stringResource(R.string.tap_target_copy_description),
     )
 }
 
@@ -32,8 +31,8 @@ fun copyConversionTapTargetDefinition(): TapTargetDefinition {
 fun reorderCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
         precedence = 2,
-        title = "Long-press & drag to reorder",
-        description = "Long-press and drag the currency to change its order in your list.",
+        title = stringResource(R.string.tap_target_reorder_title),
+        description = stringResource(R.string.tap_target_reorder_description),
     )
 }
 
@@ -41,8 +40,8 @@ fun reorderCurrencyTapTargetDefinition(): TapTargetDefinition {
 fun removeCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
         precedence = 3,
-        title = "Swipe to remove",
-        description = "Swipe the currency to remove it from your list.",
+        title = stringResource(R.string.tap_target_remove_title),
+        description = stringResource(R.string.tap_target_remove_description),
     )
 }
 
