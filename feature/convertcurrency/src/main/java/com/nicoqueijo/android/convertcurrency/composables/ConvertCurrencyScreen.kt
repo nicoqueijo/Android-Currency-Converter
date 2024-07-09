@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -16,6 +15,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
@@ -50,6 +50,7 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
@@ -59,11 +60,15 @@ import com.nicoqueijo.android.convertcurrency.composables.util.NumberPadState
 import com.nicoqueijo.android.convertcurrency.model.UiEvent
 import com.nicoqueijo.android.convertcurrency.model.UiState
 import com.nicoqueijo.android.core.model.Currency
+import com.nicoqueijo.android.core.model.Position
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XXXS
+import com.psoffritti.taptargetcompose.TapTargetCoordinator
+import com.psoffritti.taptargetcompose.TapTargetStyle
+import com.psoffritti.taptargetcompose.TextDefinition
 import kotlinx.coroutines.launch
 import sh.calvin.reorderable.ReorderableItem
 import sh.calvin.reorderable.rememberReorderableLazyListState
@@ -164,122 +169,152 @@ fun ConvertCurrency(
                     )
                 }
                 Column {
-                    Box(
+                    TapTargetCoordinator(
                         modifier = Modifier
                             .fillMaxSize()
                             .weight(1f),
-                        contentAlignment = Alignment.BottomCenter
+                        showTapTargets = state?.isFirstLaunch == true,
+                        onComplete = {
+                            onEvent?.invoke(
+                                UiEvent.ToggleOffIsFirstLaunch
+                            )
+                        },
                     ) {
-                        if (state?.currencies?.isEmpty() == true) {
-                            EmptyListIndicator()
-                        } else {
-                            val lazyListState = rememberLazyListState()
-                            val reorderableLazyColumnState =
-                                rememberReorderableLazyListState(lazyListState) { from, to ->
-                                    rememberedCurrencies = rememberedCurrencies?.apply {
-                                        add(to.index, removeAt(from.index))
+                        Box(
+                            contentAlignment = Alignment.BottomCenter
+                        ) {
+                            if (state?.currencies?.isEmpty() == true) {
+                                EmptyListIndicator()
+                            } else {
+                                val lazyListState = rememberLazyListState()
+                                val reorderableLazyColumnState =
+                                    rememberReorderableLazyListState(lazyListState) { from, to ->
+                                        rememberedCurrencies = rememberedCurrencies?.apply {
+                                            add(to.index, removeAt(from.index))
+                                        }
                                     }
-                                }
-                            LazyColumn(
-                                modifier = Modifier.fillMaxSize(),
-                                contentPadding = PaddingValues(vertical = (0.15).dp), // See notes at the bottom.
-                                state = lazyListState,
-                            ) {
-                                items(
-                                    items = rememberedCurrencies?.toList() ?: emptyList(),
-                                    key = { currency -> currency.hashCode() }
-                                ) { currency ->
-                                    ReorderableItem(
-                                        state = reorderableLazyColumnState,
-                                        key = currency.hashCode(),
-                                    ) {
-                                        ConvertCurrencyRow(
-                                            modifier = Modifier
-                                                .animateItem()
-                                                .longPressDraggableHandle {
+                                LazyColumn(
+                                    modifier = Modifier.fillMaxSize(),
+                                    contentPadding = PaddingValues(vertical = (0.15).dp), // See notes at the bottom.
+                                    state = lazyListState,
+                                ) {
+                                    items(
+                                        items = rememberedCurrencies?.toList() ?: emptyList(),
+                                        key = { currency -> currency.hashCode() }
+                                    ) { currency ->
+                                        ReorderableItem(
+                                            state = reorderableLazyColumnState,
+                                            key = currency.hashCode(),
+                                        ) {
+                                            ConvertCurrencyRow(
+                                                modifier = Modifier
+                                                    .animateItem()
+                                                    .longPressDraggableHandle {
+                                                        onEvent?.invoke(
+                                                            UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
+                                                        )
+                                                    },
+                                                state = currency,
+                                                onConversionClick = {
                                                     onEvent?.invoke(
-                                                        UiEvent.ReorderCurrencies(currencies = rememberedCurrencies!!.toList())
+                                                        UiEvent.SetCurrencyFocus(currency = currency)
                                                     )
                                                 },
-                                            state = currency,
-                                            onConversionClick = {
-                                                onEvent?.invoke(
-                                                    UiEvent.SetCurrencyFocus(currency = currency)
-                                                )
-                                            },
-                                            onRowSwipe = {
-                                                onEvent?.invoke(
-                                                    UiEvent.UnselectCurrency(currency = currency)
-                                                )
-                                                coroutineScope.launch {
-                                                    snackbarHostState.currentSnackbarData?.dismiss()
-                                                    val result = snackbarHostState.showSnackbar(
-                                                        message = context.getString(R.string.item_removed_label),
-                                                        actionLabel = context.getString(R.string.undo_label),
-                                                        duration = SnackbarDuration.Short,
+                                                onRowSwipe = {
+                                                    onEvent?.invoke(
+                                                        UiEvent.UnselectCurrency(currency = currency)
                                                     )
-                                                    when (result) {
-                                                        SnackbarResult.ActionPerformed -> {
-                                                            onEvent?.invoke(
-                                                                UiEvent.RestoreCurrency(currency = currency)
-                                                            )
-                                                        }
+                                                    coroutineScope.launch {
+                                                        snackbarHostState.currentSnackbarData?.dismiss()
+                                                        val result = snackbarHostState.showSnackbar(
+                                                            message = context.getString(R.string.item_removed_label),
+                                                            actionLabel = context.getString(R.string.undo_label),
+                                                            duration = SnackbarDuration.Short,
+                                                        )
+                                                        when (result) {
+                                                            SnackbarResult.ActionPerformed -> {
+                                                                onEvent?.invoke(
+                                                                    UiEvent.RestoreCurrency(currency = currency)
+                                                                )
+                                                            }
 
-                                                        else -> {
-                                                            // Do nothing
+                                                            else -> {
+                                                                // Do nothing
+                                                            }
                                                         }
                                                     }
-                                                }
-                                            },
+                                                },
+                                                showTapTargets = currency.position == Position.FIRST.value
+                                            )
+                                        }
+                                        HorizontalDivider()
+                                    }
+                                    item {
+                                        // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
+                                        Spacer(
+                                            modifier = Modifier
+                                                .fillMaxWidth()
+                                                .height(88.dp)
                                         )
                                     }
-                                    HorizontalDivider()
-                                }
-                                item {
-                                    // Ensures the Floating Action Button (FAB) does not obscure the last item when the list is scrolled to its bottommost position.
-                                    Spacer(
-                                        modifier = Modifier
-                                            .fillMaxWidth()
-                                            .height(88.dp)
-                                    )
                                 }
                             }
-                        }
-                        Box(
-                            modifier = Modifier
-                                .height(72.dp)
-                                .fillMaxWidth()
-                                .background(
-                                    brush = Brush.verticalGradient(
-                                        colors = listOf(
-                                            Color.Transparent,
-                                            MaterialTheme.colorScheme.surface,
+                            Box(
+                                modifier = Modifier
+                                    .height(72.dp)
+                                    .fillMaxWidth()
+                                    .background(
+                                        brush = Brush.verticalGradient(
+                                            colors = listOf(
+                                                Color.Transparent,
+                                                MaterialTheme.colorScheme.surface,
+                                            )
                                         )
                                     )
-                                )
-                        )
-                        SnackbarHost(
-                            modifier = Modifier.padding(bottom = 72.dp),
-                            hostState = snackbarHostState,
-                            snackbar = { data ->
-                                Snackbar(
-                                    snackbarData = data,
-                                    containerColor = MaterialTheme.colorScheme.tertiaryContainer,
-                                    contentColor = MaterialTheme.colorScheme.secondary,
-                                    actionColor = MaterialTheme.colorScheme.tertiary,
+                            )
+                            SnackbarHost(
+                                modifier = Modifier.padding(bottom = 72.dp),
+                                hostState = snackbarHostState,
+                                snackbar = { data ->
+                                    Snackbar(
+                                        snackbarData = data,
+                                        containerColor = MaterialTheme.colorScheme.tertiaryContainer,
+                                        contentColor = MaterialTheme.colorScheme.secondary,
+                                        actionColor = MaterialTheme.colorScheme.tertiary,
+                                    )
+                                }
+                            )
+                            FloatingActionButton(
+                                modifier = Modifier
+                                    .padding(bottom = S)
+                                    .tapTarget(
+                                        precedence = 0,
+                                        title = TextDefinition(
+                                            text = "Tap button to add",
+                                            textStyle = MaterialTheme.typography.titleLarge,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                                        ),
+                                        description = TextDefinition(
+                                            text = "Tap button to add",
+                                            textStyle = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                                        ),
+                                        tapTargetStyle = TapTargetStyle(
+                                            backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                            tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                            backgroundAlpha = 1f,
+                                        )
+                                    ),
+                                containerColor = MaterialTheme.colorScheme.primary,
+                                contentColor = MaterialTheme.colorScheme.secondary,
+                                onClick = { onFabClick?.invoke() },
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Add,
+                                    contentDescription = null,
                                 )
                             }
-                        )
-                        FloatingActionButton(
-                            modifier = Modifier.padding(bottom = S),
-                            containerColor = MaterialTheme.colorScheme.primary,
-                            contentColor = MaterialTheme.colorScheme.secondary,
-                            onClick = { onFabClick?.invoke() },
-                        ) {
-                            Icon(
-                                imageVector = Icons.Filled.Add,
-                                contentDescription = null,
-                            )
                         }
                     }
                     Box {

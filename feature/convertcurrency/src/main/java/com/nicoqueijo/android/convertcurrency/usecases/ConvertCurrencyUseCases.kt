@@ -13,4 +13,6 @@ data class ConvertCurrencyUseCases(
     val updateHintsUseCase: UpdateHintsUseCase,
     val updateConversionsUseCase: UpdateConversionsUseCase,
     val reorderCurrenciesUseCase: ReorderCurrenciesUseCase,
+    val retrieveIsFirstLaunchUseCase: RetrieveIsFirstLaunchUseCase,
+    val toggleOffIsFirstLaunchUseCase: ToggleOffIsFirstLaunchUseCase,
 )

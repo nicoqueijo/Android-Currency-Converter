@@ -26,18 +26,19 @@ class ConvertCurrencyViewModel @Inject constructor(
     val uiState = _uiState.asStateFlow()
 
     init {
+        setIsFirstLaunch()
         setDefaultCurrencies()
         viewModelScope.launch(context = dispatcher) {
-            useCases.retrieveSelectedCurrenciesUseCase()
-                .collectLatest { databaseCurrencies ->
-                    updateSelectedCurrencies(
-                        memoryCurrencies = _uiState.value.currencies,
-                        databaseCurrencies = databaseCurrencies,
-                    )
-                    setDefaultFocusedCurrency()
-                    updateHints()
-                    updateConversions()
-                }
+            val selectedCurrencies = useCases.retrieveSelectedCurrenciesUseCase()
+            selectedCurrencies.collectLatest { databaseCurrencies ->
+                updateSelectedCurrencies(
+                    memoryCurrencies = _uiState.value.currencies,
+                    databaseCurrencies = databaseCurrencies,
+                )
+                setDefaultFocusedCurrency()
+                updateHints()
+                updateConversions()
+            }
         }
     }
 
@@ -76,6 +77,10 @@ class ConvertCurrencyViewModel @Inject constructor(
             is UiEvent.ReorderCurrencies -> {
                 reorderCurrencies(currencies = event.currencies)
             }
+
+            UiEvent.ToggleOffIsFirstLaunch -> {
+                toggleOffIsFirstLaunch()
+            }
         }
     }
 
@@ -95,11 +100,9 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun updateDialogDisplay(toggle: Boolean) {
-        viewModelScope.launch(context = dispatcher) {
-            _uiState.value = _uiState.value.copy(
-                showDialog = toggle
-            )
-        }
+        _uiState.value = _uiState.value.copy(
+            showDialog = toggle
+        )
     }
 
     private fun unselectAllCurrencies() {
@@ -177,6 +180,23 @@ class ConvertCurrencyViewModel @Inject constructor(
     private fun reorderCurrencies(currencies: List<Currency>) {
         viewModelScope.launch(context = dispatcher) {
             useCases.reorderCurrenciesUseCase(currencies = currencies)
+        }
+    }
+
+    private fun setIsFirstLaunch() {
+        viewModelScope.launch(context = dispatcher) {
+            _uiState.value = _uiState.value.copy(
+                isFirstLaunch = useCases.retrieveIsFirstLaunchUseCase()
+            )
+        }
+    }
+
+    private fun toggleOffIsFirstLaunch() {
+        viewModelScope.launch(context = dispatcher) {
+            useCases.toggleOffIsFirstLaunchUseCase()
+            _uiState.value = _uiState.value.copy(
+                isFirstLaunch = false
+            )
         }
     }
 }

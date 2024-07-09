@@ -2,11 +2,13 @@ package com.nicoqueijo.android.convertcurrency.di
 
 import com.nicoqueijo.android.convertcurrency.usecases.ConvertCurrencyUseCases
 import com.nicoqueijo.android.convertcurrency.usecases.ProcessKeyboardInputUseCase
-import com.nicoqueijo.android.convertcurrency.usecases.RestoreCurrencyUseCase
-import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
-import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
 import com.nicoqueijo.android.convertcurrency.usecases.ReorderCurrenciesUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.RestoreCurrencyUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.RetrieveIsFirstLaunchUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultCurrenciesUseCase
+import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
+import com.nicoqueijo.android.convertcurrency.usecases.ToggleOffIsFirstLaunchUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UpdateConversionsUseCase
@@ -40,7 +42,7 @@ object ConvertCurrencyUseCasesModule {
             unselectCurrencyUseCase = UnselectCurrencyUseCase(
                 repository = repository,
             ),
-            restoreCurrencyUseCase =  RestoreCurrencyUseCase(
+            restoreCurrencyUseCase = RestoreCurrencyUseCase(
                 repository = repository,
             ),
             setDefaultFocusedCurrency = SetDefaultFocusedCurrency(),
@@ -51,6 +53,12 @@ object ConvertCurrencyUseCasesModule {
             updateConversionsUseCase = UpdateConversionsUseCase(),
             reorderCurrenciesUseCase = ReorderCurrenciesUseCase(
                 repository = repository,
+            ),
+            toggleOffIsFirstLaunchUseCase = ToggleOffIsFirstLaunchUseCase(
+                repository = repository
+            ),
+            retrieveIsFirstLaunchUseCase = RetrieveIsFirstLaunchUseCase(
+                repository = repository
             ),
         )
     }

@@ -51,14 +51,19 @@ import com.nicoqueijo.android.ui.XXS
 import com.nicoqueijo.android.ui.XXXS
 import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
+import com.psoffritti.taptargetcompose.TapTargetCoordinator
+import com.psoffritti.taptargetcompose.TapTargetScope
+import com.psoffritti.taptargetcompose.TapTargetStyle
+import com.psoffritti.taptargetcompose.TextDefinition
 
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
-fun ConvertCurrencyRow(
+fun TapTargetScope.ConvertCurrencyRow(
     modifier: Modifier = Modifier,
     state: Currency,
     onConversionClick: (() -> Unit)? = null,
     onRowSwipe: (() -> Unit)? = null,
+    showTapTargets: Boolean = false,
 ) {
     var swipeHandled by remember { mutableStateOf(false) }
     val swipeToDismissBoxState = rememberSwipeToDismissBoxState(
@@ -78,6 +83,7 @@ fun ConvertCurrencyRow(
         }
     }
     SwipeToDismissBox(
+        modifier = modifier,
         state = swipeToDismissBoxState,
         backgroundContent = {
             DeleteRow(dismissDirection = swipeToDismissBoxState.dismissDirection)
@@ -85,7 +91,7 @@ fun ConvertCurrencyRow(
     ) {
         val hapticFeedback = LocalHapticFeedback.current
         val clipboardManager = LocalClipboardManager.current
-        Surface(modifier = modifier) {
+        Surface {
             Row(
                 modifier = Modifier
                     .background(
@@ -106,7 +112,32 @@ fun ConvertCurrencyRow(
                 Image(
                     modifier = Modifier
                         .padding(vertical = XXXS)
-                        .clip(shape = RoundedCornerShape(size = XXXXS)),
+                        .clip(shape = RoundedCornerShape(size = XXXXS))
+                        .then(
+                            if (showTapTargets) {
+                                Modifier.tapTarget(
+                                    precedence = 2,
+                                    title = TextDefinition(
+                                        text = "Long-press & drag any part of the row currency to reorder",
+                                        textStyle = MaterialTheme.typography.titleLarge,
+                                        fontWeight = FontWeight.Bold,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    ),
+                                    description = TextDefinition(
+                                        text = "Long-press & drag any part of the row currency to reorder",
+                                        textStyle = MaterialTheme.typography.bodyMedium,
+                                        color = MaterialTheme.colorScheme.onSecondaryContainer
+                                    ),
+                                    tapTargetStyle = TapTargetStyle(
+                                        backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                        tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                        backgroundAlpha = 1f,
+                                    )
+                                )
+                            } else {
+                                Modifier
+                            }
+                        ),
                     contentDescription = null,
                     painter = painterResource(
                         id = LocalContext.current.getDrawableResourceByName(
@@ -120,6 +151,31 @@ fun ConvertCurrencyRow(
                         .fillMaxHeight()
                 )
                 Text(
+                    modifier = Modifier.then(
+                        if (showTapTargets) {
+                            Modifier.tapTarget(
+                                precedence = 3,
+                                title = TextDefinition(
+                                    text = "Swipe any part of the row to remove",
+                                    textStyle = MaterialTheme.typography.titleLarge,
+                                    fontWeight = FontWeight.Bold,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                ),
+                                description = TextDefinition(
+                                    text = "Swipe any part of the row to remove",
+                                    textStyle = MaterialTheme.typography.bodyMedium,
+                                    color = MaterialTheme.colorScheme.onSecondaryContainer
+                                ),
+                                tapTargetStyle = TapTargetStyle(
+                                    backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                    tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                    backgroundAlpha = 1f,
+                                )
+                            )
+                        } else {
+                            Modifier
+                        }
+                    ),
                     text = state.trimmedCurrencyCode,
                     color = MaterialTheme.colorScheme.primary,
                     fontSize = 24.sp,
@@ -148,6 +204,31 @@ fun ConvertCurrencyRow(
                                         hapticFeedbackType = HapticFeedbackType.LongPress
                                     )
                                 },
+                            )
+                            .then(
+                                if (showTapTargets) {
+                                    Modifier.tapTarget(
+                                        precedence = 1,
+                                        title = TextDefinition(
+                                            text = "Long-press conversion to copy",
+                                            textStyle = MaterialTheme.typography.titleLarge,
+                                            fontWeight = FontWeight.Bold,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                                        ),
+                                        description = TextDefinition(
+                                            text = "Long-press conversion to copy",
+                                            textStyle = MaterialTheme.typography.bodyMedium,
+                                            color = MaterialTheme.colorScheme.onSecondaryContainer
+                                        ),
+                                        tapTargetStyle = TapTargetStyle(
+                                            backgroundColor = MaterialTheme.colorScheme.secondaryContainer,
+                                            tapTargetHighlightColor = MaterialTheme.colorScheme.onSecondaryContainer,
+                                            backgroundAlpha = 1f,
+                                        )
+                                    )
+                                } else {
+                                    Modifier
+                                }
                             ),
                         text = state.conversion.valueAsText.ifEmpty {
                             state.conversion.hint.formattedNumber
@@ -199,7 +280,9 @@ fun ConvertCurrencyRowPreview() {
         conversion.valueAsString = "12345.6789"
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }
 
@@ -214,7 +297,9 @@ fun ConvertCurrencyRowFocusedPreview() {
         isFocused = true
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }
 
@@ -228,7 +313,9 @@ fun ConvertCurrencyRowHintPreview() {
         conversion.hint = Hint(number = "1")
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }
 
@@ -243,7 +330,9 @@ fun ConvertCurrencyRowFocusedHintPreview() {
         conversion.hint = Hint(number = "1")
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }
 
@@ -257,7 +346,9 @@ fun ConvertCurrencyRowLongPreview() {
         conversion.valueAsString = "9876543219876543.678"
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }
 
@@ -272,6 +363,8 @@ fun ConvertCurrencyRowLongFocusedPreview() {
         isFocused = true
     }
     AndroidCurrencyConverterTheme {
-        ConvertCurrencyRow(state = currency)
+        TapTargetCoordinator(showTapTargets = false) {
+            ConvertCurrencyRow(state = currency)
+        }
     }
 }

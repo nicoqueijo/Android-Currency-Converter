@@ -35,7 +35,6 @@ class SetDefaultCurrenciesUseCase(
                 )
             }
             repository.upsertCurrencies(defaultCurrencies)
-            repository.setFirstLaunch(false)
         }
     }
 
