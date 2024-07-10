@@ -10,7 +10,7 @@ import com.nicoqueijo.android.core.model.Currency
  * This class defines the database configuration and serves as the main access point
  * for the underlying connection to the app's persisted relational data.
  */
-@Database(entities = [Currency::class], version = 1)
+@Database(entities = [Currency::class], version = 2)
 abstract class CurrencyDatabase : RoomDatabase() {
 
     /**
