@@ -42,6 +42,18 @@ import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.S
 import com.nicoqueijo.android.ui.XL
 
+/**
+ * Composable function for the Select Currency Screen.
+ *
+ * This function is the main entry point for the Select Currency feature, integrating
+ * the ViewModel to manage state and handle events. It extracts the state from the ViewModel
+ * and passes it to the [SelectCurrency] composable, making it possible to preview the UI without
+ * requiring the ViewModel to be instantiated manually.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param viewModel The ViewModel instance obtained via Hilt.
+ * @param onCurrencyClick Lambda function to be invoked when a currency is clicked.
+ */
 @Composable
 fun SelectCurrencyScreen(
     modifier: Modifier = Modifier,
@@ -61,6 +73,18 @@ fun SelectCurrencyScreen(
     )
 }
 
+/**
+ * Composable function for the Select Currency UI.
+ *
+ * This function provides a UI for selecting currencies, including a search bar,
+ * a list of filtered currencies, and a placeholder for no results found. It is designed
+ * to be previewed independently of the ViewModel, enabling easier UI testing and development.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param state The UI state containing the filtered currencies and search term.
+ * @param onCurrencyClick Lambda function to be invoked when a currency is clicked.
+ * @param onEvent Lambda function to handle UI events such as search term change and currency selection.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun SelectCurrency(

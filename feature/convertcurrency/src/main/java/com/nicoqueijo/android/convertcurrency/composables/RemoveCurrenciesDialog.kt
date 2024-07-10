@@ -12,6 +12,17 @@ import com.nicoqueijo.android.convertcurrency.R
 import com.nicoqueijo.android.ui.AndroidCurrencyConverterTheme
 import com.nicoqueijo.android.ui.DarkLightPreviews
 
+/**
+ * Composable function for a dialog to confirm the removal of currencies.
+ *
+ * This function displays an [AlertDialog] with a title and two buttons: confirm and dismiss.
+ * It handles user interactions for confirming or dismissing the action to remove currencies.
+ *
+ * @param modifier The modifier to be applied to the dialog.
+ * @param onConfirmClick Lambda function to be invoked when the confirm button is clicked.
+ * @param onDismissClick Lambda function to be invoked when the dismiss button is clicked or the dialog
+ * is dismissed.
+ */
 @Composable
 fun RemoveCurrenciesDialog(
     modifier: Modifier = Modifier,

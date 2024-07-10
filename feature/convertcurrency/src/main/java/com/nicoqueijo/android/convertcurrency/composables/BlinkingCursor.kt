@@ -15,6 +15,14 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import com.nicoqueijo.android.ui.XXXXS
 
+/**
+ * Composable function for a Blinking Cursor.
+ *
+ * This function creates a blinking cursor effect using an infinite transition that
+ * alternates the cursor's alpha value between 1 and 0, creating a blinking effect.
+ *
+ * @param modifier The modifier to be applied to the cursor's Box layout.
+ */
 @Composable
 fun BlinkingCursor(modifier: Modifier = Modifier) {
     val infiniteTransition = rememberInfiniteTransition(label = "")

@@ -1,5 +1,9 @@
 package com.nicoqueijo.android.convertcurrency.composables.util
 
+/**
+ * Enum class that represents keys on the number pad. Each key is associated with a character value
+ * that is displayed on the corresponding key of the keyboard.
+ */
 enum class NumPadKey(var value: Char) {
     ONE(value = '1'),
     TWO(value = '2'),

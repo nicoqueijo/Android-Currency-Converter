@@ -72,6 +72,18 @@ import sh.calvin.reorderable.rememberReorderableLazyListState
 import java.math.BigDecimal
 import java.util.Locale
 
+/**
+ * Composable function for the Convert Currency Screen.
+ *
+ * This function serves as the main entry point for the currency conversion feature,
+ * integrating the ViewModel to manage state and handle events. It extracts the state from the ViewModel
+ * and passes it to the [ConvertCurrency] composable, making it possible to preview the UI without
+ * requiring the ViewModel to be instantiated manually.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param viewModel The ViewModel instance obtained via Hilt.
+ * @param onFabClick Lambda function to be invoked when the Floating Action Button (FAB) is clicked.
+ */
 @Composable
 fun ConvertCurrencyScreen(
     modifier: Modifier = Modifier,
@@ -89,6 +101,20 @@ fun ConvertCurrencyScreen(
     )
 }
 
+/**
+ * Composable function for the Convert Currency UI.
+ *
+ * This function provides a UI for converting currencies, including a top app bar,
+ * a list of currencies that can be reordered and removed by swiping, and a number pad for input.
+ * It also includes a Floating Action Button (FAB) for adding new currencies. It is designed
+ * to be previewed independently of the ViewModel, enabling easier UI testing and development.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param state The UI state containing the list of currencies and other UI-related flags.
+ * @param onFabClick Lambda function to be invoked when the Floating Action Button (FAB) is clicked.
+ * @param onEvent Lambda function to handle UI events such as currency selection, reordering, removal
+ * by swiping, and keyboard input processing.
+ */
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalFoundationApi::class)
 @Composable
 fun ConvertCurrency(
@@ -150,7 +176,8 @@ fun ConvertCurrency(
             }
         ) { innerPadding ->
             var rememberedCurrencies by remember { mutableStateOf(state?.currencies?.toMutableStateList()) } // Wrapping in a remember is required to enable reordering.
-            rememberedCurrencies = state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
+            rememberedCurrencies =
+                state?.currencies?.toMutableStateList() // Assignment allows currencies to show up on the screen.
             Box(
                 modifier = Modifier
                     .background(color = MaterialTheme.colorScheme.surface)

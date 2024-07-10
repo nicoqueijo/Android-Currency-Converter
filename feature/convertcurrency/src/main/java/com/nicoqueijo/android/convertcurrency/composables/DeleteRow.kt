@@ -24,6 +24,16 @@ import com.nicoqueijo.android.ui.Red
 import com.nicoqueijo.android.ui.XXL
 import com.nicoqueijo.android.ui.XXS
 
+/**
+ * Composable function for a delete row background in a swipe-to-dismiss layout.
+ *
+ * This function provides a background for a row that can be swiped to dismiss, displaying delete icons
+ * based on the swipe direction.
+ *
+ * @param modifier The modifier to be applied to the row background.
+ * @param dismissDirection The direction in which the row is being dismissed, used to control the visibility
+ * of the delete icons.
+ */
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun DeleteRow(
@@ -48,6 +58,14 @@ fun DeleteRow(
     }
 }
 
+/**
+ * Composable function for a delete icon.
+ *
+ * This function displays a delete icon that can be hidden or shown based on the [hideIcon] parameter.
+ *
+ * @param modifier The modifier to be applied to the icon.
+ * @param hideIcon A boolean flag to control the visibility of the icon. If true, the icon will be hidden.
+ */
 @Composable
 fun DeleteIcon(
     modifier: Modifier = Modifier,

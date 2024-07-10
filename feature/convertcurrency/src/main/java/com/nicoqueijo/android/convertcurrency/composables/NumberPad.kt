@@ -28,6 +28,16 @@ import com.nicoqueijo.android.ui.DarkLightPreviews
 import java.text.DecimalFormatSymbols
 import java.util.Locale
 
+/**
+ * Composable function for a Number Pad.
+ *
+ * This function provides a number pad UI with keys for digits, decimal separator, and backspace.
+ * It uses a [VerticalGrid] to arrange the keys in a 3-column layout and handles click and long-click
+ * events to process input. The decimal separator is localized based on the provided state.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ * @param state The state containing the locale and event handlers for keyboard input.
+ */
 @Composable
 fun NumberPad(
     modifier: Modifier = Modifier,
@@ -110,6 +120,18 @@ fun NumberPad(
     }
 }
 
+/**
+ * Composable function for a Number Pad Button.
+ *
+ * This function provides a button for the number pad, displaying a character and handling click
+ * and long-click events with haptic feedback. The button can trigger different actions based on
+ * the provided event handlers.
+ *
+ * @param modifier The modifier to be applied to the button.
+ * @param char The character to be displayed on the button.
+ * @param onClick Lambda function to be invoked when the button is clicked.
+ * @param onLongClick Lambda function to be invoked when the button is long-clicked.
+ */
 @OptIn(ExperimentalFoundationApi::class)
 @Composable
 fun NumberPadButton(

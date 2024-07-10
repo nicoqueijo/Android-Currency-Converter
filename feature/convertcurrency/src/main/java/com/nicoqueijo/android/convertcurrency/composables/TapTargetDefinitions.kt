@@ -9,6 +9,14 @@ import com.psoffritti.taptargetcompose.TapTargetDefinition
 import com.psoffritti.taptargetcompose.TapTargetStyle
 import com.psoffritti.taptargetcompose.TextDefinition
 
+/**
+ * Composable function to define a tap target for adding a currency.
+ *
+ * This function builds and returns a [TapTargetDefinition] for the "add currency" action,
+ * including the title and description.
+ *
+ * @return The tap target definition for adding a currency.
+ */
 @Composable
 fun addCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
@@ -18,6 +26,14 @@ fun addCurrencyTapTargetDefinition(): TapTargetDefinition {
     )
 }
 
+/**
+ * Composable function to define a tap target for copying a conversion value.
+ *
+ * This function builds and returns a [TapTargetDefinition] for the "copy conversion" action,
+ * including the title and description.
+ *
+ * @return The tap target definition for copying a conversion value.
+ */
 @Composable
 fun copyConversionTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
@@ -27,6 +43,14 @@ fun copyConversionTapTargetDefinition(): TapTargetDefinition {
     )
 }
 
+/**
+ * Composable function to define a tap target for reordering currencies.
+ *
+ * This function builds and returns a [TapTargetDefinition] for the "reorder currency" action,
+ * including the title and description.
+ *
+ * @return The tap target definition for reordering currencies.
+ */
 @Composable
 fun reorderCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
@@ -36,6 +60,14 @@ fun reorderCurrencyTapTargetDefinition(): TapTargetDefinition {
     )
 }
 
+/**
+ * Composable function to define a tap target for removing a currency.
+ *
+ * This function builds and returns a [TapTargetDefinition] for the "remove currency" action,
+ * including the title and description.
+ *
+ * @return The tap target definition for removing a currency.
+ */
 @Composable
 fun removeCurrencyTapTargetDefinition(): TapTargetDefinition {
     return buildTapTargetDefinition(
@@ -45,6 +77,17 @@ fun removeCurrencyTapTargetDefinition(): TapTargetDefinition {
     )
 }
 
+/**
+ * Composable function to build a tap target definition.
+ *
+ * This function constructs a [TapTargetDefinition] with the specified precedence, title, and description.
+ * It is used by the other tap target definition functions to create consistent definitions.
+ *
+ * @param precedence The precedence of the tap target.
+ * @param title The title text for the tap target.
+ * @param description The description text for the tap target.
+ * @return The constructed tap target definition.
+ */
 @Composable
 fun buildTapTargetDefinition(
     precedence: Int,

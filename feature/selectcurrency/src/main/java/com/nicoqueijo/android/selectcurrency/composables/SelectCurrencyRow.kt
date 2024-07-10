@@ -39,6 +39,17 @@ import com.nicoqueijo.android.ui.XXXXS
 import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 import com.nicoqueijo.android.ui.extensions.getStringResourceByName
 
+/**
+ * A composable function that displays a row representing a selectable currency.
+ *
+ * This function shows the currency's flag, code, and name in a horizontal row. If the currency is selected,
+ * a checkmark icon is displayed on the right. The row is clickable, and clicking it triggers an optional
+ * callback if the currency is not already selected.
+ *
+ * @param modifier The [Modifier] to be applied to this composable.
+ * @param state The [Currency] state to be displayed in the row.
+ * @param onClick An optional lambda to be invoked when the row is clicked, if the currency is not selected.
+ */
 @Composable
 fun SelectCurrencyRow(
     modifier: Modifier = Modifier,

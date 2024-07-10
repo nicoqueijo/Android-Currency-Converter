@@ -14,6 +14,16 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing the selection and filtering of currencies.
+ *
+ * This ViewModel handles various operations related to currency selection and filtering,
+ * including initializing the list of available currencies and handling user events to
+ * filter and select currencies.
+ *
+ * @property useCases The collection of use cases for currency selection and retrieval operations.
+ * @property dispatcher The coroutine dispatcher for executing asynchronous tasks.
+ */
 @HiltViewModel
 class SelectCurrencyViewModel @Inject constructor(
     private val useCases: SelectCurrencyUseCases,
@@ -31,6 +41,11 @@ class SelectCurrencyViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handles various UI events and delegates them to the appropriate use cases or functions.
+     *
+     * @param event The UI event to handle.
+     */
     fun onEvent(event: UiEvent) {
         when (event) {
             is UiEvent.SearchTermChange -> {

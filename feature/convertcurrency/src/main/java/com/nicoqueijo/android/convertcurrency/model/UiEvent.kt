@@ -3,6 +3,10 @@ package com.nicoqueijo.android.convertcurrency.model
 import com.nicoqueijo.android.convertcurrency.util.KeyboardInput
 import com.nicoqueijo.android.core.model.Currency
 
+/**
+ * Sealed interface representing events that drive changes in the user interface.
+ * Implementing classes or objects of [UiEvent] encapsulate specific actions or intents.
+ */
 sealed interface UiEvent {
     data object UnselectAllCurrencies : UiEvent
     data class UnselectCurrency(val currency: Currency) : UiEvent

@@ -16,6 +16,16 @@ import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
+/**
+ * ViewModel for managing currency conversion operations.
+ *
+ * This ViewModel handles various operations related to currency conversion,
+ * including setting default currencies, processing keyboard input, updating hints
+ * and conversions, and managing the state of selected currencies.
+ *
+ * @property useCases The collection of use cases for currency conversion operations.
+ * @property dispatcher The coroutine dispatcher for executing asynchronous tasks.
+ */
 @HiltViewModel
 class ConvertCurrencyViewModel @Inject constructor(
     private val useCases: ConvertCurrencyUseCases,
@@ -42,6 +52,11 @@ class ConvertCurrencyViewModel @Inject constructor(
         }
     }
 
+    /**
+     * Handles various UI events and delegates them to the appropriate use cases or functions.
+     *
+     * @param event The UI event to handle.
+     */
     fun onEvent(event: UiEvent) {
         when (event) {
             UiEvent.UnselectAllCurrencies -> {
@@ -91,7 +106,7 @@ class ConvertCurrencyViewModel @Inject constructor(
     }
 
     private fun setDefaultFocusedCurrency() {
-        val updatedCurrencies = useCases.setDefaultFocusedCurrency(
+        val updatedCurrencies = useCases.setDefaultFocusedCurrencyUseCase(
             currencies = _uiState.value.currencies
         )
         _uiState.value = _uiState.value.copy(

@@ -7,7 +7,7 @@ import com.nicoqueijo.android.convertcurrency.usecases.RestoreCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveIsFirstLaunchUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.RetrieveSelectedCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultCurrenciesUseCase
-import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrency
+import com.nicoqueijo.android.convertcurrency.usecases.SetDefaultFocusedCurrencyUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.ToggleOffIsFirstLaunchUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectAllCurrenciesUseCase
 import com.nicoqueijo.android.convertcurrency.usecases.UnselectCurrencyUseCase
@@ -21,10 +21,25 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.components.ViewModelComponent
 
+/**
+ * Hilt module to provide use case instances for currency conversion.
+ *
+ * This module defines a provider for all use cases required for currency conversion operations,
+ * ensuring they are available for dependency injection in the ViewModel component.
+ */
 @Module
 @InstallIn(ViewModelComponent::class)
 object ConvertCurrencyUseCasesModule {
 
+    /**
+     * Provides an instance of [ConvertCurrencyUseCases] containing all the use cases for currency conversion.
+     *
+     * This method creates and returns an instance of [ConvertCurrencyUseCases] by initializing all the
+     * required use cases with their respective dependencies.
+     *
+     * @param repository The repository interface used for accessing and manipulating currency data.
+     * @return An instance of [ConvertCurrencyUseCases] with all the necessary use cases initialized.
+     */
     @Provides
     fun provideConvertCurrencyUseCases(
         repository: Repository,
@@ -45,7 +60,7 @@ object ConvertCurrencyUseCasesModule {
             restoreCurrencyUseCase = RestoreCurrencyUseCase(
                 repository = repository,
             ),
-            setDefaultFocusedCurrency = SetDefaultFocusedCurrency(),
+            setDefaultFocusedCurrencyUseCase = SetDefaultFocusedCurrencyUseCase(),
             updateFocusedCurrencyUseCase = UpdateFocusedCurrencyUseCase(),
             updateSelectedCurrenciesUseCase = UpdateSelectedCurrenciesUseCase(),
             processKeyboardInputUseCase = ProcessKeyboardInputUseCase(),

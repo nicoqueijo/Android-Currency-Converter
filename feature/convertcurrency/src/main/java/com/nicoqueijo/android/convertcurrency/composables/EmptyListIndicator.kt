@@ -24,6 +24,14 @@ import com.nicoqueijo.android.ui.L
 import com.nicoqueijo.android.ui.XL
 import com.nicoqueijo.android.ui.XS
 
+/**
+ * Composable function for displaying an indicator when a list is empty.
+ *
+ * This function provides a UI element to indicate that a list is empty, including an icon and
+ * instructional text.
+ *
+ * @param modifier The modifier to be applied to the layout.
+ */
 @Composable
 fun EmptyListIndicator(
     modifier: Modifier = Modifier,
@@ -56,7 +64,6 @@ fun EmptyListIndicator(
             )
         }
     }
-
 }
 
 @DarkLightPreviews

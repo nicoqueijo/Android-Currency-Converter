@@ -54,6 +54,20 @@ import com.nicoqueijo.android.ui.extensions.getDrawableResourceByName
 import com.psoffritti.taptargetcompose.TapTargetCoordinator
 import com.psoffritti.taptargetcompose.TapTargetScope
 
+/**
+ * Composable function for a currency row with swipe-to-dismiss functionality.
+ *
+ * This function provides a UI row for displaying and interacting with a currency, including the currency
+ * flag, currency code, and conversion value, with support for swiping to dismiss the row, long-pressing
+ * to copy the conversion value, and highlighting the focused currency. It uses a [SwipeToDismissBox] to
+ * handle swipe gestures.
+ *
+ * @param modifier The modifier to be applied to the row.
+ * @param state The state containing currency information to be displayed.
+ * @param onConversionClick Lambda function to be invoked when the conversion value is clicked.
+ * @param onRowSwipe Lambda function to be invoked when the row is swiped.
+ * @param showTapTargets Boolean flag to indicate whether tap targets should be shown.
+ */
 @OptIn(ExperimentalFoundationApi::class, ExperimentalMaterial3Api::class)
 @Composable
 fun TapTargetScope.ConvertCurrencyRow(
