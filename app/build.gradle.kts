@@ -15,7 +15,7 @@ android {
         applicationId = "com.nicoqueijo.android.currencyconverter"
         minSdk = 34
         targetSdk = 34
-        versionCode = 32
+        versionCode = 34
         versionName = "1.3"
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
