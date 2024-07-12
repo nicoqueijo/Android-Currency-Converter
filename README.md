@@ -1,4 +1,4 @@
-## Currency Converter
+## Overview
 Currency conversion tool using live exchange rates.
 
 ### Installation
