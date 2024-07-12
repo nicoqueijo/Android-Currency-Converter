@@ -15,6 +15,7 @@ Currency conversion tool using live exchange rates.
 ## Architecture
 
 ## Modularization
+<img src="graphics/modularization.png">
 
 ## Built With
 - [Compose](https://developer.android.com/develop/ui/compose) - Android’s modern toolkit for building native UI with a declarative approach.
