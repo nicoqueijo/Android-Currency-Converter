@@ -17,6 +17,9 @@ Currency conversion tool using live exchange rates.
 ## Modularization
 <img src="graphics/modularization.png">
 
+## App Launch Flowchart
+<img src="graphics/app_launch_flowchart.png">
+
 ## Built With
 - [Compose](https://developer.android.com/develop/ui/compose) - Android’s modern toolkit for building native UI with a declarative approach.
 - [Kotlin Coroutines](https://developer.android.com/kotlin/coroutines) - Simplify asynchronous programming by allowing you to write concurrent code that is more readable and maintainable.
