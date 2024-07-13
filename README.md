@@ -24,6 +24,9 @@ Currency conversion Android app using live exchange rates.
 ## Architecture
 <img src="graphics/MVVM_architecture.png">
 
+## Data Flowchart
+<img src="graphics/data_flowchart.png">
+
 ## Modularization
 <img src="graphics/modularization.png">
 
