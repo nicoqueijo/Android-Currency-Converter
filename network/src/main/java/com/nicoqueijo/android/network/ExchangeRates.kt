@@ -9,7 +9,7 @@ import kotlinx.serialization.Serializable
  *
  * This class is designed to reflect the `rates` object from the JSON response of the Open Exchange Rates API.
  * Each property in this class corresponds to a specific currency and its exchange rate against the USD.
- * The properties are annotated with @SerialName to specify the JSON key names during serialization and
+ * The properties are annotated with @Serializable to specify the JSON key names during serialization and
  * deserialization.
  */
 @Serializable
