@@ -12,6 +12,15 @@ Currency conversion Android app using live exchange rates.
   <img src="graphics/Demos/Demo_Light.gif" hspace="4" width="400" />
 </p>
 
+## Key Features
+- Convert multiple currencies simultaneously
+- Add unlimited currencies to your list
+- Drag & drop to reorder currencies in your list
+- Swipe to remove currencies from your list
+- Copy conversion results to your clipboard
+- Search and filter currencies by name or ISO 4217 code
+- Locale-based conversion formatting for maximum clarity and readability
+
 ## Architecture
 <img src="graphics/MVVM_architecture.png">
 
