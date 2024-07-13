@@ -26,6 +26,7 @@ Currency conversion Android app using live exchange rates.
 - [DataStore](https://developer.android.com/topic/libraries/architecture/datastore) - A data storage solution that allows you to store key-value pairs or typed objects with built-in support for Kotlin coroutines and Flow.
 - [Hilt](https://developer.android.com/training/dependency-injection/hilt-android) - A dependency injection library for Android that reduces the boilerplate of doing manual dependency injection in your project.
 - [Junit5](https://junit.org/junit5/) - A testing framework for Java and Kotlin that provides powerful tools for writing and running tests.
+- [Kotlin Serialization](https://kotlinlang.org/docs/serialization.html) - A Kotlin library for converting Kotlin objects to and from JSON and other formats seamlessly.
 - [Kotest](https://kotest.io/) - A flexible and comprehensive testing library for Kotlin, offering a range of testing styles and extensive assertion capabilities.
 - [Ktor](https://ktor.io/) - An asynchronous framework for creating microservices and web applications in Kotlin, designed to be lightweight and highly extensible.
 - [Material3](https://m3.material.io/develop/android/jetpack-compose) - A design system that provides a set of principles and components for creating modern, adaptive UIs in Jetpack Compose.
