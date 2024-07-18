@@ -56,6 +56,19 @@ data class Currency(
         return this.deepEquals(other)
     }
 
+    override fun hashCode(): Int {
+        var result = currencyCode.hashCode()
+        result = 31 * result + exchangeRate.hashCode()
+        result = 31 * result + position
+        result = 31 * result + isSelected.hashCode()
+        result = 31 * result + isFocused.hashCode()
+        result = 31 * result + isInputValid.hashCode()
+        result = 31 * result + conversion.value.hashCode()
+        result = 31 * result + conversion.valueAsString.hashCode()
+        result = 31 * result + conversion.hint.hashCode()
+        return result
+    }
+
     /**
      * Checks for deep equality between this Currency and another.
      *
@@ -90,19 +103,6 @@ data class Currency(
                     conversion.hint = this.conversion.hint.copy()
                 }
         }
-    }
-
-    override fun hashCode(): Int {
-        var result = currencyCode.hashCode()
-        result = 31 * result + exchangeRate.hashCode()
-        result = 31 * result + position
-        result = 31 * result + isSelected.hashCode()
-        result = 31 * result + isFocused.hashCode()
-        result = 31 * result + isInputValid.hashCode()
-        result = 31 * result + conversion.value.hashCode()
-        result = 31 * result + conversion.valueAsString.hashCode()
-        result = 31 * result + conversion.hint.hashCode()
-        return result
     }
 
     /**
