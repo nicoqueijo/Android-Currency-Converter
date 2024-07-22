@@ -6,6 +6,7 @@ import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
 import io.kotest.matchers.shouldNotBe
 import io.kotest.matchers.string.shouldBeEmpty
+import io.kotest.matchers.types.shouldNotBeSameInstanceAs
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
 import java.math.BigDecimal
@@ -271,7 +272,7 @@ class CurrencyTest {
 
             val copy = subject.deepCopy()
 
-            subject.shouldNotBe(copy)
+            subject.shouldNotBeSameInstanceAs(copy)
         }
 
         @Test
