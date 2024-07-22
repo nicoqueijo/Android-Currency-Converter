@@ -4,8 +4,8 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import com.nicoqueijo.android.core.di.DefaultDispatcher
 import com.nicoqueijo.android.data.Repository
-import com.nicoqueijo.android.network.ExchangeRates
-import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
+import com.nicoqueijo.android.network.model.ExchangeRates
+import com.nicoqueijo.android.network.model.OpenExchangeRatesEndPoint
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow

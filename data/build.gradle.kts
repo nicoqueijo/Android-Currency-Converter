@@ -43,6 +43,7 @@ dependencies {
     implementation(libs.dataStore)
     implementation(libs.hilt.android)
     kapt(libs.hilt.android.compiler)
+    implementation(libs.ktor.http)
     implementation(libs.room.runtime)
     implementation(libs.room.ktx)
     ksp(libs.room.complier)

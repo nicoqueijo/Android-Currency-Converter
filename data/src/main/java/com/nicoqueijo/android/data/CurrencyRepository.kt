@@ -2,9 +2,9 @@ package com.nicoqueijo.android.data
 
 import com.nicoqueijo.android.core.di.IODispatcher
 import com.nicoqueijo.android.core.model.Currency
-import com.nicoqueijo.android.network.ApiOperation
 import com.nicoqueijo.android.network.KtorClient
-import com.nicoqueijo.android.network.OpenExchangeRatesEndPoint
+import com.nicoqueijo.android.network.model.ApiOperation
+import com.nicoqueijo.android.network.model.OpenExchangeRatesEndPoint
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

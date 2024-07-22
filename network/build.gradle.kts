@@ -4,6 +4,8 @@ plugins {
     alias(libs.plugins.android.library)
     alias(libs.plugins.jetbrains.kotlin.android)
     alias(libs.plugins.ksp)
+    alias(libs.plugins.hilt.android)
+    id("kotlin-kapt")
     id("kotlinx-serialization")
 }
 
@@ -53,9 +55,9 @@ dependencies {
     androidTestImplementation(libs.androidx.espresso.core)
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.hilt.android)
+    kapt(libs.hilt.android.compiler)
     implementation(libs.ktor.android)
-    implementation(libs.ktor.core)
-    implementation(libs.ktor.http)
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.serialization)

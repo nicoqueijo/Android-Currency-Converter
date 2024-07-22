@@ -1,4 +1,4 @@
-package com.nicoqueijo.android.network
+package com.nicoqueijo.android.network.model
 
 import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
