@@ -47,6 +47,9 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
+    tasks.withType<Test> {
+        useJUnitPlatform()
+    }
 }
 
 dependencies {
@@ -61,5 +64,9 @@ dependencies {
     implementation(libs.ktor.content.negotiation)
     implementation(libs.ktor.logging)
     implementation(libs.ktor.serialization)
+    testImplementation(libs.kotest.assertions.core)
+    testImplementation(libs.kotlinx.coroutines.test)
     testImplementation(libs.junit)
+    testImplementation(libs.junit.jupiter)
+    testImplementation(libs.ktor.client.mock)
 }

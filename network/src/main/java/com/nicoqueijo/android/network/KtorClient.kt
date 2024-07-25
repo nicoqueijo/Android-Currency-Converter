@@ -5,6 +5,7 @@ import com.nicoqueijo.android.network.model.OpenExchangeRatesEndPoint
 import io.ktor.client.HttpClient
 import io.ktor.client.call.body
 import io.ktor.client.request.get
+import io.ktor.http.HttpStatusCode
 import javax.inject.Inject
 
 /**
@@ -31,7 +32,7 @@ class KtorClient @Inject constructor(
             val response = httpClient.get(
                 urlString = "latest.json?app_id=$apiKey"
             )
-            if (response.status.value != 200) {
+            if (response.status != HttpStatusCode.OK) {
                 throw Exception("Failed to fetch exchange rates.")
             }
             response.body<OpenExchangeRatesEndPoint>()
