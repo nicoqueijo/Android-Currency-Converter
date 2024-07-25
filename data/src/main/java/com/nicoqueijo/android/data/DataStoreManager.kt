@@ -1,24 +1,22 @@
 package com.nicoqueijo.android.data
 
-import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
-import androidx.datastore.preferences.preferencesDataStore
 import com.nicoqueijo.android.core.extensions.toSeconds
 import kotlinx.coroutines.flow.first
+import javax.inject.Inject
 
 /**
  * A class for managing application preferences using DataStore.
  *
- * @param context The application context used to initialize DataStore.
+ * @property dataStore The DataStore instance used to manage application preferences.
  */
-class DataStoreManager(context: Context) {
-
-    private val Context.myPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
-    private val dataStore = context.myPreferencesDataStore
+class DataStoreManager @Inject constructor(
+    private val dataStore: DataStore<Preferences>
+) {
 
     /**
      * Sets the first launch preference.
