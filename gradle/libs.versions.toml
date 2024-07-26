@@ -22,6 +22,7 @@ ktor = "2.3.10"
 lifecycleRuntimeComposeAndroid = "2.8.4"
 lifecycleRuntimeKtx = "2.8.4"
 material3 = "1.2.1"
+mockk = "1.13.12"
 navigationCompose = "2.8.0-beta06"
 reorderable = "2.1.1"
 room = "2.6.1"
@@ -62,6 +63,7 @@ ktor-content-negotiation = { group = "io.ktor", name = "ktor-client-content-nego
 ktor-client-mock = { group = "io.ktor", name = "ktor-client-mock", version.ref = "ktor" }
 ktor-serialization = { group = "io.ktor", name = "ktor-serialization-kotlinx-json", version.ref = "ktor" }
 ktor-logging = { group = "io.ktor", name = "ktor-client-logging", version.ref = "ktor" }
+mockk = { group = "io.mockk", name = "mockk", version.ref = "mockk" }
 reorderable = { group = "sh.calvin.reorderable", name = "reorderable", version.ref = "reorderable" }
 room-common = { group = "androidx.room", name = "room-common", version.ref = "room" }
 room-complier = { group = "androidx.room", name = "room-compiler", version.ref = "room" }

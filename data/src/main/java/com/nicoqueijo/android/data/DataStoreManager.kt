@@ -91,12 +91,12 @@ class DataStoreManager @Inject constructor(
         }
     }
 
-    private object PreferencesKeys {
+    object PreferencesKeys {
         val FIRST_LAUNCH = booleanPreferencesKey("first_launch")
         val TIMESTAMP = longPreferencesKey("timestamp")
     }
 
-    private object Constants {
+    object Constants {
         const val TWENTY_FOUR_HOURS_IN_SECONDS = 86_400L
         const val NO_DATA = 0L
     }
