@@ -2,6 +2,7 @@ package com.nicoqueijo.android.data
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
+import com.nicoqueijo.android.core.TimeProvider
 import io.kotest.matchers.booleans.shouldBeFalse
 import io.kotest.matchers.booleans.shouldBeTrue
 import io.kotest.matchers.shouldBe
@@ -17,12 +18,17 @@ import org.junit.jupiter.api.Test
 class DataStoreManagerTest {
 
     private lateinit var dataStore: DataStore<Preferences>
+    private lateinit var timeProvider: TimeProvider
     private lateinit var subject: DataStoreManager
 
     @BeforeEach
     fun setUp() {
         dataStore = mockk()
-        subject = DataStoreManager(dataStore)
+        timeProvider = mockk()
+        subject = DataStoreManager(
+            dataStore = dataStore,
+            timeProvider = timeProvider,
+        )
     }
 
     @Nested
@@ -175,6 +181,9 @@ class DataStoreManagerTest {
             coEvery {
                 dataStore.data
             } returns flowOf(preferences)
+            every {
+                timeProvider.currentTimeMillis()
+            } returns 987_654_321L
 
             val actual = subject.isDataEmpty()
 

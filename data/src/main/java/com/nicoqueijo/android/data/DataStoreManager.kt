@@ -5,6 +5,7 @@ import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
+import com.nicoqueijo.android.core.TimeProvider
 import com.nicoqueijo.android.core.extensions.toSeconds
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
@@ -12,10 +13,12 @@ import javax.inject.Inject
 /**
  * A class for managing application preferences using DataStore.
  *
- * @property dataStore The DataStore instance used to manage application preferences.
+ * @property dataStore The [DataStore] instance used to manage application preferences.
+ * @property timeProvider A [TimeProvider] for obtaining the current time.
  */
 class DataStoreManager @Inject constructor(
-    private val dataStore: DataStore<Preferences>
+    private val dataStore: DataStore<Preferences>,
+    private val timeProvider: TimeProvider,
 ) {
 
     /**
@@ -85,7 +88,7 @@ class DataStoreManager @Inject constructor(
      */
     private suspend fun getTimeSinceLastUpdateInSeconds(): Long {
         return if (getTimestampInSeconds() != Constants.NO_DATA) {
-            System.currentTimeMillis().toSeconds() - getTimestampInSeconds()
+            timeProvider.currentTimeMillis().toSeconds() - getTimestampInSeconds()
         } else {
             Constants.NO_DATA
         }

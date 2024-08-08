@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import androidx.datastore.preferences.preferencesDataStore
+import com.nicoqueijo.android.core.DefaultTimeProvider
+import com.nicoqueijo.android.core.TimeProvider
 import com.nicoqueijo.android.data.DataStoreManager
 import dagger.Module
 import dagger.Provides
@@ -22,13 +24,20 @@ object DataStoreModule {
     /**
      * Provides a singleton instance of [DataStoreManager].
      *
-     * @param dataStore The DataStore instance used to initialize DataStoreManager.
+     * @param dataStore The DataStore instance used to manage application preferences.
+     * @param timeProvider The TimeProvider instance used to fetch the current time.
      * @return A singleton [DataStoreManager] instance.
      */
     @Singleton
     @Provides
-    fun provideDataStoreManager(dataStore: DataStore<Preferences>): DataStoreManager {
-        return DataStoreManager(dataStore = dataStore)
+    fun provideDataStoreManager(
+        dataStore: DataStore<Preferences>,
+        timeProvider: TimeProvider,
+    ): DataStoreManager {
+        return DataStoreManager(
+            dataStore = dataStore,
+            timeProvider = timeProvider,
+        )
     }
 
     /**
@@ -45,5 +54,17 @@ object DataStoreModule {
         return context.myPreferencesDataStore
     }
 
-    private val Context.myPreferencesDataStore: DataStore<Preferences> by preferencesDataStore(name = "preferences")
+    /**
+     * Provides a singleton instance of [TimeProvider].
+     *
+     * @return A singleton [TimeProvider] instance.
+     */
+    @Singleton
+    @Provides
+    fun provideTimeProvider(): TimeProvider {
+        return DefaultTimeProvider()
+    }
+
+    private val Context.myPreferencesDataStore: DataStore<Preferences>
+            by preferencesDataStore(name = "preferences")
 }
