@@ -6,7 +6,6 @@ import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.core.longPreferencesKey
 import com.nicoqueijo.android.core.TimeProvider
-import com.nicoqueijo.android.core.extensions.toSeconds
 import kotlinx.coroutines.flow.first
 import javax.inject.Inject
 
@@ -88,7 +87,7 @@ class DataStoreManager @Inject constructor(
      */
     private suspend fun getTimeSinceLastUpdateInSeconds(): Long {
         return if (getTimestampInSeconds() != Constants.NO_DATA) {
-            timeProvider.currentTimeMillis().toSeconds() - getTimestampInSeconds()
+            timeProvider.currentTimeSeconds() - getTimestampInSeconds()
         } else {
             Constants.NO_DATA
         }

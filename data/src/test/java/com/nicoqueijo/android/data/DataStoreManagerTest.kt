@@ -182,10 +182,74 @@ class DataStoreManagerTest {
                 dataStore.data
             } returns flowOf(preferences)
             every {
-                timeProvider.currentTimeMillis()
+                timeProvider.currentTimeSeconds()
             } returns 987_654_321L
 
             val actual = subject.isDataEmpty()
+
+            actual.shouldBeFalse()
+        }
+    }
+
+    @Nested
+    inner class IsDataStale {
+
+        @Test
+        fun `given timestamp older than 24 hours, when isDataStale called, then returns true`() =
+            runTest {
+                val timestamp = 123_456_789L
+                val currentTime = timestamp + DataStoreManager.Constants.TWENTY_FOUR_HOURS_IN_SECONDS + 1
+                val preferences: Preferences = mockk {
+                    every {
+                        get(DataStoreManager.PreferencesKeys.TIMESTAMP)
+                    } returns timestamp
+                }
+                coEvery {
+                    dataStore.data
+                } returns flowOf(preferences)
+                every {
+                    timeProvider.currentTimeSeconds()
+                } returns currentTime
+
+                val actual = subject.isDataStale()
+
+                actual.shouldBeTrue()
+            }
+
+        @Test
+        fun `given timestamp within 24 hours, when isDataStale called, then returns false`() =
+            runTest {
+                val timestamp = 123_456_789L
+                val currentTime = timestamp + DataStoreManager.Constants.TWENTY_FOUR_HOURS_IN_SECONDS - 1
+                val preferences: Preferences = mockk {
+                    every {
+                        get(DataStoreManager.PreferencesKeys.TIMESTAMP)
+                    } returns timestamp
+                }
+                coEvery {
+                    dataStore.data
+                } returns flowOf(preferences)
+                every {
+                    timeProvider.currentTimeSeconds()
+                } returns currentTime
+
+                val actual = subject.isDataStale()
+
+                actual.shouldBeFalse()
+            }
+
+        @Test
+        fun `given no timestamp set, when isDataStale called, then returns false`() = runTest {
+            val preferences: Preferences = mockk {
+                every {
+                    get(DataStoreManager.PreferencesKeys.TIMESTAMP)
+                } returns null
+            }
+            coEvery {
+                dataStore.data
+            } returns flowOf(preferences)
+
+            val actual = subject.isDataStale()
 
             actual.shouldBeFalse()
         }
