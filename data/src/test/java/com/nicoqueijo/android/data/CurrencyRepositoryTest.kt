@@ -5,8 +5,10 @@ import com.nicoqueijo.android.network.KtorClient
 import com.nicoqueijo.android.network.model.ApiOperation
 import com.nicoqueijo.android.network.model.OpenExchangeRatesEndPoint
 import io.kotest.matchers.shouldBe
+import io.mockk.Runs
 import io.mockk.coEvery
 import io.mockk.coVerify
+import io.mockk.just
 import io.mockk.mockk
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.flowOf
@@ -15,6 +17,8 @@ import kotlinx.coroutines.test.runTest
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Nested
 import org.junit.jupiter.api.Test
+import org.junit.jupiter.params.ParameterizedTest
+import org.junit.jupiter.params.provider.ValueSource
 
 @OptIn(ExperimentalCoroutinesApi::class)
 class CurrencyRepositoryTest {
@@ -28,7 +32,7 @@ class CurrencyRepositoryTest {
     fun setUp() {
         ktorClient = mockk()
         dataStoreManager = mockk()
-        currencyDao = mockk(relaxed = true)
+        currencyDao = mockk()
         subject = CurrencyRepository(
             ktorClient = ktorClient,
             currencyDao = currencyDao,
@@ -55,7 +59,7 @@ class CurrencyRepositoryTest {
                     data = data
                 )
 
-                actual shouldBe expected
+                actual.shouldBe(expected)
             }
 
         @Test
@@ -73,7 +77,7 @@ class CurrencyRepositoryTest {
                     exception = exception
                 )
 
-                actual shouldBe expected
+                actual.shouldBe(expected)
             }
     }
 
@@ -87,6 +91,9 @@ class CurrencyRepositoryTest {
                     currencyCode = "USD",
                     exchangeRate = 1.0
                 )
+                coEvery {
+                    currencyDao.upsertCurrency(currency = currency)
+                }.just(Runs)
 
                 subject.upsertCurrency(currency = currency)
 
@@ -112,6 +119,11 @@ class CurrencyRepositoryTest {
                         exchangeRate = 1.3811
                     )
                 )
+                coEvery {
+                    currencyDao.upsertCurrencies(
+                        currencies = currencies
+                    )
+                }.just(Runs)
 
                 subject.upsertCurrencies(currencies = currencies)
 
@@ -137,10 +149,17 @@ class CurrencyRepositoryTest {
                         exchangeRate = 0.9032
                     )
                 )
+                coEvery {
+                    currencyDao.updateExchangeRates(
+                        currencies = currencies
+                    )
+                }.just(Runs)
 
                 subject.updateExchangeRates(currencies = currencies)
 
-                coVerify(exactly = 1) { currencyDao.updateExchangeRates(currencies = currencies) }
+                coVerify(exactly = 1) {
+                    currencyDao.updateExchangeRates(currencies = currencies)
+                }
             }
     }
 
@@ -161,7 +180,7 @@ class CurrencyRepositoryTest {
 
                 val actual = subject.getCurrency(currencyCode = currencyCode)
 
-                actual shouldBe expected
+                actual.shouldBe(expected)
             }
     }
 
@@ -187,7 +206,7 @@ class CurrencyRepositoryTest {
 
                 val actual = subject.getAllCurrencies()
 
-                actual shouldBe expected
+                actual.shouldBe(expected)
             }
     }
 
@@ -214,7 +233,142 @@ class CurrencyRepositoryTest {
 
                 val actual = subject.getSelectedCurrencies()
 
-                actual shouldBe expected
+                actual.shouldBe(expected)
             }
+    }
+
+    @Nested
+    inner class GetSelectedCurrencyCount {
+
+        @Test
+        fun `given dao returns currency count, when getSelectedCurrencyCount is called, then correct count is returned`() =
+            runTest {
+                val expected = 5
+                coEvery {
+                    currencyDao.getSelectedCurrencyCount()
+                } returns expected
+
+                val actual = subject.getSelectedCurrencyCount()
+
+                actual.shouldBe(expected)
+            }
+    }
+
+    @Nested
+    inner class SetFirstLaunch {
+
+        @ParameterizedTest
+        @ValueSource(booleans = [true, false])
+        fun `given boolean value, when setFirstLaunch is called, then correct value is passed to dataStoreManager`(
+            value: Boolean
+        ) = runTest {
+            coEvery {
+                dataStoreManager.setFirstLaunch(
+                    value = value
+                )
+            }.just(Runs)
+
+            subject.setFirstLaunch(value = value)
+
+            coVerify(exactly = 1) {
+                dataStoreManager.setFirstLaunch(
+                    value = value
+                )
+            }
+        }
+    }
+
+    @Nested
+    inner class IsFirstLaunch {
+
+        @ParameterizedTest
+        @ValueSource(booleans = [true, false])
+        fun `given boolean return value, when isFirstLaunch is called, then correct value is returned`(
+            expected: Boolean
+        ) = runTest {
+            coEvery {
+                dataStoreManager.isFirstLaunch()
+            }.returns(expected)
+
+            val actual = subject.isFirstLaunch()
+
+            actual.shouldBe(expected)
+        }
+    }
+
+    @Nested
+    inner class SetTimestampInSeconds {
+
+        @Test
+        fun `given long value, when setTimestampInSeconds is called, then correct value is passed to dataStoreManager`() =
+            runTest {
+                val value = 123_456_789L
+                coEvery {
+                    dataStoreManager.setTimestampInSeconds(
+                        value = value
+                    )
+                }.just(Runs)
+
+                subject.setTimestampInSeconds(value = value)
+
+                coVerify(exactly = 1) {
+                    dataStoreManager.setTimestampInSeconds(
+                        value = value
+                    )
+                }
+            }
+    }
+
+    @Nested
+    inner class GetTimestampInSeconds {
+
+        @Test
+        fun `given a timestamp, when getTimestampInSeconds is called, then correct value is returned`() =
+            runTest {
+                val expected = 123_456_789L
+                coEvery {
+                    dataStoreManager.getTimestampInSeconds()
+                }.returns(expected)
+
+                val actual = subject.getTimestampInSeconds()
+
+                actual.shouldBe(expected)
+            }
+    }
+
+    @Nested
+    inner class IsDataEmpty {
+
+        @ParameterizedTest
+        @ValueSource(booleans = [true, false])
+        fun `given a boolean value, when isDataEmpty is called, then correct value is returned`(
+            expected: Boolean
+        ) = runTest {
+            coEvery {
+                dataStoreManager.isDataEmpty()
+            }.returns(expected)
+
+            val actual = subject.isDataEmpty()
+
+            actual.shouldBe(expected)
+        }
+    }
+
+    @Nested
+    inner class IsDataStale {
+
+        @ParameterizedTest
+        @ValueSource(booleans = [true, false])
+        fun `given a boolean value, when isDataStale is called, then correct value is returned`(
+            expected: Boolean
+        ) = runTest {
+            coEvery {
+                dataStoreManager.isDataStale()
+            }.returns(expected)
+
+            val actual = subject.isDataStale()
+
+            actual.shouldBe(expected)
+        }
     }
 }
