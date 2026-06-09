@@ -1,3 +1,5 @@
+[![Unit Tests](https://github.com/nicoqueijo/Android-Currency-Converter-v2/actions/workflows/unit-tests.yml/badge.svg)](https://github.com/nicoqueijo/Android-Currency-Converter-v2/actions/workflows/unit-tests.yml)
+
 ## Overview
 Currency conversion Android app using live exchange rates.
 
