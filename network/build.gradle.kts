@@ -18,14 +18,18 @@ android {
 
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         consumerProguardFiles("consumer-rules.pro")
-        val localProperties = Properties().apply {
-            load(project.rootProject.file("local.properties").inputStream())
+
+        val localProperties = Properties()
+        val localPropertiesFile = project.rootProject.file("local.properties")
+        if (localPropertiesFile.exists()) {
+            localPropertiesFile.inputStream().use { localProperties.load(it) }
         }
+
         buildConfigField(
-            "String", "API_KEY_RELEASE", localProperties.getProperty("API_KEY_RELEASE")
+            "String", "API_KEY_RELEASE", localProperties.getProperty("API_KEY_RELEASE") ?: "\"\""
         )
         buildConfigField(
-            "String", "API_KEY_DEBUG", localProperties.getProperty("API_KEY_DEBUG")
+            "String", "API_KEY_DEBUG", localProperties.getProperty("API_KEY_DEBUG") ?: "\"\""
         )
     }
     buildFeatures {
